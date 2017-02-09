@@ -10,4 +10,10 @@
         android:layout_height="match_parent"
         android:text="hot food fragment"/>
 
+    <ListView
+        android:id="@+id/lv_items_hotfood"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+
 </FrameLayout>

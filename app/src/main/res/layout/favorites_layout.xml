@@ -11,5 +11,13 @@
         android:textSize="28sp"
         android:id="@+id/textView"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        />
+
+    <ListView
+        android:id="@+id/lv_items_favorites"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+
 </RelativeLayout>
