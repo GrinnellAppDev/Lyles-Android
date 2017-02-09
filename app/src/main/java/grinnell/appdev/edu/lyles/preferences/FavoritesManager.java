@@ -43,13 +43,7 @@ public class FavoritesManager {
             e.printStackTrace();
         }
 
-        try {
-            jsonObject = new JSONObject(jsonBody);
-            jsonArray = jsonObject.getJSONArray("hotfood");
-        }
-        catch(JSONException e) {
-            e.printStackTrace();
-        }
+        jsonArray = asyncRetrieval.getJsonArray(jsonBody);
 
         favorites = context.getSharedPreferences(PREFS_KEY, Context.MODE_PRIVATE);
         editor = favorites.edit();

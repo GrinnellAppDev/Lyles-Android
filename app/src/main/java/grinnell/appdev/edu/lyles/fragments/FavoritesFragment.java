@@ -53,13 +53,7 @@ public class FavoritesFragment extends Fragment {
             e.printStackTrace();
         }
 
-        try {
-            jsonObject = new JSONObject(jsonBody);
-            jsonArray = jsonObject.getJSONArray("hotfood");
-        }
-        catch(JSONException e) {
-            e.printStackTrace();
-        }
+        JSONArray jsonArray = asyncRetrieval.getJsonArray(jsonBody);
 
         favoritesManager = new FavoritesManager(getContext());
 
