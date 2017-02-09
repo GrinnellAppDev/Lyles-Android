@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import grinnell.appdev.edu.lyles.AsyncRetrieval;
+import grinnell.appdev.edu.lyles.MenuItem;
 
 /**
  * Created by Shelby on 2/3/2017.
@@ -44,6 +45,7 @@ public class FavoritesManager {
         }
 
         jsonArray = asyncRetrieval.getJsonArray(jsonBody);
+        ArrayList<MenuItem> menuItemList = MenuItem.fromJSON(jsonArray);
 
         favorites = context.getSharedPreferences(PREFS_KEY, Context.MODE_PRIVATE);
         editor = favorites.edit();

@@ -39,7 +39,7 @@ public class MenuItem {
         }
     }
 
-    public ArrayList<MenuItem> fromJSON(JSONArray jsonArray) {
+    public static ArrayList<MenuItem> fromJSON(JSONArray jsonArray) {
         ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
 
         for(int i = 0; i < jsonArray.length(); i++) {

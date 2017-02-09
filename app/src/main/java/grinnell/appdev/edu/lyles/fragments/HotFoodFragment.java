@@ -58,9 +58,8 @@ public class HotFoodFragment extends Fragment {
         }
 
         JSONArray jsonArray = asyncRetrieval.getJsonArray(jsonBody);
+        ArrayList<MenuItem> menuItemList = MenuItem.fromJSON(jsonArray);
 
-        menuItem = new MenuItem();
-        menuItemList = menuItem.fromJSON(jsonArray);
         titles = new ArrayList<String>();//************************************
 
         ItemAdapter itemsAdapter = new ItemAdapter(this.getContext(), menuItemList);
