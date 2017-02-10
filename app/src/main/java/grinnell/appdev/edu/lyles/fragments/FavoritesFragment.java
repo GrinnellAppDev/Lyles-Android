@@ -56,9 +56,9 @@ public class FavoritesFragment extends Fragment {
         JSONArray jsonArray = asyncRetrieval.getJsonArray(jsonBody);
         ArrayList<MenuItem> menuItemList = MenuItem.fromJSON(jsonArray);
 
-        favoritesManager = new FavoritesManager(getContext());
+        favoritesManager = new FavoritesManager(getContext(), menuItemList);
 
-        ItemAdapter itemsAdapter = new ItemAdapter(this.getContext(), menuItemList);
+        ItemAdapter itemsAdapter = new ItemAdapter(this.getContext(), favoritesManager.getAllFavorites());
         ListView lvItems = (ListView) view.findViewById(R.id.lv_items_favorites);
         lvItems.setAdapter(itemsAdapter);
 

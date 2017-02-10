@@ -24,46 +24,22 @@ public class FavoritesManager {
 
     private SharedPreferences favorites;
     private SharedPreferences.Editor editor;
-    private ArrayList<String> allTitles;
+    private ArrayList<MenuItem> allItems;
 
-    public FavoritesManager(Context context) {
+    public FavoritesManager(Context context, ArrayList<MenuItem> menuItems) {
 
-        String jsonBody = null;
-        JSONObject jsonObject = null;
-        JSONArray jsonArray = null;
-
-        AsyncRetrieval asyncRetrieval = new AsyncRetrieval();
-
-        try {
-            jsonBody = asyncRetrieval.execute().get();
-        }
-        catch(InterruptedException e) {
-            e.printStackTrace();
-        }
-        catch(ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        jsonArray = asyncRetrieval.getJsonArray(jsonBody);
-        ArrayList<MenuItem> menuItemList = MenuItem.fromJSON(jsonArray);
-
+        allItems = menuItems;
         favorites = context.getSharedPreferences(PREFS_KEY, Context.MODE_PRIVATE);
         editor = favorites.edit();
-        allTitles = new ArrayList<String>();
+
         Log.i("preferences", "sharedpref instance and editor created");
 
         //remove later
         editor.clear();
 
-        for(int i = 0; i < jsonArray.length(); i++) {
-            String title = null;
-            try {
-                title = jsonArray.getJSONObject(i).getString("title");
-                allTitles.add(title);
-            }
-            catch(JSONException e) {
-                e.printStackTrace();
-            }
+        for(int i = 0; i < allItems.size(); i++) {
+            String title = allItems.get(i).title;
+
             if(!favorites.contains(title)) {
                 editor.putBoolean(title, false);
                 editor.apply();
@@ -74,8 +50,8 @@ public class FavoritesManager {
     public void toggleFavorite(String id) {
         boolean newValue = !favorites.getBoolean(id, false);
 
-        //editor.remove(id);
-        //editor.apply();
+        editor.remove(id);
+        editor.apply();
         editor.putBoolean(id, newValue);
         editor.apply();
     }
@@ -84,11 +60,11 @@ public class FavoritesManager {
         return favorites.getBoolean(id, false);
     }
 
-    public ArrayList<String> getAllFavorites() {
-        ArrayList<String> returnList = new ArrayList<String>();
-        for(int i = 0; i < allTitles.size(); i++) {
-            if(favorites.getBoolean(allTitles.get(i), false)) {
-                returnList.add(allTitles.get(i));
+    public ArrayList<MenuItem> getAllFavorites() {
+        ArrayList<MenuItem> returnList = new ArrayList<MenuItem>();
+        for(int i = 0; i < allItems.size(); i++) {
+            if(favorites.getBoolean(allItems.get(i).title, false)) {
+                returnList.add(allItems.get(i));
             }
         }
         return returnList;
