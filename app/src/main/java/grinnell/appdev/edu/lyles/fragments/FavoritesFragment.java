@@ -26,16 +26,16 @@ import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
  */
 public class FavoritesFragment extends Fragment {
 
-    AsyncRetrieval asyncRetrieval;
+    private AsyncRetrieval asyncRetrieval;
 
-    String jsonBody;
-    JSONObject jsonObject;
-    JSONArray jsonArray;
+    private String jsonBody;
+    private JSONArray jsonArray;
 
-    MenuItem menuItem;
-    ArrayList<MenuItem> menuItemList;
+    private ArrayList<MenuItem> menuItemList;
+    private ItemAdapter itemAdapter;
+    private ListView lvItems;
 
-    FavoritesManager favoritesManager;
+    private FavoritesManager favoritesManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,14 +53,13 @@ public class FavoritesFragment extends Fragment {
             e.printStackTrace();
         }
 
-        JSONArray jsonArray = asyncRetrieval.getJsonArray(jsonBody);
-        ArrayList<MenuItem> menuItemList = MenuItem.fromJSON(jsonArray);
-
+        jsonArray = asyncRetrieval.getJsonArray(jsonBody);
+        menuItemList = MenuItem.fromJSON(jsonArray);
         favoritesManager = new FavoritesManager(getContext(), menuItemList);
 
-        ItemAdapter itemsAdapter = new ItemAdapter(this.getContext(), favoritesManager.getAllFavorites());
-        ListView lvItems = (ListView) view.findViewById(R.id.lv_items_favorites);
-        lvItems.setAdapter(itemsAdapter);
+        itemAdapter = new ItemAdapter(this.getContext(), favoritesManager.getAllFavorites());
+        lvItems = (ListView) view.findViewById(R.id.lv_items_favorites);
+        lvItems.setAdapter(itemAdapter);
 
         Log.i("favorites", favoritesManager.getFile());
 

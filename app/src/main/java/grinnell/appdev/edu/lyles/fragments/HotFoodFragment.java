@@ -26,15 +26,13 @@ import grinnell.appdev.edu.lyles.R;
  */
 public class HotFoodFragment extends Fragment {
 
-    AsyncRetrieval asyncRetrieval;
+    private AsyncRetrieval asyncRetrieval;
+    private String jsonBody;
+    private JSONArray jsonArray;
 
-    String jsonBody;
-    JSONObject jsonObject;
-    JSONArray jsonArray;
-
-    MenuItem menuItem;
-    ArrayList<MenuItem> menuItemList;
-    ArrayList<String> titles;
+    private ArrayList<MenuItem> menuItemList;
+    private ItemAdapter itemsAdapter;
+    private ListView lvItems;
 
     public HotFoodFragment() {
         // Required empty public constructor
@@ -57,13 +55,11 @@ public class HotFoodFragment extends Fragment {
             e.printStackTrace();
         }
 
-        JSONArray jsonArray = asyncRetrieval.getJsonArray(jsonBody);
-        ArrayList<MenuItem> menuItemList = MenuItem.fromJSON(jsonArray);
+        jsonArray = asyncRetrieval.getJsonArray(jsonBody);
+        menuItemList = MenuItem.fromJSON(jsonArray);
 
-        titles = new ArrayList<String>();//************************************
-
-        ItemAdapter itemsAdapter = new ItemAdapter(this.getContext(), menuItemList);
-        ListView lvItems = (ListView) view.findViewById(R.id.lv_items_hotfood);
+        itemsAdapter = new ItemAdapter(this.getContext(), menuItemList);
+        lvItems = (ListView) view.findViewById(R.id.lv_items_hotfood);
         lvItems.setAdapter(itemsAdapter);
 
         return view;
