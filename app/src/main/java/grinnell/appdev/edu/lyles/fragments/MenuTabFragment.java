@@ -14,16 +14,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 
 import grinnell.appdev.edu.lyles.MenuTabListAdapter;
 import grinnell.appdev.edu.lyles.R;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import static grinnell.appdev.edu.lyles.MenuViewPagerAdapter.DRINKS_INDEX;
 import static grinnell.appdev.edu.lyles.MenuViewPagerAdapter.HOT_FOOD_INDEX;
@@ -53,32 +51,28 @@ public class MenuTabFragment extends Fragment {
         ListView list = (ListView) view.findViewById(R.id.menutab_list);
 
         try {
-            URL url;
+            String url;
             switch (this.position) {
                 case HOT_FOOD_INDEX:
-                    url = new URL("http://www.cs.grinnell.edu/~birnbaum/appdev/lyles/hotfood.json");
+                    url = "http://www.cs.grinnell.edu/~birnbaum/appdev/lyles/hotfood.json";
                     break;
                 case SNACKS_INDEX:
-                    url = new URL("http://www.cs.grinnell.edu/~birnbaum/appdev/lyles/snacks.json");
+                    url = "http://www.cs.grinnell.edu/~birnbaum/appdev/lyles/snacks.json";
                     break;
                 case DRINKS_INDEX:
-                    url = new URL("http://www.cs.grinnell.edu/~birnbaum/appdev/lyles/drinks.json");
+                    url = "http://www.cs.grinnell.edu/~birnbaum/appdev/lyles/drinks.json";
                     break;
                 default:
                     Log.d("error","unexpected position "+position);
                     return view;
             }
 
-            /* todo: I refuse to believe that there is not a better way to do this */
-            InputStream is = url.openConnection().getInputStream();
-            StringBuilder buffer = new StringBuilder();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            String str;
-            while((str = reader.readLine()) != null) buffer.append(str);
-            reader.close();
-            is.close();
+            OkHttpClient client = new OkHttpClient();
+            Response response = client.newCall(new Request.Builder().url(url).build()).execute();
+            String buffer = response.body().string();
+            response.close();
 
-            JSONObject jo = new JSONObject(buffer.toString());
+            JSONObject jo = new JSONObject(buffer);
             JSONArray ja;
             switch (this.position) {
                 case HOT_FOOD_INDEX:
