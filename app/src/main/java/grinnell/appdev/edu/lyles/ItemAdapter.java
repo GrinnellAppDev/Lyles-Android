@@ -18,13 +18,14 @@ import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
 
 public class ItemAdapter extends ArrayAdapter<MenuItem> {
 
-    FavoritesManager favoritesManager;
-    boolean isFavTab;
+    private FavoritesManager favoritesManager;
+    private boolean isFavTab;
 
     public ItemAdapter(Context context, ArrayList<MenuItem> menuItems, boolean favTab) {
         super(context, 0, menuItems);
+
         favoritesManager = new FavoritesManager(context, menuItems);
-        this.isFavTab = favTab;
+        isFavTab = favTab;
     }
 
     @Override
@@ -36,10 +37,9 @@ public class ItemAdapter extends ArrayAdapter<MenuItem> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_user, parent, false);
         }
 
-        TextView tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
-        TextView tvPrice = (TextView) convertView.findViewById(R.id.tvPrice);
+        final TextView tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
+        final TextView tvPrice = (TextView) convertView.findViewById(R.id.tvPrice);
         final Button btnFavorite = (Button) convertView.findViewById(R.id.btnFavorite);
-        //ImageView imFood = (ImageView) convertView.findViewById(R.id.ivFood);
 
         tvTitle.setText(menuItem.title);
         tvPrice.setText("$" + menuItem.price);
