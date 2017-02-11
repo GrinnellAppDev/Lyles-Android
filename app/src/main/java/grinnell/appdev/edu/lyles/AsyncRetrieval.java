@@ -18,9 +18,13 @@ import okhttp3.Response;
 
 public class AsyncRetrieval extends AsyncTask<Void, Void, String> {
 
-    private static final String URL = "http://www.cs.grinnell.edu/~birnbaum/appdev/lyles/hotfood.json";
+    private final String url;
+    private String body;
 
-    public String body;
+    public AsyncRetrieval(String url) {
+        super();
+        this.url = url;
+    }
 
     @Override
     protected void onPreExecute() {
@@ -30,7 +34,7 @@ public class AsyncRetrieval extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... voids) {
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(URL).build();
+        Request request = new Request.Builder().url(url).build();
 
         try {
             Response response = client.newCall(request).execute();

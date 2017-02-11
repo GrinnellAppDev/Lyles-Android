@@ -22,6 +22,7 @@ import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
  * Created by Mattori on 5/9/16.
  */
 public class FavoritesFragment extends Fragment {
+    private final String HOT_FOOD_URL = "http://www.cs.grinnell.edu/~birnbaum/appdev/lyles/hotfood.json";
 
     private AsyncRetrieval asyncRetrieval;
 
@@ -38,7 +39,7 @@ public class FavoritesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.favorites_layout, container, false);
 
-        asyncRetrieval = new AsyncRetrieval();
+        asyncRetrieval = new AsyncRetrieval(HOT_FOOD_URL);
 
         try {
             jsonBody = asyncRetrieval.execute().get();
