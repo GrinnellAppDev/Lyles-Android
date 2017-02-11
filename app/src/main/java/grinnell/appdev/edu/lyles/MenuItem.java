@@ -1,29 +1,25 @@
 package grinnell.appdev.edu.lyles;
 
-import android.content.Context;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
-
 /**
  * Created by Shelby on 2/3/2017.
  */
 
 public class MenuItem {
-    public String title;
-    public double price;
-    public String image;
-    public String details;
+    private String title;
+    private double price;
+    private String imageUrl;
+    private String details;
 
     public MenuItem() {
         title = null;
         price = 0;
-        image = null;
+        imageUrl = null;
         details = null;
     }
 
@@ -31,7 +27,7 @@ public class MenuItem {
         try {
             this.title = jsonObject.getString("title");
             this.price = jsonObject.getDouble("price");
-            this.image = jsonObject.getString("image");
+            this.imageUrl = jsonObject.getString("image");
             this.details = jsonObject.getString("details");
         }
         catch(JSONException e) {
@@ -52,5 +48,21 @@ public class MenuItem {
         }
 
         return menuItems;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public String getDetails() {
+        return details;
     }
 }

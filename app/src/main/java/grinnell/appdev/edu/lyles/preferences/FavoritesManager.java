@@ -33,7 +33,7 @@ public class FavoritesManager {
         editor = favorites.edit();
 
         for(int i = 0; i < allItems.size(); i++) {
-            String title = allItems.get(i).title;
+            String title = allItems.get(i).getTitle();
 
             if(!favorites.contains(title)) {
                 editor.putBoolean(title, false);
@@ -59,7 +59,7 @@ public class FavoritesManager {
     public ArrayList<MenuItem> getAllFavorites() {
         ArrayList<MenuItem> returnList = new ArrayList<MenuItem>();
         for(int i = 0; i < allItems.size(); i++) {
-            if(favorites.getBoolean(allItems.get(i).title, false)) {
+            if(favorites.getBoolean(allItems.get(i).getTitle(), false)) {
                 returnList.add(allItems.get(i));
             }
         }

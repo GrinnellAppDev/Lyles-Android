@@ -41,15 +41,15 @@ public class ItemAdapter extends ArrayAdapter<MenuItem> {
         final TextView tvPrice = (TextView) convertView.findViewById(R.id.tvPrice);
         final Button btnFavorite = (Button) convertView.findViewById(R.id.btnFavorite);
 
-        tvTitle.setText(menuItem.title);
-        tvPrice.setText("$" + menuItem.price);
-        btnFavorite.setText(favoritesManager.getButtonText(menuItem.title));
+        tvTitle.setText(menuItem.getTitle());
+        tvPrice.setText("$" + menuItem.getPrice());
+        btnFavorite.setText(favoritesManager.getButtonText(menuItem.getTitle()));
 
         btnFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                favoritesManager.toggleFavorite(menuItem.title);
-                btnFavorite.setText(favoritesManager.getButtonText(menuItem.title));
+                favoritesManager.toggleFavorite(menuItem.getTitle());
+                btnFavorite.setText(favoritesManager.getButtonText(menuItem.getTitle()));
                 if (isFavTab) {
                     remove(menuItem);
                     notifyDataSetChanged();
