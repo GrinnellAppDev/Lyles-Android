@@ -24,7 +24,7 @@ public class ItemAdapter extends ArrayAdapter<MenuItem> {
 
     public ItemAdapter(Context context, ArrayList<MenuItem> menuItems) {
         super(context, 0, menuItems);
-        favoritesManager = new FavoritesManager(context);
+        favoritesManager = new FavoritesManager(context, menuItems);
     }
 
     @Override

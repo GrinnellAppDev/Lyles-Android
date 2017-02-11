@@ -34,9 +34,6 @@ public class FavoritesManager {
 
         Log.i("preferences", "sharedpref instance and editor created");
 
-        //remove later
-        editor.clear();
-
         for(int i = 0; i < allItems.size(); i++) {
             String title = allItems.get(i).title;
 
