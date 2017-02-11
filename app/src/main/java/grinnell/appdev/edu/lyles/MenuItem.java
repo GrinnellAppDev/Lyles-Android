@@ -52,5 +52,4 @@ public class MenuItem {
         }
         return menuItems;
     }
-
 }

@@ -58,7 +58,7 @@ public class HotFoodFragment extends Fragment {
         jsonArray = asyncRetrieval.getJsonArray(jsonBody);
         menuItemList = MenuItem.fromJSON(jsonArray);
 
-        itemsAdapter = new ItemAdapter(this.getContext(), menuItemList);
+        itemsAdapter = new ItemAdapter(this.getContext(), menuItemList, false);
         lvItems = (ListView) view.findViewById(R.id.lv_items_hotfood);
         lvItems.setAdapter(itemsAdapter);
 

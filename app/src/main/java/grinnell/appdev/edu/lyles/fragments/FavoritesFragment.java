@@ -57,9 +57,10 @@ public class FavoritesFragment extends Fragment {
         menuItemList = MenuItem.fromJSON(jsonArray);
         favoritesManager = new FavoritesManager(getContext(), menuItemList);
 
-        itemAdapter = new ItemAdapter(this.getContext(), favoritesManager.getAllFavorites());
+        itemAdapter = new ItemAdapter(this.getContext(), favoritesManager.getAllFavorites(), true);
         lvItems = (ListView) view.findViewById(R.id.lv_items_favorites);
         lvItems.setAdapter(itemAdapter);
+
 
         Log.i("favorites", favoritesManager.getFile());
 

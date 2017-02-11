@@ -1,13 +1,11 @@
 package grinnell.appdev.edu.lyles;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -21,10 +19,12 @@ import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
 public class ItemAdapter extends ArrayAdapter<MenuItem> {
 
     FavoritesManager favoritesManager;
+    boolean isFavTab;
 
-    public ItemAdapter(Context context, ArrayList<MenuItem> menuItems) {
+    public ItemAdapter(Context context, ArrayList<MenuItem> menuItems, boolean favTab) {
         super(context, 0, menuItems);
         favoritesManager = new FavoritesManager(context, menuItems);
+        this.isFavTab = favTab;
     }
 
     @Override
@@ -50,8 +50,10 @@ public class ItemAdapter extends ArrayAdapter<MenuItem> {
             public void onClick(View v) {
                 favoritesManager.toggleFavorite(menuItem.title);
                 btnFavorite.setText(favoritesManager.getButtonText(menuItem.title));
-                //notifyDataSetChanged();
-                Log.i("preferences", favoritesManager.getFile());
+                if (isFavTab) {
+                    remove(menuItem);
+                    notifyDataSetChanged();
+                }
             }
         });
         return convertView;
