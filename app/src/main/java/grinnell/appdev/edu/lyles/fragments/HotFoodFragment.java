@@ -23,8 +23,6 @@ import grinnell.appdev.edu.lyles.R;
  */
 public class HotFoodFragment extends Fragment {
 
-    private final String HOT_FOOD_URL = "http://www.cs.grinnell.edu/~birnbaum/appdev/lyles/hotfood.json";
-
     private AsyncRetrieval asyncRetrieval;
     private String jsonBody;
     private JSONArray jsonArray;
@@ -41,6 +39,8 @@ public class HotFoodFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_hot_food, container, false);
+
+        final String HOT_FOOD_URL = getString(R.string.hot_food_url);
 
         asyncRetrieval = new AsyncRetrieval(HOT_FOOD_URL);
 
