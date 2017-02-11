@@ -50,14 +50,14 @@ public class AsyncRetrieval extends AsyncTask<Void, Void, String> {
         super.onPostExecute(body);
     }
 
-    public JSONArray getJsonArray(String jsonBody) {
+    public JSONArray getJsonArray(String jsonBody, String arrayTitle) {
 
         JSONObject jsonObject = null;
         JSONArray jsonArray = null;
 
         try {
             jsonObject = new JSONObject(jsonBody);
-            jsonArray = jsonObject.getJSONArray("hotfood");
+            jsonArray = jsonObject.getJSONArray(arrayTitle);
         }
         catch(JSONException e) {
             e.printStackTrace();

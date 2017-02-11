@@ -50,6 +50,7 @@ public class ItemAdapter extends ArrayAdapter<MenuItem> {
             public void onClick(View v) {
                 favoritesManager.toggleFavorite(menuItem.getTitle());
                 btnFavorite.setText(favoritesManager.getButtonText(menuItem.getTitle()));
+
                 if (isFavTab) {
                     remove(menuItem);
                     notifyDataSetChanged();

@@ -16,6 +16,11 @@
     <string name="drinks_url">http://www.cs.grinnell.edu/~birnbaum/appdev/lyles/drinks.json</string>
     <string name="beer_url">http://www.cs.grinnell.edu/~birnbaum/appdev/lyles/beer.json</string>
 
+    <string name="hot_food_array_title">hotfood</string>
+    <string name="snacks_array_title">snacks</string>
+    <string name="drinks_array_title">drinks</string>
+    <string name="beer_array_title">beer</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

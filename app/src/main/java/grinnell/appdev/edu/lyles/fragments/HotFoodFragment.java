@@ -54,7 +54,7 @@ public class HotFoodFragment extends Fragment {
             e.printStackTrace();
         }
 
-        jsonArray = asyncRetrieval.getJsonArray(jsonBody);
+        jsonArray = asyncRetrieval.getJsonArray(jsonBody, getString(R.string.hot_food_array_title));
         menuItemList = MenuItem.fromJSON(jsonArray);
 
         itemsAdapter = new ItemAdapter(this.getContext(), menuItemList, false);
