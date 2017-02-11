@@ -11,6 +11,10 @@
     <string name="drinks_tab_title">Drinks</string>
     <string name="favorites_tab_title">Faves</string>
 
+    <string name="hot_food_url">http://www.cs.grinnell.edu/~birnbaum/appdev/lyles/hotfood.json</string>
+    <string name="snacks_url">http://www.cs.grinnell.edu/~birnbaum/appdev/lyles/snacks.json</string>
+    <string name="drinks_url">http://www.cs.grinnell.edu/~birnbaum/appdev/lyles/drinks.json</string>
+    <string name="beer_url">http://www.cs.grinnell.edu/~birnbaum/appdev/lyles/beer.json</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
