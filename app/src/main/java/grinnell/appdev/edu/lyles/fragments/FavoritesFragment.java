@@ -2,15 +2,12 @@ package grinnell.appdev.edu.lyles.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -60,9 +57,6 @@ public class FavoritesFragment extends Fragment {
         itemAdapter = new ItemAdapter(this.getContext(), favoritesManager.getAllFavorites(), true);
         lvItems = (ListView) view.findViewById(R.id.lv_items_favorites);
         lvItems.setAdapter(itemAdapter);
-
-
-        Log.i("favorites", favoritesManager.getFile());
 
         return view;
     }

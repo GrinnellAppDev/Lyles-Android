@@ -32,8 +32,6 @@ public class FavoritesManager {
         favorites = context.getSharedPreferences(PREFS_KEY, Context.MODE_PRIVATE);
         editor = favorites.edit();
 
-        Log.i("preferences", "sharedpref instance and editor created");
-
         for(int i = 0; i < allItems.size(); i++) {
             String title = allItems.get(i).title;
 
@@ -49,6 +47,7 @@ public class FavoritesManager {
 
         editor.remove(id);
         editor.apply();
+
         editor.putBoolean(id, newValue);
         editor.apply();
     }

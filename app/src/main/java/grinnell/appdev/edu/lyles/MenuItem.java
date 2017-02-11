@@ -50,6 +50,7 @@ public class MenuItem {
                 e.printStackTrace();
             }
         }
+
         return menuItems;
     }
 }

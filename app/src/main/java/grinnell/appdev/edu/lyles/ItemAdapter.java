@@ -56,6 +56,7 @@ public class ItemAdapter extends ArrayAdapter<MenuItem> {
                 }
             }
         });
+
         return convertView;
     }
 
