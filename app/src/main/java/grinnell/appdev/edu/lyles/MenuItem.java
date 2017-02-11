@@ -53,16 +53,4 @@ public class MenuItem {
         return menuItems;
     }
 
-    public ArrayList<MenuItem> keepFavorites(Context context, ArrayList<MenuItem> menuItems) {
-        FavoritesManager favoritesManager = new FavoritesManager(context);
-        ArrayList<String> allFavorites = favoritesManager.getAllFavorites();
-        for(int i = 0; i < menuItems.size(); i++) {
-            if(!allFavorites.contains(menuItems.get(i).title)) {
-                menuItems.remove(i);
-            }
-        }
-        return menuItems;
-    }
-
-
 }

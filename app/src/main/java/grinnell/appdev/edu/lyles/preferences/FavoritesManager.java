@@ -86,5 +86,4 @@ public class FavoritesManager {
         return favorites.getAll().toString();
     }
 
-
 }
