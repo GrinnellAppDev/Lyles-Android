@@ -72,25 +72,25 @@ public class MenuTabFragment extends Fragment {
             String buffer = response.body().string();
             response.close();
 
-            JSONObject jo = new JSONObject(buffer);
-            JSONArray ja;
+            JSONObject jsonobject = new JSONObject(buffer);
+            JSONArray jsonarray;
             switch (this.position) {
                 case HOT_FOOD_INDEX:
-                    ja = jo.getJSONArray("hotfood");
+                    jsonarray = jsonobject.getJSONArray("hotfood");
                     break;
                 case DRINKS_INDEX:
-                    ja = jo.getJSONArray("drinks");
+                    jsonarray = jsonobject.getJSONArray("drinks");
                     break;
                 case SNACKS_INDEX:
-                    ja = jo.getJSONArray("snacks");
+                    jsonarray = jsonobject.getJSONArray("snacks");
                     break;
                 default:
                     /* this is literally unreachable code but java requires it anyway. thanks java */
                     return view;
             }
             ArrayList<JSONObject> items = new ArrayList<JSONObject>();
-            for (int i = 0; i < ja.length(); i++) {
-                items.add(ja.getJSONObject(i));
+            for (int i = 0; i < jsonarray.length(); i++) {
+                items.add(jsonarray.getJSONObject(i));
             }
             list.setAdapter(new MenuTabListAdapter(getContext(), items));
         } catch (JSONException | IOException e) {
