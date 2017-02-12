@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="1"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="144dp">
+
+        <ImageView
+            android:layout_width="155dp"
+            android:layout_height="143dp"
+            app:srcCompat="@mipmap/ic_launcher"
+            android:id="@+id/ivImage" />
+
+
+        <LinearLayout
+            android:layout_height="74dp"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_height="38dp"
+                android:layout_width="wrap_content"
+                android:text="Corona Extra"
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+            <TextView
+                android:text="pale lager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvSubtitle" />
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="4.99" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tvDetails"
+        android:layout_height="110dp"
+        android:layout_width="match_parent"
+        android:text="Grupo Modelo, Anheuser-Busch InBev\nAlcohol by volume: 4.5%\nThe Corona brand is one of the top-selling beers worldwide. Outside Mexico, Corona is commonly served with a wedge of lime or lemon in the neck of the bottle to add tartness and flavor." />
+
+</LinearLayout>
+
