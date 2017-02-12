@@ -27,7 +27,7 @@ public class FavoritesFragment extends Fragment {
     private ArrayList<String> urlList;
     private ArrayList<String> arrayTitles;
 
-    private ArrayList<MenuItem> menuItemList;
+    private ArrayList<MenuItem> menuItemList; // Contains all menu items in all categories
     private ItemAdapter itemAdapter;
     private ListView lvItems;
 
@@ -37,12 +37,14 @@ public class FavoritesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.favorites_layout, container, false);
 
+        // URLs of JSON arrays to use
         urlList = new ArrayList<String>();
         urlList.add(getString(R.string.hot_food_url));
         urlList.add(getString(R.string.snacks_url));
         urlList.add(getString(R.string.drinks_url));
         urlList.add(getString(R.string.beer_url));
 
+        // Titles of JSON arrays in corresponding urls
         arrayTitles = new ArrayList<String>();
         arrayTitles.add(getString(R.string.hot_food_array_title));
         arrayTitles.add(getString(R.string.snacks_array_title));
@@ -55,10 +57,11 @@ public class FavoritesFragment extends Fragment {
             AsyncRetrieval asyncRetrieval = new AsyncRetrieval(urlList.get(i));
 
             String jsonBody = null;
-            JSONArray jsonArray;
+            JSONArray jsonArray = null;
 
             try {
                 jsonBody = asyncRetrieval.execute().get();
+                jsonArray = asyncRetrieval.getJsonArray(jsonBody, arrayTitles.get(i));
             }
             catch(InterruptedException e) {
                 e.printStackTrace();
@@ -67,7 +70,6 @@ public class FavoritesFragment extends Fragment {
                 e.printStackTrace();
             }
 
-            jsonArray = asyncRetrieval.getJsonArray(jsonBody, arrayTitles.get(i));
             menuItemList.addAll(MenuItem.fromJSON(jsonArray));
         }
 
