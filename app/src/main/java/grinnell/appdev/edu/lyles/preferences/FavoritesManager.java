@@ -95,7 +95,9 @@ public class FavoritesManager {
      * Unfavorites all items the user has favorited
      */
     public void clearFavorites() {
-        editor.clear();
+        for(int i = 0; i < allItems.size(); i++) {
+            editor.putBoolean(allItems.get(i).getTitle(), false);
+        }
         editor.apply();
     }
 
