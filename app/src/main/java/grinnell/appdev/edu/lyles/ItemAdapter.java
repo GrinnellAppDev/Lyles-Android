@@ -20,14 +20,14 @@ import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
 
 public class ItemAdapter extends ArrayAdapter<MenuItem> {
 
-    private FavoritesManager favoritesManager;
-    private boolean isFavTab;
+    private FavoritesManager mFavoritesManager;
+    private boolean mIsFavoritesTabClicked;
 
     public ItemAdapter(Context context, ArrayList<MenuItem> menuItems, boolean favTab) {
         super(context, 0, menuItems);
 
-        favoritesManager = new FavoritesManager(context, menuItems);
-        isFavTab = favTab;
+        mFavoritesManager = new FavoritesManager(context, menuItems);
+        mIsFavoritesTabClicked = favTab;
     }
 
     @Override
@@ -45,15 +45,15 @@ public class ItemAdapter extends ArrayAdapter<MenuItem> {
 
         tvTitle.setText(menuItem.getTitle());
         tvPrice.setText("$" + menuItem.getPrice());
-        btnFavorite.setText(favoritesManager.getButtonText(menuItem.getTitle()));
+        btnFavorite.setText(mFavoritesManager.getButtonText(menuItem.getTitle()));
 
         btnFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                favoritesManager.toggleFavorite(menuItem.getTitle());
-                btnFavorite.setText(favoritesManager.getButtonText(menuItem.getTitle()));
+                mFavoritesManager.toggleFavorite(menuItem.getTitle());
+                btnFavorite.setText(mFavoritesManager.getButtonText(menuItem.getTitle()));
 
-                if (isFavTab) {
+                if (mIsFavoritesTabClicked) {
                     remove(menuItem);
                     notifyDataSetChanged();
                 }

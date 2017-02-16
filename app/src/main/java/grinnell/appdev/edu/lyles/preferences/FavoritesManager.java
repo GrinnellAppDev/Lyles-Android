@@ -2,16 +2,9 @@ package grinnell.appdev.edu.lyles.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
-import grinnell.appdev.edu.lyles.AsyncRetrieval;
 import grinnell.appdev.edu.lyles.MenuItem;
 
 /**
@@ -24,9 +17,9 @@ public class FavoritesManager {
 
     private static final String PREFS_KEY = "Preferences";
 
-    private SharedPreferences favorites;
-    private SharedPreferences.Editor editor;
-    private ArrayList<MenuItem> allItems;
+    private SharedPreferences mPreferencesFile;
+    private SharedPreferences.Editor mPreferencesEditor;
+    private ArrayList<MenuItem> mAllItemsArrayList;
 
     /**
      * Creates a new favorites manager based on an Arraylist of menuItems
@@ -36,16 +29,16 @@ public class FavoritesManager {
      */
     public FavoritesManager(Context context, ArrayList<MenuItem> menuItems) {
 
-        allItems = menuItems;
-        favorites = context.getSharedPreferences(PREFS_KEY, Context.MODE_PRIVATE);
-        editor = favorites.edit();
+        mAllItemsArrayList = menuItems;
+        mPreferencesFile = context.getSharedPreferences(PREFS_KEY, Context.MODE_PRIVATE);
+        mPreferencesEditor = mPreferencesFile.edit();
 
-        for(int i = 0; i < allItems.size(); i++) {
-            String title = allItems.get(i).getTitle();
+        for(int i = 0; i < mAllItemsArrayList.size(); i++) {
+            String title = mAllItemsArrayList.get(i).getTitle();
 
-            if(!favorites.contains(title)) {
-                editor.putBoolean(title, false);
-                editor.apply();
+            if(!mPreferencesFile.contains(title)) {
+                mPreferencesEditor.putBoolean(title, false);
+                mPreferencesEditor.apply();
             }
         }
     }
@@ -57,13 +50,13 @@ public class FavoritesManager {
      * @param id the id of the item to be favorited or unfavorited
      */
     public void toggleFavorite(String id) {
-        boolean newValue = !favorites.getBoolean(id, false);
+        boolean newValue = !mPreferencesFile.getBoolean(id, false);
 
-        editor.remove(id);
-        editor.apply();
+        mPreferencesEditor.remove(id);
+        mPreferencesEditor.apply();
 
-        editor.putBoolean(id, newValue);
-        editor.apply();
+        mPreferencesEditor.putBoolean(id, newValue);
+        mPreferencesEditor.apply();
     }
 
     /**
@@ -73,7 +66,7 @@ public class FavoritesManager {
      * @return    a boolean describing whether the item has been favorited
      */
     public boolean isFavorite(String id) {
-        return favorites.getBoolean(id, false);
+        return mPreferencesFile.getBoolean(id, false);
     }
 
     /**
@@ -84,9 +77,9 @@ public class FavoritesManager {
      */
     public ArrayList<MenuItem> getAllFavorites() {
         ArrayList<MenuItem> returnList = new ArrayList<MenuItem>();
-        for(int i = 0; i < allItems.size(); i++) {
-            if(favorites.getBoolean(allItems.get(i).getTitle(), false)) {
-                returnList.add(allItems.get(i));
+        for(int i = 0; i < mAllItemsArrayList.size(); i++) {
+            if(mPreferencesFile.getBoolean(mAllItemsArrayList.get(i).getTitle(), false)) {
+                returnList.add(mAllItemsArrayList.get(i));
             }
         }
         return returnList;
@@ -96,10 +89,10 @@ public class FavoritesManager {
      * Unfavorites all items the user has favorited
      */
     public void clearFavorites() {
-        for(int i = 0; i < allItems.size(); i++) {
-            editor.putBoolean(allItems.get(i).getTitle(), false);
+        for(int i = 0; i < mAllItemsArrayList.size(); i++) {
+            mPreferencesEditor.putBoolean(mAllItemsArrayList.get(i).getTitle(), false);
         }
-        editor.apply();
+        mPreferencesEditor.apply();
     }
 
     /**
@@ -109,7 +102,7 @@ public class FavoritesManager {
      * @return   String of text to be displayed
      */
     public String getButtonText(String id) {
-        if(favorites.getBoolean(id, false))
+        if(mPreferencesFile.getBoolean(id, false))
             return "Unfavorite";
         else
             return "Favorite";
@@ -121,7 +114,7 @@ public class FavoritesManager {
      * @return     the contents of the SharedPreferences file as a String
      */
     public String getFile() {
-        return favorites.getAll().toString();
+        return mPreferencesFile.getAll().toString();
     }
 
 }

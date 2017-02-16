@@ -2,7 +2,6 @@ package grinnell.appdev.edu.lyles.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,44 +23,44 @@ import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
  */
 public class FavoritesFragment extends Fragment {
 
-    private ArrayList<String> urlList;
-    private ArrayList<String> arrayTitles;
+    private ArrayList<String> mAllURLs;
+    private ArrayList<String> mAllTabTitles;
 
-    private ArrayList<MenuItem> menuItemList; // Contains all menu items in all categories
-    private ItemAdapter itemAdapter;
-    private ListView lvItems;
+    private ArrayList<MenuItem> mAllMenuItems; // Contains all menu items in all categories
+    private ItemAdapter mItemAdapter;
+    private ListView mListView;
 
-    private FavoritesManager favoritesManager;
+    private FavoritesManager mFavoritesManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.favorites_layout, container, false);
 
         // URLs of JSON arrays to use
-        urlList = new ArrayList<String>();
-        urlList.add(getString(R.string.hot_food_url));
-        urlList.add(getString(R.string.snacks_url));
-        urlList.add(getString(R.string.drinks_url));
-        urlList.add(getString(R.string.beer_url));
+        mAllURLs = new ArrayList<String>();
+        mAllURLs.add(getString(R.string.hot_food_url));
+        mAllURLs.add(getString(R.string.snacks_url));
+        mAllURLs.add(getString(R.string.drinks_url));
+        mAllURLs.add(getString(R.string.beer_url));
 
         // Titles of JSON arrays in corresponding urls
-        arrayTitles = new ArrayList<String>();
-        arrayTitles.add(getString(R.string.hot_food_array_title));
-        arrayTitles.add(getString(R.string.snacks_array_title));
-        arrayTitles.add(getString(R.string.drinks_array_title));
-        arrayTitles.add(getString(R.string.beer_array_title));
+        mAllTabTitles = new ArrayList<String>();
+        mAllTabTitles.add(getString(R.string.hot_food_array_title));
+        mAllTabTitles.add(getString(R.string.snacks_array_title));
+        mAllTabTitles.add(getString(R.string.drinks_array_title));
+        mAllTabTitles.add(getString(R.string.beer_array_title));
 
-        menuItemList = new ArrayList<MenuItem>();
+        mAllMenuItems = new ArrayList<MenuItem>();
 
-        for(int i = 0; i < urlList.size(); i++) {
-            AsyncRetrieval asyncRetrieval = new AsyncRetrieval(urlList.get(i));
+        for(int i = 0; i < mAllURLs.size(); i++) {
+            AsyncRetrieval asyncRetrieval = new AsyncRetrieval(mAllURLs.get(i));
 
             String jsonBody = null;
             JSONArray jsonArray = null;
 
             try {
                 jsonBody = asyncRetrieval.execute().get();
-                jsonArray = asyncRetrieval.getJsonArray(jsonBody, arrayTitles.get(i));
+                jsonArray = asyncRetrieval.getJsonArray(jsonBody, mAllTabTitles.get(i));
             }
             catch(InterruptedException e) {
                 e.printStackTrace();
@@ -70,14 +69,14 @@ public class FavoritesFragment extends Fragment {
                 e.printStackTrace();
             }
 
-            menuItemList.addAll(MenuItem.fromJSON(jsonArray));
+            mAllMenuItems.addAll(MenuItem.fromJSON(jsonArray));
         }
 
-        favoritesManager = new FavoritesManager(getContext(), menuItemList);
+        mFavoritesManager = new FavoritesManager(getContext(), mAllMenuItems);
 
-        itemAdapter = new ItemAdapter(this.getContext(), favoritesManager.getAllFavorites(), true);
-        lvItems = (ListView) view.findViewById(R.id.lv_items_favorites);
-        lvItems.setAdapter(itemAdapter);
+        mItemAdapter = new ItemAdapter(this.getContext(), mFavoritesManager.getAllFavorites(), true);
+        mListView = (ListView) view.findViewById(R.id.lv_items_favorites);
+        mListView.setAdapter(mItemAdapter);
 
         return view;
     }

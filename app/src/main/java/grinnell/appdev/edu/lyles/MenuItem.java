@@ -13,24 +13,24 @@ import java.util.ArrayList;
  */
 
 public class MenuItem {
-    private String title;
-    private double price;
-    private String imageUrl;
-    private String details;
+    private String mTitle;
+    private double mPrice;
+    private String mImageUrl;
+    private String mDetails;
 
     public MenuItem() {
-        title = null;
-        price = 0;
-        imageUrl = null;
-        details = null;
+        mTitle = null;
+        mPrice = 0;
+        mImageUrl = null;
+        mDetails = null;
     }
 
     public MenuItem(JSONObject jsonObject) {
         try {
-            this.title = jsonObject.getString("title");
-            this.price = jsonObject.getDouble("price");
-            this.imageUrl = jsonObject.getString("image");
-            this.details = jsonObject.getString("details");
+            this.mTitle = jsonObject.getString("title");
+            this.mPrice = jsonObject.getDouble("mPrice");
+            this.mImageUrl = jsonObject.getString("image");
+            this.mDetails = jsonObject.getString("mDetails");
         }
         catch(JSONException e) {
             e.printStackTrace();
@@ -53,18 +53,18 @@ public class MenuItem {
     }
 
     public String getTitle() {
-        return title;
+        return mTitle;
     }
 
     public double getPrice() {
-        return price;
+        return mPrice;
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return mImageUrl;
     }
 
     public String getDetails() {
-        return details;
+        return mDetails;
     }
 }

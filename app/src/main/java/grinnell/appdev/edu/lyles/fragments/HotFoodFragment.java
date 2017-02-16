@@ -23,13 +23,13 @@ import grinnell.appdev.edu.lyles.R;
  */
 public class HotFoodFragment extends Fragment {
 
-    private AsyncRetrieval asyncRetrieval;
-    private String jsonBody;
-    private JSONArray jsonArray;
+    private AsyncRetrieval mAsyncRetrieval;
+    private String mJsonBody;
+    private JSONArray mAllItemsAsJsonArray;
 
-    private ArrayList<MenuItem> menuItemList;
-    private ItemAdapter itemsAdapter;
-    private ListView lvItems;
+    private ArrayList<MenuItem> mMenuItemArrayList;
+    private ItemAdapter mItemAdapter;
+    private ListView mListView;
 
     public HotFoodFragment() {
         // Required empty public constructor
@@ -42,10 +42,10 @@ public class HotFoodFragment extends Fragment {
 
         final String HOT_FOOD_URL = getString(R.string.hot_food_url);
 
-        asyncRetrieval = new AsyncRetrieval(HOT_FOOD_URL);
+        mAsyncRetrieval = new AsyncRetrieval(HOT_FOOD_URL);
 
         try {
-            jsonBody = asyncRetrieval.execute().get();
+            mJsonBody = mAsyncRetrieval.execute().get();
         }
         catch(InterruptedException e) {
             e.printStackTrace();
@@ -54,12 +54,12 @@ public class HotFoodFragment extends Fragment {
             e.printStackTrace();
         }
 
-        jsonArray = asyncRetrieval.getJsonArray(jsonBody, getString(R.string.hot_food_array_title));
-        menuItemList = MenuItem.fromJSON(jsonArray);
+        mAllItemsAsJsonArray = mAsyncRetrieval.getJsonArray(mJsonBody, getString(R.string.hot_food_array_title));
+        mMenuItemArrayList = MenuItem.fromJSON(mAllItemsAsJsonArray);
 
-        itemsAdapter = new ItemAdapter(this.getContext(), menuItemList, false);
-        lvItems = (ListView) view.findViewById(R.id.lv_items_hotfood);
-        lvItems.setAdapter(itemsAdapter);
+        mItemAdapter = new ItemAdapter(this.getContext(), mMenuItemArrayList, false);
+        mListView = (ListView) view.findViewById(R.id.lv_items_hotfood);
+        mListView.setAdapter(mItemAdapter);
 
         return view;
     }
