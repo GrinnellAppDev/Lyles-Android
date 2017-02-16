@@ -13,16 +13,18 @@ import java.util.ArrayList;
  */
 
 public class MenuItem {
+    private static final double DEFAULT_PRICE = 0;
+
     private String mTitle;
     private double mPrice;
     private String mImageUrl;
     private String mDetails;
 
     public MenuItem() {
-        mTitle = null;
-        mPrice = 0;
-        mImageUrl = null;
-        mDetails = null;
+        mTitle = "";
+        mPrice = DEFAULT_PRICE;
+        mImageUrl = "";
+        mDetails = "";
     }
 
     public MenuItem(JSONObject jsonObject) {
