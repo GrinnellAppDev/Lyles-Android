@@ -20,11 +20,14 @@ import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
 
 public class ItemAdapter extends ArrayAdapter<MenuItem> {
 
+    private static final int RESOURCE_ID = 0;
+    private static final String DOLLAR_SIGN = "$";
+
     private FavoritesManager mFavoritesManager;
     private boolean mIsFavoritesTabClicked;
 
     public ItemAdapter(Context context, ArrayList<MenuItem> menuItems, boolean favTab) {
-        super(context, 0, menuItems);
+        super(context, RESOURCE_ID, menuItems);
 
         mFavoritesManager = new FavoritesManager(context, menuItems);
         mIsFavoritesTabClicked = favTab;
@@ -39,19 +42,19 @@ public class ItemAdapter extends ArrayAdapter<MenuItem> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_user, parent, false);
         }
 
-        final TextView tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
-        final TextView tvPrice = (TextView) convertView.findViewById(R.id.tvPrice);
-        final Button btnFavorite = (Button) convertView.findViewById(R.id.btnFavorite);
+        final TextView titleTextView = (TextView) convertView.findViewById(R.id.tvTitle);
+        final TextView priceTextView = (TextView) convertView.findViewById(R.id.tvPrice);
+        final Button favoriteButton = (Button) convertView.findViewById(R.id.btnFavorite);
 
-        tvTitle.setText(menuItem.getTitle());
-        tvPrice.setText("$" + menuItem.getPrice());
-        btnFavorite.setText(mFavoritesManager.getButtonText(menuItem.getTitle()));
+        titleTextView.setText(menuItem.getTitle());
+        priceTextView.setText(DOLLAR_SIGN + menuItem.getPrice());
+        favoriteButton.setText(mFavoritesManager.getButtonText(menuItem.getTitle()));
 
-        btnFavorite.setOnClickListener(new View.OnClickListener() {
+        favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mFavoritesManager.toggleFavorite(menuItem.getTitle());
-                btnFavorite.setText(mFavoritesManager.getButtonText(menuItem.getTitle()));
+                favoriteButton.setText(mFavoritesManager.getButtonText(menuItem.getTitle()));
 
                 if (mIsFavoritesTabClicked) {
                     remove(menuItem);
