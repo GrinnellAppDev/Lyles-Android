@@ -14,6 +14,7 @@ import java.util.concurrent.ExecutionException;
 
 import grinnell.appdev.edu.lyles.AsyncRetrieval;
 import grinnell.appdev.edu.lyles.ItemAdapter;
+import grinnell.appdev.edu.lyles.JSONConstants;
 import grinnell.appdev.edu.lyles.MenuItem;
 import grinnell.appdev.edu.lyles.R;
 import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
@@ -24,7 +25,7 @@ import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
 public class FavoritesFragment extends Fragment {
 
     private ArrayList<String> mAllURLs;
-    private ArrayList<String> mAllTabTitles;
+    private ArrayList<String> mAllArrayTitles;
 
     private ArrayList<MenuItem> mAllMenuItems; // Contains all menu items in all categories
     private ItemAdapter mItemAdapter;
@@ -38,17 +39,17 @@ public class FavoritesFragment extends Fragment {
 
         // URLs of JSON arrays to use
         mAllURLs = new ArrayList<String>();
-        mAllURLs.add(getString(R.string.hot_food_url));
-        mAllURLs.add(getString(R.string.snacks_url));
-        mAllURLs.add(getString(R.string.drinks_url));
-        mAllURLs.add(getString(R.string.beer_url));
+        mAllURLs.add(JSONConstants.HOT_FOOD_URL);
+        mAllURLs.add(JSONConstants.SNACKS_URL);
+        mAllURLs.add(JSONConstants.DRINKS_URL);
+        mAllURLs.add(JSONConstants.BEER_URL);
 
         // Titles of JSON arrays in corresponding urls
-        mAllTabTitles = new ArrayList<String>();
-        mAllTabTitles.add(getString(R.string.hot_food_array_title));
-        mAllTabTitles.add(getString(R.string.snacks_array_title));
-        mAllTabTitles.add(getString(R.string.drinks_array_title));
-        mAllTabTitles.add(getString(R.string.beer_array_title));
+        mAllArrayTitles = new ArrayList<String>();
+        mAllArrayTitles.add(JSONConstants.HOT_FOOD_ARRAY_KEY);
+        mAllArrayTitles.add(JSONConstants.SNACKS_ARRAY_KEY);
+        mAllArrayTitles.add(JSONConstants.DRINKS_ARRAY_KEY);
+        mAllArrayTitles.add(JSONConstants.BEER_ARRAY_KEY);
 
         mAllMenuItems = new ArrayList<MenuItem>();
 
@@ -60,7 +61,7 @@ public class FavoritesFragment extends Fragment {
 
             try {
                 jsonBody = asyncRetrieval.execute().get();
-                jsonArray = asyncRetrieval.getJsonArray(jsonBody, mAllTabTitles.get(i));
+                jsonArray = asyncRetrieval.getJsonArray(jsonBody, mAllArrayTitles.get(i));
             }
             catch(InterruptedException e) {
                 e.printStackTrace();
