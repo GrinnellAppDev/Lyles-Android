@@ -28,9 +28,9 @@ public class MenuItem {
     public MenuItem(JSONObject jsonObject) {
         try {
             this.mTitle = jsonObject.getString("title");
-            this.mPrice = jsonObject.getDouble("mPrice");
+            this.mPrice = jsonObject.getDouble("price");
             this.mImageUrl = jsonObject.getString("image");
-            this.mDetails = jsonObject.getString("mDetails");
+            this.mDetails = jsonObject.getString("details");
         }
         catch(JSONException e) {
             e.printStackTrace();

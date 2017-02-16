@@ -36,11 +36,11 @@ public class AsyncRetrieval extends AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... voids) {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(mURL).build();
+        final OkHttpClient client = new OkHttpClient();
+        final Request request = new Request.Builder().url(mURL).build();
 
         try {
-            Response response = client.newCall(request).execute();
+            final Response response = client.newCall(request).execute();
             mJsonBody = response.body().string();
         } catch (IOException e) {
             e.printStackTrace();
@@ -55,11 +55,10 @@ public class AsyncRetrieval extends AsyncTask<Void, Void, String> {
 
     public JSONArray getJsonArray(String jsonBody, String arrayTitle) {
 
-        JSONObject jsonObject = null;
-        JSONArray jsonArray = null;
+        JSONArray jsonArray = new JSONArray();
 
         try {
-            jsonObject = new JSONObject(jsonBody);
+            JSONObject jsonObject = new JSONObject(jsonBody);
             jsonArray = jsonObject.getJSONArray(arrayTitle);
         }
         catch(JSONException e) {
