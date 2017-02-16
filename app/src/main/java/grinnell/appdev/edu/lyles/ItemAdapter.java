@@ -13,7 +13,9 @@ import java.util.ArrayList;
 import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
 
 /**
- * Created by Shelby on 2/4/2017.
+ * An adapter for translating between an ArrayAdapter for MenuItems to a ListView
+ *
+ * @author Shelby Frazier
  */
 
 public class ItemAdapter extends ArrayAdapter<MenuItem> {

@@ -7,7 +7,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
- * Created by Shelby on 2/3/2017.
+ * A model to describe menu items
+ *
+ * @author Shelby Frazier
  */
 
 public class MenuItem {

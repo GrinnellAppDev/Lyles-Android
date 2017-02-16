@@ -15,8 +15,9 @@ import grinnell.appdev.edu.lyles.AsyncRetrieval;
 import grinnell.appdev.edu.lyles.MenuItem;
 
 /**
- * Created by Shelby on 2/3/2017.
- * A class which uses SharedPreferences to keep track of each user's favorites in each category
+ * A class which uses SharedPreferences to keep track of each user's favorite items in each category
+ *
+ * @author Shelby Frazier
  */
 
 public class FavoritesManager {

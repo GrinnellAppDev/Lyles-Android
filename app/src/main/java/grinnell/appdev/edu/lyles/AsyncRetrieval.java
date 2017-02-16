@@ -13,7 +13,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Created by Shelby on 2/3/2017.
+ * A class which asynchronously fetches and parses JSON files
+ *
+ * @author Shelby Frazier
  */
 
 public class AsyncRetrieval extends AsyncTask<Void, Void, String> {
