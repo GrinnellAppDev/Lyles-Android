@@ -15,6 +15,7 @@ import java.util.concurrent.ExecutionException;
 
 import grinnell.appdev.edu.lyles.AsyncRetrieval;
 import grinnell.appdev.edu.lyles.ItemAdapter;
+import grinnell.appdev.edu.lyles.JSONConstants;
 import grinnell.appdev.edu.lyles.MenuItem;
 import grinnell.appdev.edu.lyles.R;
 
@@ -40,9 +41,7 @@ public class HotFoodFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_hot_food, container, false);
 
-        final String HOT_FOOD_URL = getString(R.string.hot_food_url);
-
-        mAsyncRetrieval = new AsyncRetrieval(HOT_FOOD_URL);
+        mAsyncRetrieval = new AsyncRetrieval(JSONConstants.HOT_FOOD_URL);
 
         try {
             mJsonBody = mAsyncRetrieval.execute().get();
@@ -54,7 +53,7 @@ public class HotFoodFragment extends Fragment {
             e.printStackTrace();
         }
 
-        mAllItemsAsJsonArray = mAsyncRetrieval.getJsonArray(mJsonBody, getString(R.string.hot_food_array_title));
+        mAllItemsAsJsonArray = mAsyncRetrieval.getJsonArray(mJsonBody, JSONConstants.HOT_FOOD_ARRAY_KEY);
         mMenuItemArrayList = MenuItem.fromJSON(mAllItemsAsJsonArray);
 
         mItemAdapter = new ItemAdapter(this.getContext(), mMenuItemArrayList, false);
