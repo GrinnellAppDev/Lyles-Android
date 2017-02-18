@@ -1,6 +1,7 @@
 package grinnell.appdev.edu.lyles.preferences;
 
 import android.content.Context;
+import static android.content.Context.MODE_PRIVATE;
 import android.content.SharedPreferences;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class FavoritesManager {
     public FavoritesManager(Context context, ArrayList<MenuItem> menuItems) {
 
         mAllItemsArrayList = menuItems;
-        mPreferencesFile = context.getSharedPreferences(PREFS_KEY, Context.MODE_PRIVATE);
+        mPreferencesFile = context.getSharedPreferences(PREFS_KEY, MODE_PRIVATE);
         mPreferencesEditor = mPreferencesFile.edit();
 
         for(int i = 0; i < mAllItemsArrayList.size(); i++) {

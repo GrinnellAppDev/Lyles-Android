@@ -22,4 +22,5 @@ public class JSONConstants {
     public static final String PRICE_KEY = "price";
     public static final String IMAGE_URL_KEY = "image";
     public static final String DETAILS_KEY = "details";
+    
 }
