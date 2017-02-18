@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 
 public class MenuItem {
+
     private static final double DEFAULT_PRICE = 0;
 
     private String mTitle;
