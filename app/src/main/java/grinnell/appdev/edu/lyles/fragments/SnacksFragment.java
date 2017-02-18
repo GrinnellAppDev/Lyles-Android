@@ -24,13 +24,13 @@ import grinnell.appdev.edu.lyles.R;
  */
 public class SnacksFragment extends Fragment {
 
-    private AsyncRetrieval asyncRetrieval;
-    private String jsonBody;
-    private JSONArray jsonArray;
+    private AsyncRetrieval mAsyncRetrieval;
+    private String mJsonBody;
+    private JSONArray mAllItemsAsJsonArray;
 
-    private ArrayList<MenuItem> menuItemList;
-    private ItemAdapter itemsAdapter;
-    private ListView lvItems;
+    private ArrayList<MenuItem> mMenuItemArrayList;
+    private ItemAdapter mItemAdapter;
+    private ListView mListView;
 
     public SnacksFragment() {
         // Required empty public constructor
@@ -41,10 +41,10 @@ public class SnacksFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_snacks, container, false);
 
-        asyncRetrieval = new AsyncRetrieval(JSONConstants.SNACKS_URL);
+        mAsyncRetrieval = new AsyncRetrieval(JSONConstants.SNACKS_URL);
 
         try {
-            jsonBody = asyncRetrieval.execute().get();
+            mJsonBody = mAsyncRetrieval.execute().get();
         }
         catch(InterruptedException e) {
             e.printStackTrace();
@@ -53,14 +53,26 @@ public class SnacksFragment extends Fragment {
             e.printStackTrace();
         }
 
-        jsonArray = asyncRetrieval.getJsonArray(jsonBody, JSONConstants.SNACKS_ARRAY_KEY);
-        menuItemList = MenuItem.fromJSON(jsonArray);
+        mAllItemsAsJsonArray = mAsyncRetrieval.getJsonArray(mJsonBody, JSONConstants.SNACKS_ARRAY_KEY);
+        mMenuItemArrayList = MenuItem.fromJSON(mAllItemsAsJsonArray);
 
-        itemsAdapter = new ItemAdapter(this.getContext(), menuItemList, false);
-        lvItems = (ListView) view.findViewById(R.id.lv_items_snacks);
-        lvItems.setAdapter(itemsAdapter);
+        mItemAdapter = new ItemAdapter(this.getContext(), mMenuItemArrayList, false);
+        mListView = (ListView) view.findViewById(R.id.lv_items_snacks);
+        mListView.setAdapter(mItemAdapter);
 
         return view;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        mAsyncRetrieval = null;
+        mJsonBody = null;
+        mAllItemsAsJsonArray = null;
+
+        mMenuItemArrayList = null;
+        mItemAdapter = null;
+        mListView = null;
+    }
 }

@@ -56,8 +56,8 @@ public class FavoritesFragment extends Fragment {
         for(int i = 0; i < mAllURLs.size(); i++) {
             AsyncRetrieval asyncRetrieval = new AsyncRetrieval(mAllURLs.get(i));
 
-            String jsonBody = null;
-            JSONArray jsonArray = null;
+            String jsonBody = "";
+            JSONArray jsonArray = new JSONArray();
 
             try {
                 jsonBody = asyncRetrieval.execute().get();
@@ -82,4 +82,29 @@ public class FavoritesFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mAllURLs = null;
+        mAllArrayTitles = null;
+
+        mAllMenuItems = null;
+        mItemAdapter = null;
+        mListView = null;
+
+        mFavoritesManager = null;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mAllURLs = null;
+        mAllArrayTitles = null;
+
+        mAllMenuItems = null;
+        mItemAdapter = null;
+        mListView = null;
+
+        mFavoritesManager = null;
+    }
 }

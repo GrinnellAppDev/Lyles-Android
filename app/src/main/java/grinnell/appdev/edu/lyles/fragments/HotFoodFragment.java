@@ -63,4 +63,27 @@ public class HotFoodFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mAsyncRetrieval = null;
+        mJsonBody = null;
+        mAllItemsAsJsonArray = null;
+
+        mMenuItemArrayList = null;
+        mItemAdapter = null;
+        mListView = null;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mAsyncRetrieval = null;
+        mJsonBody = null;
+        mAllItemsAsJsonArray = null;
+
+        mMenuItemArrayList = null;
+        mItemAdapter = null;
+        mListView = null;
+    }
 }
