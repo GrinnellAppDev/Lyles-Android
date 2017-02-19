@@ -31,10 +31,9 @@ public class MenuViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        switch(position) {
-            case FAVORITES_INDEX: return new FavoritesFragment();
-            default: return new MenuTabFragment(position);
-        }
+        if (position == FAVORITES_INDEX)
+            return new FavoritesFragment();
+        return new MenuTabFragment(position);
     }
 
     @Override
