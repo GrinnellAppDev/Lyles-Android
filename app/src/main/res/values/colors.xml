@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#b62117</color>
     <color name="colorAccent">#FF4081</color>
     <color name="tabsScrollColor">#8a140e</color>
+
+    <color name="colorBlack">#000000</color>
 </resources>

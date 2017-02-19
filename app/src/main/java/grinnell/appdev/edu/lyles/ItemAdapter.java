@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -44,17 +45,17 @@ public class ItemAdapter extends ArrayAdapter<MenuItem> {
 
         final TextView titleTextView = (TextView) convertView.findViewById(R.id.tvTitle);
         final TextView priceTextView = (TextView) convertView.findViewById(R.id.tvPrice);
-        final Button favoriteButton = (Button) convertView.findViewById(R.id.btnFavorite);
+        final ImageButton favoriteButton = (ImageButton) convertView.findViewById(R.id.btnFavorite);
 
         titleTextView.setText(menuItem.getTitle());
         priceTextView.setText(DOLLAR_SIGN + menuItem.getPrice());
-        favoriteButton.setText(mFavoritesManager.getButtonText(menuItem.getTitle()));
+        //favoriteButton.setText(mFavoritesManager.getButtonText(menuItem.getTitle()));
 
         favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mFavoritesManager.toggleFavorite(menuItem.getTitle());
-                favoriteButton.setText(mFavoritesManager.getButtonText(menuItem.getTitle()));
+                //favoriteButton.setText(mFavoritesManager.getButtonText(menuItem.getTitle()));
 
                 if (mIsFavoritesTabClicked) {
                     remove(menuItem);
