@@ -39,7 +39,7 @@ public class ItemAdapter extends ArrayAdapter<MenuItem> {
         final MenuItem menuItem = getItem(position);
 
         if(convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_user, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_user_card, parent, false);
         }
 
         final TextView titleTextView = (TextView) convertView.findViewById(R.id.tvTitle);
