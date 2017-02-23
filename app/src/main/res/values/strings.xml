@@ -14,4 +14,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="beer_name">Beer name placeholder</string>
+    <string name="beer_type">Beer type placeholder</string>
+    <string name="beer_price">beer $$$</string>
+    <string name="star" />
 </resources>
