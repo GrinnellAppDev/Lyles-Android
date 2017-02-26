@@ -21,28 +21,29 @@ import java.util.ArrayList;
 
 
 
-public class ScheduleTabAdapter extends ArrayAdapter<ScheduleItem>{
-    public ScheduleTabAdapter(Context context, ArrayList<ScheduleItem> scheduleObjects) {
+public class ScheduleTabAdapter extends ArrayAdapter<ScheduleItemInterface>{
+    public ScheduleTabAdapter(Context context, ArrayList<ScheduleItemInterface> scheduleObjects) {
         super(context, 0, scheduleObjects);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ScheduleItem scheduleItem = getItem(position);
+        ScheduleItemInterface scheduleItem = getItem(position);
         if (convertView == null)
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.schedule_item, parent, false);
         TextView eventName = (TextView) convertView.findViewById(R.id.event_name);
-        // TextView eventDate = (TextView) convertView.findViewById(R.id.event_date);
         TextView eventTime = (TextView) convertView.findViewById(R.id.event_time);
         TextView eventTab = (TextView) convertView.findViewById(R.id.event_tab);
 
 
-        eventName.setText(scheduleItem.getEventName());
-        eventTime.setText(scheduleItem.timeWindowString());
-        eventTab.setText("$" + scheduleItem.getTab() + " Tab");
-        // object is created for each item, so this is very inefficient
-        // but it works lol
-        // eventDate.setText(DateFormat.getDateInstance().format(scheduleItem.getStartDate()));
+        if (!scheduleItem.isSeparator()) {
+            ScheduleItem item = (ScheduleItem) scheduleItem;
+            eventName.setText(item.getEventName());
+            eventTime.setText(item.timeWindowString());
+            eventTab.setText("$" + item.getTab() + " Tab");
+        }
+
         return convertView;
+
     }
 }

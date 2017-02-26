@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import grinnell.appdev.edu.lyles.R;
 import grinnell.appdev.edu.lyles.ScheduleItem;
+import grinnell.appdev.edu.lyles.ScheduleItemInterface;
 import grinnell.appdev.edu.lyles.ScheduleTabAdapter;
 
 /**
@@ -64,7 +65,7 @@ public class ScheduleFragment extends Fragment {
             JSONArray scheduleJSONArray = scheduleSummary.getJSONArray("schedule");
             //convert JSONArray to ArrayList<ScheduleItem>
             //Should probably be its own method?
-            ArrayList<ScheduleItem> scheduleList = new ArrayList<ScheduleItem>();
+            ArrayList<ScheduleItemInterface> scheduleList = new ArrayList<>();
             JSONObject scheduleItemJSON;
             for (int i = 0; i < scheduleJSONArray.length(); i++) {
                 scheduleItemJSON = scheduleJSONArray.getJSONObject(i);
