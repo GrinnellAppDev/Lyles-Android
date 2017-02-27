@@ -3,6 +3,8 @@ package grinnell.appdev.edu.lyles.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +32,7 @@ public class HotFoodFragment extends Fragment {
 
     private ArrayList<MenuItem> mMenuItemArrayList;
     private ItemAdapter mItemAdapter;
-    private ListView mListView;
+    private RecyclerView mRecyclerView;
 
     public HotFoodFragment() {
         // Required empty public constructor
@@ -57,8 +59,9 @@ public class HotFoodFragment extends Fragment {
         mMenuItemArrayList = MenuItem.fromJSON(mAllItemsAsJsonArray);
 
         mItemAdapter = new ItemAdapter(this.getContext(), mMenuItemArrayList, false);
-        mListView = (ListView) view.findViewById(R.id.lv_items_hotfood);
-        mListView.setAdapter(mItemAdapter);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_items_hotfood);
+        mRecyclerView.setAdapter(mItemAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         return view;
     }
@@ -72,7 +75,7 @@ public class HotFoodFragment extends Fragment {
 
         mMenuItemArrayList = null;
         mItemAdapter = null;
-        mListView = null;
+        mRecyclerView = null;
     }
 
     @Override
@@ -84,6 +87,6 @@ public class HotFoodFragment extends Fragment {
 
         mMenuItemArrayList = null;
         mItemAdapter = null;
-        mListView = null;
+        mRecyclerView = null;
     }
 }

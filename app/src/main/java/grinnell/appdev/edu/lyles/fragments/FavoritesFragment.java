@@ -2,6 +2,8 @@ package grinnell.appdev.edu.lyles.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +31,7 @@ public class FavoritesFragment extends Fragment {
 
     private ArrayList<MenuItem> mAllMenuItems; // Contains all menu items in all categories
     private ItemAdapter mItemAdapter;
-    private ListView mListView;
+    private RecyclerView mRecyclerView;
 
     private FavoritesManager mFavoritesManager;
 
@@ -76,8 +78,9 @@ public class FavoritesFragment extends Fragment {
         mFavoritesManager = new FavoritesManager(getContext(), mAllMenuItems);
 
         mItemAdapter = new ItemAdapter(this.getContext(), mFavoritesManager.getAllFavorites(), true);
-        mListView = (ListView) view.findViewById(R.id.lv_items_favorites);
-        mListView.setAdapter(mItemAdapter);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_items_favorites);
+        mRecyclerView.setAdapter(mItemAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         return view;
     }
@@ -90,7 +93,7 @@ public class FavoritesFragment extends Fragment {
 
         mAllMenuItems = null;
         mItemAdapter = null;
-        mListView = null;
+        mRecyclerView = null;
 
         mFavoritesManager = null;
     }
@@ -103,7 +106,7 @@ public class FavoritesFragment extends Fragment {
 
         mAllMenuItems = null;
         mItemAdapter = null;
-        mListView = null;
+        mRecyclerView = null;
 
         mFavoritesManager = null;
     }
