@@ -1,6 +1,7 @@
 package grinnell.appdev.edu.lyles;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,38 +20,68 @@ import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
  * @author Shelby Frazier
  */
 
-public class ItemAdapter extends ArrayAdapter<MenuItem> {
+public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView titleTextView;
+        public TextView priceTextView;
+        public ImageButton favoriteButton;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            titleTextView = (TextView) itemView.findViewById(R.id.tvTitle);
+            priceTextView = (TextView) itemView.findViewById(R.id.tvPrice);
+            favoriteButton = (ImageButton) itemView.findViewById(R.id.btnFavorite);
+        }
+    }
 
     private static final int RESOURCE_ID = 0;
     private static final String DOLLAR_SIGN = "$";
+
+    private Context mContext;
+    private ArrayList<MenuItem> mMenuItems;
 
     private FavoritesManager mFavoritesManager;
     private boolean mIsFavoritesTabClicked;
 
     public ItemAdapter(Context context, ArrayList<MenuItem> menuItems, boolean favTab) {
-        super(context, RESOURCE_ID, menuItems);
-
+        mContext = context;
+        mMenuItems = menuItems;
         mFavoritesManager = new FavoritesManager(context, menuItems);
         mIsFavoritesTabClicked = favTab;
     }
 
+    private Context getContext() {
+        return mContext;
+    }
+
+
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public ItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        final MenuItem menuItem = getItem(position);
+        Context context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
 
-        if(convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_user_card, parent, false);
-        }
+        View menuItemView = inflater.inflate(R.layout.item_user_card, parent, false);
 
-        final TextView titleTextView = (TextView) convertView.findViewById(R.id.tvTitle);
-        final TextView priceTextView = (TextView) convertView.findViewById(R.id.tvPrice);
-        final ImageButton favoriteButton = (ImageButton) convertView.findViewById(R.id.btnFavorite);
+        ViewHolder viewHolder = new ViewHolder(menuItemView);
+        return viewHolder;
+    }
 
+    @Override
+    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+
+        final MenuItem menuItem = mMenuItems.get(position);
+        final int itemPosition = position;
+
+        TextView titleTextView = viewHolder.titleTextView;
         titleTextView.setText(menuItem.getTitle());
-        priceTextView.setText(DOLLAR_SIGN + menuItem.getPrice());
-        //favoriteButton.setText(mFavoritesManager.getButtonText(menuItem.getTitle()));
 
+        TextView priceTextView = viewHolder.priceTextView;
+        priceTextView.setText(DOLLAR_SIGN + menuItem.getPrice());
+
+        ImageButton favoriteButton = viewHolder.favoriteButton;
+        //favoriteButton.setText(mFavoritesManager.getButtonText(menuItem.getTitle()));
         favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,13 +89,15 @@ public class ItemAdapter extends ArrayAdapter<MenuItem> {
                 //favoriteButton.setText(mFavoritesManager.getButtonText(menuItem.getTitle()));
 
                 if (mIsFavoritesTabClicked) {
-                    remove(menuItem);
-                    notifyDataSetChanged();
+                    mMenuItems.remove(menuItem);
+                    notifyItemRemoved(itemPosition);
                 }
             }
         });
-
-        return convertView;
     }
 
+    @Override
+    public int getItemCount() {
+        return mMenuItems.size();
+    }
 }
