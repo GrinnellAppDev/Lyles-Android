@@ -10,15 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * todo: find a way of adding list items that doesn't use an extra class
@@ -45,12 +40,9 @@ public class MenuTabListAdapter extends ArrayAdapter<JSONObject> {
             price.setText(item.getString("price"));
             details.setText(item.getString("details"));
 
-            OkHttpClient client = new OkHttpClient();
-            Response response = client.newCall(new Request.Builder().url(item.getString("image")).build()).execute();
-            image.setImageBitmap(BitmapFactory.decodeStream(response.body().byteStream()));
-            response.close();
-
-        } catch (IOException | JSONException e) {
+            InputStream imagedata = new AsyncRetrieval(item.getString("image")).execute().get().byteStream();
+            image.setImageBitmap(BitmapFactory.decodeStream(imagedata));
+        } catch (Exception e) {
             Log.d("error",e.getMessage());
 ;        }
         return view;
