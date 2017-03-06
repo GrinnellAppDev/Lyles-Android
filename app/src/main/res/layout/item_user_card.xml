@@ -8,90 +8,79 @@
     android:layout_margin="5dp"
     android:id="@+id/card_item_user">
 
-    <ExpandableListView
-        android:id="@+id/expandable_view"
+    <RelativeLayout
+        android:id="@+id/visible_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/menu_item_margin">
 
-        <RelativeLayout
-            android:id="@+id/visible_layout"
+        <ImageView
+            android:id="@+id/ivFood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/ivFood"
+
+            android:textColor="@color/colorBlack"
+            android:text="Title"
+            />
+
+        <TextView
+            android:id="@+id/tvSubheading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_toRightOf="@id/ivFood"
+            android:layout_below="@id/tvTitle"
+
+            android:text="Subheading"
+            />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+
+            android:text="Price"
+            />
+
+        <ImageButton
+            android:id="@+id/btnFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tvPrice"
+
+            android:src="@drawable/ic_star"
+            android:backgroundTint="@color/cardview_light_background"
+            />
+
+        <TextView
+            android:id="@+id/tvDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="@dimen/menu_item_margin">
 
-            <ImageView
-                android:id="@+id/ivFood"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/tvSubheading"
 
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                />
+            android:text="Details"
+            />
 
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/ivFood"
-
-                android:textColor="@color/colorBlack"
-                />
-
-            <TextView
-                android:id="@+id/tvSubheading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_alignParentBottom="true"
-                android:layout_toRightOf="@id/ivFood"
-                android:layout_below="@id/tvTitle"
-                />
-
-            <TextView
-                android:id="@+id/tvPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                />
-
-            <ImageButton
-                android:id="@+id/btnFavorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/tvPrice"
-
-                android:src="@drawable/ic_star"
-                android:backgroundTint="@color/cardview_light_background"
-                />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/invisible_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_margin="@dimen/menu_item_margin">
-
-            <TextView
-                android:id="@+id/tvDetails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                />
-
-        </RelativeLayout>
-
-    </ExpandableListView>
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>

@@ -26,12 +26,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         public TextView titleTextView;
         public TextView priceTextView;
         public ImageButton favoriteButton;
+        public TextView detailsTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             titleTextView = (TextView) itemView.findViewById(R.id.tvTitle);
             priceTextView = (TextView) itemView.findViewById(R.id.tvPrice);
             favoriteButton = (ImageButton) itemView.findViewById(R.id.btnFavorite);
+            detailsTextView = (TextView) itemView.findViewById(R.id.tvDetails);
         }
     }
 
@@ -94,6 +96,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                 }
             }
         });
+
+        TextView detailsTextView = viewHolder.detailsTextView;
+        detailsTextView.setText(menuItem.getDetails());
     }
 
     @Override
