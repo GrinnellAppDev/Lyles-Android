@@ -1,5 +1,6 @@
 package grinnell.appdev.edu.lyles.fragments;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,7 +38,7 @@ public class BeersAdapter extends RecyclerView.Adapter<BeersAdapter.ViewHolder> 
         public TextView tvPrice;
         public TextView tvDetails;
         public ImageView ivImage;
-        public Button btFavourite;
+        public ImageButton btFavourite;
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
@@ -51,7 +52,27 @@ public class BeersAdapter extends RecyclerView.Adapter<BeersAdapter.ViewHolder> 
             tvPrice = (TextView) itemView.findViewById(R.id.tvPrice);
             tvDetails = (TextView) itemView.findViewById(R.id.tvDetails);
             ivImage = (ImageView) itemView.findViewById(R.id.ivImage);
-            btFavourite = (Button) itemView.findViewById(R.id.btFavourite);
+            btFavourite = (ImageButton) itemView.findViewById(R.id.btFavourite);
+
+            itemView.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View v) {
+                    if (tvDetails.getVisibility() == View.GONE) {
+                        // it's collapsed - expand it
+                        tvDetails.setVisibility(View.VISIBLE);
+                       // mDescriptionImg.setImageResource(R.drawable.ic_expand_less_black_24dp);
+                    } else {
+                        // it's expanded - collapse it
+                        tvDetails.setVisibility(View.GONE);
+                        //mDescriptionImg.setImageResource(R.drawable.ic_expand_more_black_24dp);
+                    }
+
+                    ObjectAnimator animation = ObjectAnimator.ofInt(tvDetails, "maxLines", tvDetails.getMaxLines());
+                    animation.setDuration(200).start();
+
+                }
+            });
         }
     }
     // ... view holder defined above...
@@ -100,13 +121,12 @@ public class BeersAdapter extends RecyclerView.Adapter<BeersAdapter.ViewHolder> 
         TextView tvSubtitle = viewHolder.tvSubtitle;
         tvSubtitle.setText(beer.getSubtitle());
         TextView tvPrice = viewHolder.tvPrice;
-        tvPrice.setText("Price: $"+beer.getPrice());
+        tvPrice.setText("$"+beer.getPrice());
         TextView tvDetails = viewHolder.tvDetails;
-        tvDetails.setText("Details: "+beer.getDetails());
-        ImageView imageView = viewHolder.ivImage;
+        tvDetails.setText("\nDetails: \n"+beer.getDetails()+"\n");
+        ImageView imageView= viewHolder.ivImage;
         new LoadingImage(viewHolder.ivImage).execute(beer.getImage());
-        Button btFavourite = viewHolder.btFavourite;
-        btFavourite.setText("Favourite");
+        ImageButton btFavourite = viewHolder.btFavourite;
     }
 
     // Returns the total count of items in the list

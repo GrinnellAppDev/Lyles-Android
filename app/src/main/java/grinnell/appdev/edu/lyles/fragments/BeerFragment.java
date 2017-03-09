@@ -119,6 +119,7 @@ public class BeerFragment extends Fragment{
             }
         }
     }
+
 }
 
 
