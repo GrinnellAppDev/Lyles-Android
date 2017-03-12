@@ -103,7 +103,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
         ImageView imageView = viewHolder.imageView;
         Glide.with(this.getContext()).load(menuItem.getImageUrl())
-                .override(R.dimen.menu_item_image_size, R.dimen.menu_item_image_size).into(imageView);
+                .override(300, 300).into(imageView);
 
         ImageButton favoriteButton = viewHolder.favoriteButton;
         favoriteButton.setOnClickListener(new View.OnClickListener() {
