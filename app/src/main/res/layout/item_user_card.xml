@@ -20,8 +20,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_centerVertical="true"
+            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
+            android:layout_marginRight="@dimen/menu_item_margin"
+            android:layout_marginBottom="@dimen/menu_item_margin"
             />
 
         <TextView
@@ -76,7 +78,7 @@
             android:layout_height="wrap_content"
 
             android:layout_alignParentLeft="true"
-            android:layout_below="@id/btnFavorite"
+            android:layout_below="@id/ivFood"
 
             android:text="Details"
             android:visibility="gone"

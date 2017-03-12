@@ -102,7 +102,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         priceTextView.setText(DOLLAR_SIGN + menuItem.getPrice());
 
         ImageView imageView = viewHolder.imageView;
-        Glide.with(this.getContext()).load(menuItem.getImageUrl()).into(imageView);
+        Glide.with(this.getContext()).load(menuItem.getImageUrl())
+                .override(R.dimen.menu_item_image_size, R.dimen.menu_item_image_size).into(imageView);
 
         ImageButton favoriteButton = viewHolder.favoriteButton;
         favoriteButton.setOnClickListener(new View.OnClickListener() {
