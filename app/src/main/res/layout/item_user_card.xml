@@ -76,9 +76,10 @@
             android:layout_height="wrap_content"
 
             android:layout_alignParentLeft="true"
-            android:layout_below="@id/tvSubheading"
+            android:layout_below="@id/btnFavorite"
 
             android:text="Details"
+            android:visibility="gone"
             />
 
     </RelativeLayout>

@@ -1,12 +1,12 @@
 package grinnell.appdev.edu.lyles;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -22,7 +22,7 @@ import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView titleTextView;
         public TextView priceTextView;
         public ImageButton favoriteButton;
@@ -34,6 +34,31 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             priceTextView = (TextView) itemView.findViewById(R.id.tvPrice);
             favoriteButton = (ImageButton) itemView.findViewById(R.id.btnFavorite);
             detailsTextView = (TextView) itemView.findViewById(R.id.tvDetails);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            /*if (expandedIndex != -1) {
+                mRecyclerView.getChildViewHolder(mRecyclerView.getChildAt(expandedIndex))
+            }*/
+            expandContractItem(this);
+        }
+
+        public ItemAdapter adapter() {
+            return ItemAdapter.this;
+        }
+
+        private void expandContractItem(ViewHolder viewHolder) {
+            if (viewHolder.detailsTextView.getVisibility() == View.GONE) {
+                viewHolder.detailsTextView.setVisibility(View.VISIBLE);
+            }
+            else {
+                viewHolder.detailsTextView.setVisibility(View.GONE);
+            }
+            ObjectAnimator animator = ObjectAnimator.ofInt(viewHolder.detailsTextView, "maxLines", TextViewCompat.getMaxLines(viewHolder.detailsTextView));
+            animator.setDuration(500).start();
         }
     }
 
@@ -45,6 +70,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     private FavoritesManager mFavoritesManager;
     private boolean mIsFavoritesTabClicked;
+
+    private int expandedIndex = -1;
+    private RecyclerView mRecyclerView;
 
     public ItemAdapter(Context context, ArrayList<MenuItem> menuItems, boolean favTab) {
         mContext = context;
@@ -63,6 +91,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
+        mRecyclerView = (RecyclerView) parent;
 
         View menuItemView = inflater.inflate(R.layout.item_user_card, parent, false);
 
@@ -105,4 +134,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     public int getItemCount() {
         return mMenuItems.size();
     }
+
+    /*public void unExpandOther() {
+        mRecyclerView.findViewHolderForAdapterPosition(expandedIndex)
+    }*/
+
+
 }
