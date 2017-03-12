@@ -40,25 +40,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
         @Override
         public void onClick(View view) {
-            /*if (expandedIndex != -1) {
-                mRecyclerView.getChildViewHolder(mRecyclerView.getChildAt(expandedIndex))
-            }*/
-            expandContractItem(this);
+            if (expandedIndex != -1) {
+                this.getAdapter().expandContractItem((ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(expandedIndex));
+            }
+            this.getAdapter().expandContractItem(this);
+            expandedIndex = this.getAdapterPosition();
         }
 
-        public ItemAdapter adapter() {
+        public ItemAdapter getAdapter() {
             return ItemAdapter.this;
-        }
-
-        private void expandContractItem(ViewHolder viewHolder) {
-            if (viewHolder.detailsTextView.getVisibility() == View.GONE) {
-                viewHolder.detailsTextView.setVisibility(View.VISIBLE);
-            }
-            else {
-                viewHolder.detailsTextView.setVisibility(View.GONE);
-            }
-            ObjectAnimator animator = ObjectAnimator.ofInt(viewHolder.detailsTextView, "maxLines", TextViewCompat.getMaxLines(viewHolder.detailsTextView));
-            animator.setDuration(500).start();
         }
     }
 
@@ -80,11 +70,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         mFavoritesManager = new FavoritesManager(context, menuItems);
         mIsFavoritesTabClicked = favTab;
     }
-
-    private Context getContext() {
-        return mContext;
-    }
-
 
     @Override
     public ItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -112,12 +97,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         priceTextView.setText(DOLLAR_SIGN + menuItem.getPrice());
 
         ImageButton favoriteButton = viewHolder.favoriteButton;
-        //favoriteButton.setText(mFavoritesManager.getButtonText(menuItem.getTitle()));
         favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mFavoritesManager.toggleFavorite(menuItem.getTitle());
-                //favoriteButton.setText(mFavoritesManager.getButtonText(menuItem.getTitle()));
 
                 if (mIsFavoritesTabClicked) {
                     mMenuItems.remove(menuItem);
@@ -135,9 +118,25 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         return mMenuItems.size();
     }
 
-    /*public void unExpandOther() {
-        mRecyclerView.findViewHolderForAdapterPosition(expandedIndex)
-    }*/
+    private Context getContext() {
+        return mContext;
+    }
+
+    /**
+     * Changes a view to or from its expanded mode
+     *
+     * @param  viewHolder  the ViewHolder to be altered
+     */
+    private void expandContractItem(ViewHolder viewHolder) {
+        if (viewHolder.detailsTextView.getVisibility() == View.GONE) {
+            viewHolder.detailsTextView.setVisibility(View.VISIBLE);
+        }
+        else {
+            viewHolder.detailsTextView.setVisibility(View.GONE);
+        }
+        ObjectAnimator animator = ObjectAnimator.ofInt(viewHolder.detailsTextView, "maxLines", TextViewCompat.getMaxLines(viewHolder.detailsTextView));
+        animator.setDuration(500).start();
+    }
 
 
 }
