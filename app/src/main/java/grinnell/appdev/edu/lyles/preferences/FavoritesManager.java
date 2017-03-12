@@ -97,19 +97,6 @@ public class FavoritesManager {
     }
 
     /**
-     * Determines text the favorite button should display (if displaying text)
-     *
-     * @param id the id of the item to being investigated
-     * @return   String of text to be displayed
-     */
-    public String getButtonText(String id) {
-        if(mPreferencesFile.getBoolean(id, false))
-            return "Unfavorite";
-        else
-            return "Favorite";
-    }
-
-    /**
      * Retrieve the information contained in the file corresponding to SharedPreferences
      *
      * @return     the contents of the SharedPreferences file as a String
