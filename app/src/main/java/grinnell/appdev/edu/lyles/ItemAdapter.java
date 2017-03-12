@@ -2,6 +2,7 @@ package grinnell.appdev.edu.lyles;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -90,7 +91,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
 
         final MenuItem menuItem = mMenuItems.get(position);
         final int itemPosition = position;
@@ -106,11 +107,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                 .override(300, 300).into(imageView);
 
         ImageButton favoriteButton = viewHolder.favoriteButton;
+        setFaveButtonDrawable(viewHolder);
         favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mFavoritesManager.toggleFavorite(menuItem.getTitle());
-
+                setFaveButtonDrawable(viewHolder);
                 if (mIsFavoritesTabClicked) {
                     mMenuItems.remove(menuItem);
                     notifyItemRemoved(itemPosition);
@@ -145,5 +147,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         }
         ObjectAnimator animator = ObjectAnimator.ofInt(viewHolder.detailsTextView, "maxLines", TextViewCompat.getMaxLines(viewHolder.detailsTextView));
         animator.setDuration(500).start();
+    }
+
+    private void setFaveButtonDrawable(ViewHolder viewHolder) {
+        if (mFavoritesManager.isFavorite(viewHolder.titleTextView.getText().toString())) {
+            viewHolder.favoriteButton.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_filled_in));
+        }
+        else {
+            viewHolder.favoriteButton.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_unfilled));
+        }
     }
 }
