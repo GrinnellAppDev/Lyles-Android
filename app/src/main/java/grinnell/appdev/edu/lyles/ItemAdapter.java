@@ -8,7 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -25,6 +28,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView titleTextView;
         public TextView priceTextView;
+        public ImageView imageView;
         public ImageButton favoriteButton;
         public TextView detailsTextView;
 
@@ -32,6 +36,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             super(itemView);
             titleTextView = (TextView) itemView.findViewById(R.id.tvTitle);
             priceTextView = (TextView) itemView.findViewById(R.id.tvPrice);
+            imageView = (ImageView) itemView.findViewById(R.id.ivFood);
             favoriteButton = (ImageButton) itemView.findViewById(R.id.btnFavorite);
             detailsTextView = (TextView) itemView.findViewById(R.id.tvDetails);
 
@@ -96,6 +101,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         TextView priceTextView = viewHolder.priceTextView;
         priceTextView.setText(DOLLAR_SIGN + menuItem.getPrice());
 
+        ImageView imageView = viewHolder.imageView;
+        Glide.with(this.getContext()).load(menuItem.getImageUrl()).into(imageView);
+
         ImageButton favoriteButton = viewHolder.favoriteButton;
         favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,6 +145,4 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         ObjectAnimator animator = ObjectAnimator.ofInt(viewHolder.detailsTextView, "maxLines", TextViewCompat.getMaxLines(viewHolder.detailsTextView));
         animator.setDuration(500).start();
     }
-
-
 }
