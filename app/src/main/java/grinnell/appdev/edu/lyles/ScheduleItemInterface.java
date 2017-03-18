@@ -8,10 +8,4 @@ import java.util.Date;
 
 public interface ScheduleItemInterface {
     boolean isSeparator();
-//    String timeWindowString();
-//    String getEventName();
-//    Date getStartDate();
-//    Date getEndDate();
-//    int getTab();
-    // (ScheduleItem) item;
 }
