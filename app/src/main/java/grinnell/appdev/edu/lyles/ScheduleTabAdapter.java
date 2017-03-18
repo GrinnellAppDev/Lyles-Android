@@ -37,10 +37,10 @@ public class ScheduleTabAdapter extends ArrayAdapter<ScheduleItemInterface>{
 
 
         if (!scheduleItem.isSeparator()) {
-            ScheduleItem item = (ScheduleItem) scheduleItem;
-            eventName.setText(item.getEventName());
-            eventTime.setText(item.timeWindowString());
-            eventTab.setText("$" + item.getTab() + " Tab");
+            ScheduleItem castedItem = (ScheduleItem) scheduleItem;
+            eventName.setText(castedItem.getEventName());
+            eventTime.setText(castedItem.timeWindowString());
+            eventTab.setText("$" + castedItem.getTab() + " Tab");
         }
 
         return convertView;
