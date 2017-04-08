@@ -2,7 +2,6 @@ package grinnell.appdev.edu.lyles;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,30 +26,30 @@ import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public TextView titleTextView;
-        public TextView priceTextView;
-        public ImageView imageView;
-        public ImageButton favoriteButton;
-        public TextView detailsTextView;
+        public TextView mTitleTextView;
+        public TextView mPriceTextView;
+        public ImageView mImageView;
+        public ImageButton mFavoriteButton;
+        public TextView mDetailsTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            titleTextView = (TextView) itemView.findViewById(R.id.tvTitle);
-            priceTextView = (TextView) itemView.findViewById(R.id.tvPrice);
-            imageView = (ImageView) itemView.findViewById(R.id.ivFood);
-            favoriteButton = (ImageButton) itemView.findViewById(R.id.btnFavorite);
-            detailsTextView = (TextView) itemView.findViewById(R.id.tvDetails);
+            mTitleTextView = (TextView) itemView.findViewById(R.id.tvTitle);
+            mPriceTextView = (TextView) itemView.findViewById(R.id.tvPrice);
+            mImageView = (ImageView) itemView.findViewById(R.id.ivFood);
+            mFavoriteButton = (ImageButton) itemView.findViewById(R.id.btnFavorite);
+            mDetailsTextView = (TextView) itemView.findViewById(R.id.tvDetails);
 
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            if (expandedIndex != -1) {
-                this.getAdapter().expandContractItem((ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(expandedIndex));
+            if (mExpandedIndex != -1) {
+                this.getAdapter().expandContractItem((ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(mExpandedIndex));
             }
             this.getAdapter().expandContractItem(this);
-            expandedIndex = (expandedIndex == this.getAdapterPosition())? -1: this.getAdapterPosition();
+            mExpandedIndex = (mExpandedIndex == this.getAdapterPosition())? -1: this.getAdapterPosition();
         }
 
         public ItemAdapter getAdapter() {
@@ -67,7 +66,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     private FavoritesManager mFavoritesManager;
     private boolean mIsFavoritesTabClicked;
 
-    private int expandedIndex = -1;
+    private int mExpandedIndex = -1;
     private RecyclerView mRecyclerView;
 
     public ItemAdapter(Context context, ArrayList<MenuItem> menuItems, boolean favTab) {
@@ -96,17 +95,17 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         final MenuItem menuItem = mMenuItems.get(position);
         final int itemPosition = position;
 
-        TextView titleTextView = viewHolder.titleTextView;
+        TextView titleTextView = viewHolder.mTitleTextView;
         titleTextView.setText(menuItem.getTitle());
 
-        TextView priceTextView = viewHolder.priceTextView;
+        TextView priceTextView = viewHolder.mPriceTextView;
         priceTextView.setText(DOLLAR_SIGN + menuItem.getPrice());
 
-        ImageView imageView = viewHolder.imageView;
+        ImageView imageView = viewHolder.mImageView;
         Glide.with(this.getContext()).load(menuItem.getImageUrl())
                 .override(300, 300).into(imageView);
 
-        ImageButton favoriteButton = viewHolder.favoriteButton;
+        ImageButton favoriteButton = viewHolder.mFavoriteButton;
         setFaveButtonDrawable(viewHolder);
         favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,7 +119,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             }
         });
 
-        TextView detailsTextView = viewHolder.detailsTextView;
+        TextView detailsTextView = viewHolder.mDetailsTextView;
         detailsTextView.setText(menuItem.getDetails());
     }
 
@@ -139,22 +138,22 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
      * @param  viewHolder  the ViewHolder to be altered
      */
     private void expandContractItem(ViewHolder viewHolder) {
-        if (viewHolder.detailsTextView.getVisibility() == View.GONE) {
-            viewHolder.detailsTextView.setVisibility(View.VISIBLE);
+        if (viewHolder.mDetailsTextView.getVisibility() == View.GONE) {
+            viewHolder.mDetailsTextView.setVisibility(View.VISIBLE);
         }
         else {
-            viewHolder.detailsTextView.setVisibility(View.GONE);
+            viewHolder.mDetailsTextView.setVisibility(View.GONE);
         }
-        ObjectAnimator animator = ObjectAnimator.ofInt(viewHolder.detailsTextView, "maxLines", TextViewCompat.getMaxLines(viewHolder.detailsTextView));
+        ObjectAnimator animator = ObjectAnimator.ofInt(viewHolder.mDetailsTextView, "maxLines", TextViewCompat.getMaxLines(viewHolder.mDetailsTextView));
         animator.setDuration(500).start();
     }
 
     private void setFaveButtonDrawable(ViewHolder viewHolder) {
-        if (mFavoritesManager.isFavorite(viewHolder.titleTextView.getText().toString())) {
-            viewHolder.favoriteButton.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_filled_in));
+        if (mFavoritesManager.isFavorite(viewHolder.mTitleTextView.getText().toString())) {
+            viewHolder.mFavoriteButton.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_filled_in));
         }
         else {
-            viewHolder.favoriteButton.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_unfilled));
+            viewHolder.mFavoriteButton.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_unfilled));
         }
     }
 }
