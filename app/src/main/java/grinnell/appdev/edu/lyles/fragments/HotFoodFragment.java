@@ -42,20 +42,7 @@ public class HotFoodFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_hot_food, container, false);
 
-        mAsyncRetrieval = new AsyncRetrieval(Constants.HOT_FOOD_URL);
-
-        try {
-            mJsonBody = mAsyncRetrieval.execute().get();
-        }
-        catch(InterruptedException e) {
-            e.printStackTrace();
-        }
-        catch(ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        mAllItemsAsJsonArray = mAsyncRetrieval.getJsonArray(mJsonBody, Constants.HOT_FOOD_ARRAY_KEY);
-        mMenuItemArrayList = MenuItem.fromJSON(mAllItemsAsJsonArray);
+        mMenuItemArrayList = MenuItem.fromJSON(getMenuItemsAsJsonArray());
 
         mItemAdapter = new ItemAdapter(this.getContext(), mMenuItemArrayList, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_items_hotfood);
@@ -67,7 +54,6 @@ public class HotFoodFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         mAsyncRetrieval = null;
         mJsonBody = null;
         mAllItemsAsJsonArray = null;
@@ -75,11 +61,12 @@ public class HotFoodFragment extends Fragment {
         mMenuItemArrayList = null;
         mItemAdapter = null;
         mRecyclerView = null;
+
+        super.onDestroyView();
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         mAsyncRetrieval = null;
         mJsonBody = null;
         mAllItemsAsJsonArray = null;
@@ -87,5 +74,24 @@ public class HotFoodFragment extends Fragment {
         mMenuItemArrayList = null;
         mItemAdapter = null;
         mRecyclerView = null;
+
+        super.onDestroy();
+    }
+
+    private JSONArray getMenuItemsAsJsonArray() {
+        AsyncRetrieval asyncRetrieval = new AsyncRetrieval(Constants.HOT_FOOD_URL);
+        String jsonBody = "";
+
+        try {
+            jsonBody = asyncRetrieval.execute().get();
+        }
+        catch(InterruptedException e) {
+            e.printStackTrace();
+        }
+        catch(ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return asyncRetrieval.getJsonArray(jsonBody, Constants.HOT_FOOD_ARRAY_KEY);
     }
 }

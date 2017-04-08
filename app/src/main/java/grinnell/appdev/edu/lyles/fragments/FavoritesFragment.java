@@ -41,7 +41,7 @@ public class FavoritesFragment extends Fragment {
         View view = inflater.inflate(R.layout.favorites_layout, container, false);
 
         setUpConstantArrays();
-        mAllMenuItems = allMenuItems(mAllURLs, mAllArrayTitles);
+        mAllMenuItems = getMenuItems(mAllURLs, mAllArrayTitles);
 
         mFavoritesManager = new FavoritesManager(getContext(), mAllMenuItems);
         mItemAdapter = new ItemAdapter(this.getContext(), mFavoritesManager.getAllFavorites(), true);
@@ -101,7 +101,15 @@ public class FavoritesFragment extends Fragment {
         mAllArrayTitles.add(Constants.BEER_ARRAY_KEY);
     }
 
-    private ArrayList<MenuItem> allMenuItems(ArrayList<String> urls, ArrayList<String> keys) {
+    /**
+     * Using a list of urls and json keys, retrieves a jsonArray asynchronously and returns a list of all MenuItems
+     *
+     * @param urls an ArrayList of urls as Strings
+     * @param keys an ArrayList of keys for parsing the Json Array as strings
+     * @return     an ArrayList of type MenuItem containing all items found from all urls
+     */
+
+    private ArrayList<MenuItem> getMenuItems(ArrayList<String> urls, ArrayList<String> keys) {
 
         ArrayList<MenuItem> returnList = new ArrayList<>();
 
