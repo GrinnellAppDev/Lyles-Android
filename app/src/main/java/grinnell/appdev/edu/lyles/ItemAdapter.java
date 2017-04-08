@@ -17,6 +17,9 @@ import java.util.ArrayList;
 
 import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 /**
  * An adapter for translating between an ArrayAdapter for MenuItems to a ListView
  *
@@ -141,11 +144,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
      * @param  viewHolder  the ViewHolder to be altered
      */
     private void expandContractItem(ViewHolder viewHolder) {
-        if (viewHolder.mDetailsTextView.getVisibility() == View.GONE) {
-            viewHolder.mDetailsTextView.setVisibility(View.VISIBLE);
+        if (viewHolder.mDetailsTextView.getVisibility() == GONE) {
+            viewHolder.mDetailsTextView.setVisibility(VISIBLE);
         }
         else {
-            viewHolder.mDetailsTextView.setVisibility(View.GONE);
+            viewHolder.mDetailsTextView.setVisibility(GONE);
         }
         ObjectAnimator animator = ObjectAnimator.ofInt(viewHolder.mDetailsTextView, "maxLines", TextViewCompat.getMaxLines(viewHolder.mDetailsTextView));
         animator.setDuration(MS_DURATION_ANIMATOR).start();
