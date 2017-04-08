@@ -30,10 +30,10 @@ public class MenuItem {
 
     public MenuItem(JSONObject jsonObject) {
         try {
-            this.mTitle = jsonObject.getString(JSONConstants.TITLE_KEY);
-            this.mPrice = jsonObject.getDouble(JSONConstants.PRICE_KEY);
-            this.mImageUrl = jsonObject.getString(JSONConstants.IMAGE_URL_KEY);
-            this.mDetails = jsonObject.getString(JSONConstants.DETAILS_KEY);
+            this.mTitle = jsonObject.getString(Constants.TITLE_KEY);
+            this.mPrice = jsonObject.getDouble(Constants.PRICE_KEY);
+            this.mImageUrl = jsonObject.getString(Constants.IMAGE_URL_KEY);
+            this.mDetails = jsonObject.getString(Constants.DETAILS_KEY);
         }
         catch(JSONException e) {
             e.printStackTrace();

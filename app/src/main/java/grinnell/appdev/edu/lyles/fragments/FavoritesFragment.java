@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import org.json.JSONArray;
 
@@ -16,7 +15,7 @@ import java.util.concurrent.ExecutionException;
 
 import grinnell.appdev.edu.lyles.AsyncRetrieval;
 import grinnell.appdev.edu.lyles.ItemAdapter;
-import grinnell.appdev.edu.lyles.JSONConstants;
+import grinnell.appdev.edu.lyles.Constants;
 import grinnell.appdev.edu.lyles.MenuItem;
 import grinnell.appdev.edu.lyles.R;
 import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
@@ -41,17 +40,17 @@ public class FavoritesFragment extends Fragment {
 
         // URLs of JSON arrays to use
         mAllURLs = new ArrayList<String>();
-        mAllURLs.add(JSONConstants.HOT_FOOD_URL);
-        mAllURLs.add(JSONConstants.SNACKS_URL);
-        mAllURLs.add(JSONConstants.DRINKS_URL);
-        mAllURLs.add(JSONConstants.BEER_URL);
+        mAllURLs.add(Constants.HOT_FOOD_URL);
+        mAllURLs.add(Constants.SNACKS_URL);
+        mAllURLs.add(Constants.DRINKS_URL);
+        mAllURLs.add(Constants.BEER_URL);
 
         // Titles of JSON arrays in corresponding urls
         mAllArrayTitles = new ArrayList<String>();
-        mAllArrayTitles.add(JSONConstants.HOT_FOOD_ARRAY_KEY);
-        mAllArrayTitles.add(JSONConstants.SNACKS_ARRAY_KEY);
-        mAllArrayTitles.add(JSONConstants.DRINKS_ARRAY_KEY);
-        mAllArrayTitles.add(JSONConstants.BEER_ARRAY_KEY);
+        mAllArrayTitles.add(Constants.HOT_FOOD_ARRAY_KEY);
+        mAllArrayTitles.add(Constants.SNACKS_ARRAY_KEY);
+        mAllArrayTitles.add(Constants.DRINKS_ARRAY_KEY);
+        mAllArrayTitles.add(Constants.BEER_ARRAY_KEY);
 
         mAllMenuItems = new ArrayList<MenuItem>();
 

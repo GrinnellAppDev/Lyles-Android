@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import org.json.JSONArray;
 
@@ -17,7 +16,7 @@ import java.util.concurrent.ExecutionException;
 
 import grinnell.appdev.edu.lyles.AsyncRetrieval;
 import grinnell.appdev.edu.lyles.ItemAdapter;
-import grinnell.appdev.edu.lyles.JSONConstants;
+import grinnell.appdev.edu.lyles.Constants;
 import grinnell.appdev.edu.lyles.MenuItem;
 import grinnell.appdev.edu.lyles.R;
 
@@ -43,7 +42,7 @@ public class HotFoodFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_hot_food, container, false);
 
-        mAsyncRetrieval = new AsyncRetrieval(JSONConstants.HOT_FOOD_URL);
+        mAsyncRetrieval = new AsyncRetrieval(Constants.HOT_FOOD_URL);
 
         try {
             mJsonBody = mAsyncRetrieval.execute().get();
@@ -55,7 +54,7 @@ public class HotFoodFragment extends Fragment {
             e.printStackTrace();
         }
 
-        mAllItemsAsJsonArray = mAsyncRetrieval.getJsonArray(mJsonBody, JSONConstants.HOT_FOOD_ARRAY_KEY);
+        mAllItemsAsJsonArray = mAsyncRetrieval.getJsonArray(mJsonBody, Constants.HOT_FOOD_ARRAY_KEY);
         mMenuItemArrayList = MenuItem.fromJSON(mAllItemsAsJsonArray);
 
         mItemAdapter = new ItemAdapter(this.getContext(), mMenuItemArrayList, false);

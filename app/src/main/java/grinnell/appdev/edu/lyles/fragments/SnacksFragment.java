@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import org.json.JSONArray;
 
@@ -17,7 +16,7 @@ import java.util.concurrent.ExecutionException;
 
 import grinnell.appdev.edu.lyles.AsyncRetrieval;
 import grinnell.appdev.edu.lyles.ItemAdapter;
-import grinnell.appdev.edu.lyles.JSONConstants;
+import grinnell.appdev.edu.lyles.Constants;
 import grinnell.appdev.edu.lyles.MenuItem;
 import grinnell.appdev.edu.lyles.R;
 
@@ -43,7 +42,7 @@ public class SnacksFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_snacks, container, false);
 
-        mAsyncRetrieval = new AsyncRetrieval(JSONConstants.SNACKS_URL);
+        mAsyncRetrieval = new AsyncRetrieval(Constants.SNACKS_URL);
 
         try {
             mJsonBody = mAsyncRetrieval.execute().get();
@@ -55,7 +54,7 @@ public class SnacksFragment extends Fragment {
             e.printStackTrace();
         }
 
-        mAllItemsAsJsonArray = mAsyncRetrieval.getJsonArray(mJsonBody, JSONConstants.SNACKS_ARRAY_KEY);
+        mAllItemsAsJsonArray = mAsyncRetrieval.getJsonArray(mJsonBody, Constants.SNACKS_ARRAY_KEY);
         mMenuItemArrayList = MenuItem.fromJSON(mAllItemsAsJsonArray);
 
         mItemAdapter = new ItemAdapter(this.getContext(), mMenuItemArrayList, false);

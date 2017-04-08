@@ -19,6 +19,10 @@ import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static grinnell.appdev.edu.lyles.Constants.DOLLAR_SIGN;
+import static grinnell.appdev.edu.lyles.Constants.IMAGE_DIMENSION;
+import static grinnell.appdev.edu.lyles.Constants.MS_DURATION_ANIMATOR;
+import static grinnell.appdev.edu.lyles.Constants.NONE_SELECTED;
 
 /**
  * An adapter for translating between an ArrayAdapter for MenuItems to a ListView
@@ -52,19 +56,13 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                 this.getAdapter().expandContractItem((ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(mExpandedIndex));
             }
             this.getAdapter().expandContractItem(this);
-            mExpandedIndex = (mExpandedIndex == this.getAdapterPosition())? NONE_SELECTED: this.getAdapterPosition();
+            mExpandedIndex = (mExpandedIndex == this.getAdapterPosition())?  NONE_SELECTED: this.getAdapterPosition();
         }
 
         public ItemAdapter getAdapter() {
             return ItemAdapter.this;
         }
     }
-
-    private static final int RESOURCE_ID = 0;
-    private static final String DOLLAR_SIGN = "$";
-    private static final int IMAGE_DIMENSION = 300;
-    private static final int NONE_SELECTED = -1;
-    private static final int MS_DURATION_ANIMATOR = 500;
 
     private Context mContext;
     private ArrayList<MenuItem> mMenuItems;
