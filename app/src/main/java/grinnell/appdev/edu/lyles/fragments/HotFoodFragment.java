@@ -78,6 +78,12 @@ public class HotFoodFragment extends Fragment {
         super.onDestroy();
     }
 
+    /**
+     * Asynchronously retrieve items using url constant and return a JsonArray
+     *
+     * @return a JsonArray retrieved asynchronously using url constant
+     */
+
     private JSONArray getMenuItemsAsJsonArray() {
         AsyncRetrieval asyncRetrieval = new AsyncRetrieval(Constants.HOT_FOOD_URL);
         String jsonBody = "";
