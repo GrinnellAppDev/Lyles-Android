@@ -45,11 +45,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
         @Override
         public void onClick(View view) {
-            if (mExpandedIndex != -1) {
+            if (mExpandedIndex != NONE_SELECTED) {
                 this.getAdapter().expandContractItem((ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(mExpandedIndex));
             }
             this.getAdapter().expandContractItem(this);
-            mExpandedIndex = (mExpandedIndex == this.getAdapterPosition())? -1: this.getAdapterPosition();
+            mExpandedIndex = (mExpandedIndex == this.getAdapterPosition())? NONE_SELECTED: this.getAdapterPosition();
         }
 
         public ItemAdapter getAdapter() {
@@ -59,6 +59,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     private static final int RESOURCE_ID = 0;
     private static final String DOLLAR_SIGN = "$";
+    private static final int IMAGE_DIMENSION = 300;
+    private static final int NONE_SELECTED = -1;
 
     private Context mContext;
     private ArrayList<MenuItem> mMenuItems;
@@ -66,7 +68,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     private FavoritesManager mFavoritesManager;
     private boolean mIsFavoritesTabClicked;
 
-    private int mExpandedIndex = -1;
+    private int mExpandedIndex = NONE_SELECTED;
     private RecyclerView mRecyclerView;
 
     public ItemAdapter(Context context, ArrayList<MenuItem> menuItems, boolean favTab) {
@@ -103,7 +105,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
         ImageView imageView = viewHolder.mImageView;
         Glide.with(this.getContext()).load(menuItem.getImageUrl())
-                .override(300, 300).into(imageView);
+                .override(IMAGE_DIMENSION, IMAGE_DIMENSION).into(imageView);
 
         ImageButton favoriteButton = viewHolder.mFavoriteButton;
         setFaveButtonDrawable(viewHolder);
