@@ -67,6 +67,7 @@
 
             android:layout_alignParentRight="true"
             android:layout_below="@id/tvPrice"
+            android:background="@null"
             />
 
         <TextView
