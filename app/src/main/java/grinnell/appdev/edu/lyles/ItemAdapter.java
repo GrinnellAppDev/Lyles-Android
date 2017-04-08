@@ -50,7 +50,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                 this.getAdapter().expandContractItem((ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(expandedIndex));
             }
             this.getAdapter().expandContractItem(this);
-            expandedIndex = this.getAdapterPosition();
+            expandedIndex = (expandedIndex == this.getAdapterPosition())? -1: this.getAdapterPosition();
         }
 
         public ItemAdapter getAdapter() {
