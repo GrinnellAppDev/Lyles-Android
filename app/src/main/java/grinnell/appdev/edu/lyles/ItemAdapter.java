@@ -61,6 +61,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     private static final String DOLLAR_SIGN = "$";
     private static final int IMAGE_DIMENSION = 300;
     private static final int NONE_SELECTED = -1;
+    private static final int MS_DURATION_ANIMATOR = 500;
 
     private Context mContext;
     private ArrayList<MenuItem> mMenuItems;
@@ -147,7 +148,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             viewHolder.mDetailsTextView.setVisibility(View.GONE);
         }
         ObjectAnimator animator = ObjectAnimator.ofInt(viewHolder.mDetailsTextView, "maxLines", TextViewCompat.getMaxLines(viewHolder.mDetailsTextView));
-        animator.setDuration(500).start();
+        animator.setDuration(MS_DURATION_ANIMATOR).start();
     }
 
     private void setFaveButtonDrawable(ViewHolder viewHolder) {
