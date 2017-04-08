@@ -20,6 +20,8 @@ import grinnell.appdev.edu.lyles.MenuItem;
 import grinnell.appdev.edu.lyles.R;
 import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
 
+import static grinnell.appdev.edu.lyles.MenuItem.fromJSON;
+
 /**
  * Created by Mattori on 5/9/16.
  */
@@ -53,7 +55,6 @@ public class FavoritesFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         mAllURLs = null;
         mAllArrayTitles = null;
 
@@ -62,11 +63,12 @@ public class FavoritesFragment extends Fragment {
         mRecyclerView = null;
 
         mFavoritesManager = null;
+
+        super.onDestroyView();
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         mAllURLs = null;
         mAllArrayTitles = null;
 
@@ -75,6 +77,8 @@ public class FavoritesFragment extends Fragment {
         mRecyclerView = null;
 
         mFavoritesManager = null;
+
+        super.onDestroy();
     }
 
     /**
@@ -118,7 +122,7 @@ public class FavoritesFragment extends Fragment {
                 e.printStackTrace();
             }
 
-            returnList.addAll(MenuItem.fromJSON(jsonArray));
+            returnList.addAll(fromJSON(jsonArray));
         }
 
         return returnList;
