@@ -53,6 +53,13 @@ public class AsyncRetrieval extends AsyncTask<Void, Void, String> {
         super.onPostExecute(mJsonBody);
     }
 
+    /**
+     * Parses a JSON array from a given string and returns it
+     *
+     * @param jsonBody   A string containing a jsonArray
+     * @param arrayTitle The title of the jsonArray to retrieve
+     * @return           The parsed jsonArray
+     */
     public JSONArray getJsonArray(String jsonBody, String arrayTitle) {
 
         JSONArray jsonArray = new JSONArray();
