@@ -20,6 +20,8 @@ import grinnell.appdev.edu.lyles.Constants;
 import grinnell.appdev.edu.lyles.MenuItem;
 import grinnell.appdev.edu.lyles.R;
 
+import static grinnell.appdev.edu.lyles.R.layout.fragment_snacks;
+
 /**
  * A fragment to display available hot food to user
  */
@@ -40,7 +42,7 @@ public class SnacksFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_snacks, container, false);
+        View view = inflater.inflate(fragment_snacks, container, false);
 
         mAsyncRetrieval = new AsyncRetrieval(Constants.SNACKS_URL);
 

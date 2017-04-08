@@ -21,6 +21,7 @@ import grinnell.appdev.edu.lyles.R;
 import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
 
 import static grinnell.appdev.edu.lyles.MenuItem.fromJSON;
+import static grinnell.appdev.edu.lyles.R.layout.favorites_layout;
 
 /**
  * Created by Mattori on 5/9/16.
@@ -38,7 +39,7 @@ public class FavoritesFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.favorites_layout, container, false);
+        View view = inflater.inflate(favorites_layout, container, false);
 
         setUpConstantArrays();
         mAllMenuItems = getMenuItems(mAllURLs, mAllArrayTitles);
