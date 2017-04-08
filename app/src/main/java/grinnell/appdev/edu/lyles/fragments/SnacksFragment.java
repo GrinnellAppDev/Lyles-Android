@@ -44,20 +44,7 @@ public class SnacksFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(fragment_snacks, container, false);
 
-        mAsyncRetrieval = new AsyncRetrieval(Constants.SNACKS_URL);
-
-        try {
-            mJsonBody = mAsyncRetrieval.execute().get();
-        }
-        catch(InterruptedException e) {
-            e.printStackTrace();
-        }
-        catch(ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        mAllItemsAsJsonArray = mAsyncRetrieval.getJsonArray(mJsonBody, Constants.SNACKS_ARRAY_KEY);
-        mMenuItemArrayList = MenuItem.fromJSON(mAllItemsAsJsonArray);
+        mMenuItemArrayList = MenuItem.fromJSON(getMenuItemsAsJsonArray());
 
         mItemAdapter = new ItemAdapter(this.getContext(), mMenuItemArrayList, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_items_snacks);
@@ -69,8 +56,6 @@ public class SnacksFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
-
         mAsyncRetrieval = null;
         mJsonBody = null;
         mAllItemsAsJsonArray = null;
@@ -78,12 +63,12 @@ public class SnacksFragment extends Fragment {
         mMenuItemArrayList = null;
         mItemAdapter = null;
         mRecyclerView = null;
+
+        super.onDestroyView();
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
-
         mAsyncRetrieval = null;
         mJsonBody = null;
         mAllItemsAsJsonArray = null;
@@ -91,5 +76,30 @@ public class SnacksFragment extends Fragment {
         mMenuItemArrayList = null;
         mItemAdapter = null;
         mRecyclerView = null;
+
+        super.onDestroy();
+    }
+
+    /**
+     * Asynchronously retrieve items using url constant and return a JsonArray
+     *
+     * @return a JsonArray retrieved asynchronously using url constant
+     */
+
+    private JSONArray getMenuItemsAsJsonArray() {
+        AsyncRetrieval asyncRetrieval = new AsyncRetrieval(Constants.SNACKS_URL);
+        String jsonBody = "";
+
+        try {
+            jsonBody = asyncRetrieval.execute().get();
+        }
+        catch(InterruptedException e) {
+            e.printStackTrace();
+        }
+        catch(ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return asyncRetrieval.getJsonArray(jsonBody, Constants.SNACKS_ARRAY_KEY);
     }
 }
