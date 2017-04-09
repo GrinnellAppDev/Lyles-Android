@@ -52,7 +52,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
         @Override
         public void onClick(View view) {
-            if (mExpandedIndex != NONE_SELECTED) {
+            Log.d("Expand", "ViewHolder clicked");
+            if (mExpandedIndex != NONE_SELECTED && mExpandedIndex != this.getAdapterPosition()) {
                 this.getAdapter().expandContractItem((ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(mExpandedIndex));
             }
             this.getAdapter().expandContractItem(this);
