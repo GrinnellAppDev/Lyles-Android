@@ -27,7 +27,7 @@ public class Constants {
 
     // Menu Item/Adapter constants
     public static final String DOLLAR_SIGN = "$";
-    public static final int IMAGE_DIMENSION = 300;
+    public static final int IMAGE_DIMENSION = 175;
     public static final int NONE_SELECTED = -1;
 
     // Animation constants
