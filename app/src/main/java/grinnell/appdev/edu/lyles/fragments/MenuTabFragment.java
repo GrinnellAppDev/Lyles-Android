@@ -3,7 +3,6 @@ package grinnell.appdev.edu.lyles.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +41,7 @@ public class MenuTabFragment extends Fragment {
 
     private String retrieveJson() {
         try {
-            String url;
+            final String url;
             switch (this.mPosition) {
                 case HOT_FOOD_INDEX:
                     url = "http://www.cs.grinnell.edu/~birnbaum/appdev/lyles/hotfood.json";
@@ -54,13 +53,11 @@ public class MenuTabFragment extends Fragment {
                     url = "http://www.cs.grinnell.edu/~birnbaum/appdev/lyles/drinks.json";
                     break;
                 default:
-                    Log.d("error", "unexpected position " + mPosition);
                     return null;
             }
 
             return new AsyncRetrieval(url).execute().get().string();
         } catch (IOException | InterruptedException | ExecutionException e) {
-            Log.d("error",e.getMessage());
             return null;
         }
     }
@@ -88,7 +85,6 @@ public class MenuTabFragment extends Fragment {
                         jsonarray = jsonobject.getJSONArray("snacks");
                         break;
                     default:
-                    /* this is literally unreachable code but java requires it anyway. thanks java */
                         return view;
                 }
                 ArrayList<JSONObject> items = new ArrayList<JSONObject>();
@@ -98,7 +94,6 @@ public class MenuTabFragment extends Fragment {
                 list.setAdapter(new MenuTabListAdapter(getContext(), items));
             }
         } catch (JSONException e) {
-            Log.d("error",e.getMessage());
         }
 
         return view;

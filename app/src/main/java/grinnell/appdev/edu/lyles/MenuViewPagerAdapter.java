@@ -43,7 +43,7 @@ public class MenuViewPagerAdapter extends FragmentStatePagerAdapter {
             case SNACKS_INDEX: return mResources.getString(R.string.snacks_tab_title);
             case DRINKS_INDEX: return mResources.getString(R.string.drinks_tab_title);
             case FAVORITES_INDEX: return mResources.getString(R.string.favorites_tab_title);
-            default: return "";
+            default: return "Non-existent Fragment at given position";
         }
     }
 

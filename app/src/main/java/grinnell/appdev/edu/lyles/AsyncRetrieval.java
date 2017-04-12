@@ -54,6 +54,7 @@ public class AsyncRetrieval extends AsyncTask<Void, Void, ResponseBody> {
         super.onPostExecute(mBody);
     }
 
+    /* Parses the response as a JSON array. */
     public JSONArray getJsonArray(ResponseBody jsonBody, String arrayTitle) {
 
         JSONArray jsonArray = new JSONArray();

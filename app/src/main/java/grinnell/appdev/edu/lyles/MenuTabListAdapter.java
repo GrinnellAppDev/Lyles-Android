@@ -2,7 +2,6 @@ package grinnell.appdev.edu.lyles;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,7 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
+ * This class adds information to each item in a menu tab list.
  * todo: find a way of adding list items that doesn't use an extra class
  */
 public class MenuTabListAdapter extends ArrayAdapter<JSONObject> {
@@ -43,8 +43,7 @@ public class MenuTabListAdapter extends ArrayAdapter<JSONObject> {
             InputStream imagedata = new AsyncRetrieval(item.getString("image")).execute().get().byteStream();
             image.setImageBitmap(BitmapFactory.decodeStream(imagedata));
         } catch (Exception e) {
-            Log.d("error",e.getMessage());
-;        }
+        }
         return view;
     }
 }
