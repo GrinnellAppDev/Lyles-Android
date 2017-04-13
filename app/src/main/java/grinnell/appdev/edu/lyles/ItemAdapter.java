@@ -152,6 +152,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         animator.setDuration(MS_DURATION_ANIMATOR).start();
     }
 
+    /**
+     * Change the drawable of the favorite button to the appropriate drawable
+     *
+     * @param viewHolder   the ViewHolder whose favorite button's drawable should be set
+     */
     private void setFaveButtonDrawable(ViewHolder viewHolder) {
         if (mFavoritesManager.isFavorite(viewHolder.mTitleTextView.getText().toString())) {
             viewHolder.mFavoriteButton.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_filled_in));
