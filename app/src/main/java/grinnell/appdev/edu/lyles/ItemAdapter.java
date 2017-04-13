@@ -97,7 +97,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     public void onBindViewHolder(final ViewHolder viewHolder, int position) {
 
         MenuItem menuItem = mMenuItems.get(viewHolder.getAdapterPosition());
-        //final int itemPosition = position;
 
         TextView titleTextView = viewHolder.mTitleTextView;
         titleTextView.setText(menuItem.getTitle());
