@@ -94,10 +94,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
 
-        final MenuItem menuItem = mMenuItems.get(position);
-        final int itemPosition = position;
+        MenuItem menuItem = mMenuItems.get(viewHolder.getAdapterPosition());
+        //final int itemPosition = position;
 
         TextView titleTextView = viewHolder.mTitleTextView;
         titleTextView.setText(menuItem.getTitle());
@@ -114,21 +114,21 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mFavoritesManager.toggleFavorite(menuItem.getTitle());
+                int itemPosition = viewHolder.getAdapterPosition();
+                MenuItem clickedItem = mMenuItems.get(itemPosition);
+                mFavoritesManager.toggleFavorite(clickedItem.getTitle());
                 setFaveButtonDrawable(viewHolder);
                 if (mIsFavoritesTabClicked) {
-                    mMenuItems.remove(menuItem);
-                    notifyItemRemoved(itemPosition);
-
-                    if (mExpandedIndex != NONE_SELECTED) {
-                        if (mExpandedIndex > position) {
+                   if (mExpandedIndex != NONE_SELECTED) {
+                        if (mExpandedIndex > itemPosition) {
                             mExpandedIndex--;
                         }
-                        else if (mExpandedIndex == position) {
+                        else if (mExpandedIndex == itemPosition) {
                             mExpandedIndex = NONE_SELECTED;
                         }
                     }
-                    //notifyDataSetChanged();
+                    mMenuItems.remove(clickedItem);
+                    notifyItemRemoved(itemPosition);
                 }
             }
         });
