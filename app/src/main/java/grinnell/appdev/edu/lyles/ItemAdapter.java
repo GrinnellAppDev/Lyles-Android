@@ -94,7 +94,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
 
         final MenuItem menuItem = mMenuItems.get(position);
         final int itemPosition = position;
@@ -119,6 +119,16 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                 if (mIsFavoritesTabClicked) {
                     mMenuItems.remove(menuItem);
                     notifyItemRemoved(itemPosition);
+
+                    if (mExpandedIndex != NONE_SELECTED) {
+                        if (mExpandedIndex > position) {
+                            mExpandedIndex--;
+                        }
+                        else if (mExpandedIndex == position) {
+                            mExpandedIndex = NONE_SELECTED;
+                        }
+                    }
+                    //notifyDataSetChanged();
                 }
             }
         });
