@@ -32,5 +32,9 @@ public class Constants {
 
     // Animation constants
     public static final int MS_DURATION_ANIMATOR = 500;
+
+    //Menu constants
+    public static final double DEFAULT_PRICE = 0;
+    public static final String EMPTY_STRING = "";
     
 }

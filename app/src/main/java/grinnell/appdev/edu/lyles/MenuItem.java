@@ -6,6 +6,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static grinnell.appdev.edu.lyles.Constants.DEFAULT_PRICE;
+import static grinnell.appdev.edu.lyles.Constants.DETAILS_KEY;
+import static grinnell.appdev.edu.lyles.Constants.EMPTY_STRING;
+import static grinnell.appdev.edu.lyles.Constants.IMAGE_URL_KEY;
+import static grinnell.appdev.edu.lyles.Constants.PRICE_KEY;
+import static grinnell.appdev.edu.lyles.Constants.TITLE_KEY;
+
 /**
  * A model to describe menu items
  *
@@ -13,8 +20,6 @@ import java.util.ArrayList;
  */
 
 public class MenuItem {
-
-    private static final double DEFAULT_PRICE = 0;
 
     private String mTitle;
     private double mPrice;
@@ -24,16 +29,16 @@ public class MenuItem {
     public MenuItem() {
         mTitle = "";
         mPrice = DEFAULT_PRICE;
-        mImageUrl = "";
-        mDetails = "";
+        mImageUrl = EMPTY_STRING;
+        mDetails = EMPTY_STRING;
     }
 
     public MenuItem(JSONObject jsonObject) {
         try {
-            this.mTitle = jsonObject.getString(Constants.TITLE_KEY);
-            this.mPrice = jsonObject.getDouble(Constants.PRICE_KEY);
-            this.mImageUrl = jsonObject.getString(Constants.IMAGE_URL_KEY);
-            this.mDetails = jsonObject.getString(Constants.DETAILS_KEY);
+            this.mTitle = jsonObject.getString(TITLE_KEY);
+            this.mPrice = jsonObject.getDouble(PRICE_KEY);
+            this.mImageUrl = jsonObject.getString(IMAGE_URL_KEY);
+            this.mDetails = jsonObject.getString(DETAILS_KEY);
         }
         catch(JSONException e) {
             e.printStackTrace();
