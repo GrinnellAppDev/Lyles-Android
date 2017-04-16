@@ -1,6 +1,7 @@
 package grinnell.appdev.edu.lyles;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +34,6 @@ public class AsyncRetrieval extends AsyncTask<Void, Void, JSONArray> {
     protected JSONArray doInBackground(Void... voids) {
         final OkHttpClient client = new OkHttpClient();
         final Request request = new Request.Builder().url(mUrl).build();
-
         try {
             final Response response = client.newCall(request).execute();
             mJsonBody = response.body().string();

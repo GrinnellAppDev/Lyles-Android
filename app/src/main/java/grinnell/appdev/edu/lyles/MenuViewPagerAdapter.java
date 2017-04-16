@@ -6,10 +6,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import grinnell.appdev.edu.lyles.fragments.DrinksFragment;
 import grinnell.appdev.edu.lyles.fragments.FavoritesFragment;
-import grinnell.appdev.edu.lyles.fragments.HotFoodFragment;
-import grinnell.appdev.edu.lyles.fragments.SnacksFragment;
+
+import static grinnell.appdev.edu.lyles.Constants.DRINKS_ARRAY_KEY;
+import static grinnell.appdev.edu.lyles.Constants.DRINKS_URL;
+import static grinnell.appdev.edu.lyles.Constants.HOT_FOOD_URL;
+import static grinnell.appdev.edu.lyles.Constants.HOT_FOOD_ARRAY_KEY;
+import static grinnell.appdev.edu.lyles.Constants.SNACKS_ARRAY_KEY;
+import static grinnell.appdev.edu.lyles.Constants.SNACKS_URL;
 
 /**
  * A {@code FragmentStatePagerAdapter} to handle the display of the various {@code Fragment}s,
@@ -34,9 +38,9 @@ public class MenuViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch(position) {
-            case HOT_FOOD_INDEX: return new HotFoodFragment();
-            case SNACKS_INDEX: return new SnacksFragment();
-            case DRINKS_INDEX: return new DrinksFragment();
+            case HOT_FOOD_INDEX: return MenuFragment.newInstance(HOT_FOOD_URL, HOT_FOOD_ARRAY_KEY, R.layout.fragment_hot_food, R.id.rv_items_hotfood);
+            case SNACKS_INDEX: return MenuFragment.newInstance(SNACKS_URL, SNACKS_ARRAY_KEY, R.layout.fragment_snacks, R.id.rv_items_snacks);
+            case DRINKS_INDEX: return MenuFragment.newInstance(DRINKS_URL, DRINKS_ARRAY_KEY, R.layout.fragment_drinks, R.id.rv_items_drinks);
             case FAVORITES_INDEX: return new FavoritesFragment();
             default: return new Fragment();
         }

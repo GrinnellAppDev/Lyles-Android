@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +13,12 @@ import android.view.ViewGroup;
 import org.json.JSONArray;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 /**
  * A generalized fragment to be used to display a list of menu items to the user
  */
 
-public class MenuFragment extends Fragment {
+public class MenuFragment extends android.support.v4.app.Fragment {
 
     private ArrayList<MenuItem> mMenuItemArrayList;
     private ItemAdapter mItemAdapter;
@@ -49,7 +49,6 @@ public class MenuFragment extends Fragment {
         return menuFragment;
     }
 
-    @SuppressLint("NewApi")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,13 +59,11 @@ public class MenuFragment extends Fragment {
         int recyclerViewId = (int) this.getArguments().get("recyclerViewId");
 
         View view = inflater.inflate(layoutXml, container, false);
-        retrieveMenuData(url, arrayKey);
-
-        mItemAdapter = new ItemAdapter(this.getContext(), mMenuItemArrayList, false);
+        mMenuItemArrayList = new ArrayList<MenuItem>();
         mRecyclerView = (RecyclerView) view.findViewById(recyclerViewId);
-        mRecyclerView.setAdapter(mItemAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
+        retrieveMenuData(url, arrayKey);
         return view;
     }
 
@@ -101,9 +98,14 @@ public class MenuFragment extends Fragment {
             @Override
             protected void onPostExecute(JSONArray result) {
                 super.onPostExecute(result);
-                mMenuItemArrayList = MenuItem.fromJSON(result);
+                Log.d("Async", result.toString());
+                mMenuItemArrayList.addAll(MenuItem.fromJSON(result));
+                mItemAdapter = new ItemAdapter(getContext(), mMenuItemArrayList, false);
+                //mItemAdapter.notifyDataSetChanged();
+                mRecyclerView.setAdapter(mItemAdapter);
+//                mItemAdapter.notifyItemRangeInserted(0, mMenuItemArrayList.size());
             }
         };
+        asyncRetrieval.execute();
     }
-
 }

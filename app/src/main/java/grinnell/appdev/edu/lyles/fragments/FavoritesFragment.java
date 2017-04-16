@@ -13,11 +13,7 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import grinnell.appdev.edu.lyles.AsyncRetrieval;
-import grinnell.appdev.edu.lyles.ItemAdapter;
-import grinnell.appdev.edu.lyles.Constants;
-import grinnell.appdev.edu.lyles.MenuItem;
-import grinnell.appdev.edu.lyles.R;
+import grinnell.appdev.edu.lyles.*;
 import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
 
 import static grinnell.appdev.edu.lyles.MenuItem.fromJSON;
@@ -26,7 +22,7 @@ import static grinnell.appdev.edu.lyles.R.layout.favorites_layout;
 /**
  * Created by Mattori on 5/9/16.
  */
-public class FavoritesFragment extends Fragment {
+public class FavoritesFragment extends MenuFragment {
 
     private ArrayList<String> mAllURLs;
     private ArrayList<String> mAllArrayTitles;
@@ -115,14 +111,13 @@ public class FavoritesFragment extends Fragment {
         ArrayList<MenuItem> returnList = new ArrayList<>();
 
         for(int i = 0; i < urls.size(); i++) {
-            AsyncRetrieval asyncRetrieval = new AsyncRetrieval(urls.get(i));
+            AsyncRetrieval asyncRetrieval = new AsyncRetrieval(urls.get(i), keys.get(i));
 
             String jsonBody = "";
             JSONArray jsonArray = new JSONArray();
 
             try {
-                jsonBody = asyncRetrieval.execute().get();
-                jsonArray = asyncRetrieval.getJsonArray(jsonBody, keys.get(i));
+                jsonArray = asyncRetrieval.execute().get();
             }
             catch(InterruptedException e) {
                 e.printStackTrace();
