@@ -36,7 +36,7 @@
             android:layout_toRightOf="@+id/ivFood"
 
             android:textColor="@color/colorBlack"
-            android:text="Title"
+            android:text="@string/default_title"
             />
 
         <TextView
@@ -47,7 +47,7 @@
             android:layout_toRightOf="@id/ivFood"
             android:layout_below="@id/tvTitle"
 
-            android:text="Subheading"
+            android:text="@string/default_subheading"
             />
 
         <TextView
@@ -58,7 +58,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
 
-            android:text="Price"
+            android:text="@string/default_price"
             />
 
         <ImageButton
@@ -80,7 +80,7 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@id/ivFood"
 
-            android:text="Details"
+            android:text="@string/default_details"
             android:visibility="gone"
             />
 
