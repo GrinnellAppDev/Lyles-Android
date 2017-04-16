@@ -27,7 +27,7 @@ public class MenuItem {
     private String mDetails;
 
     public MenuItem() {
-        mTitle = "";
+        mTitle = EMPTY_STRING;
         mPrice = DEFAULT_PRICE;
         mImageUrl = EMPTY_STRING;
         mDetails = EMPTY_STRING;
