@@ -52,10 +52,6 @@ public class FavoritesManager {
      */
     public void toggleFavorite(String id) {
         boolean newValue = !mPreferencesFile.getBoolean(id, false);
-
-        mPreferencesEditor.remove(id);
-        mPreferencesEditor.apply();
-
         mPreferencesEditor.putBoolean(id, newValue);
         mPreferencesEditor.apply();
     }
