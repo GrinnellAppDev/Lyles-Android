@@ -30,11 +30,6 @@ public class AsyncRetrieval extends AsyncTask<Void, Void, String> {
     }
 
     @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-    }
-
-    @Override
     protected String doInBackground(Void... voids) {
         final OkHttpClient client = new OkHttpClient();
         final Request request = new Request.Builder().url(mUrl).build();
@@ -47,12 +42,7 @@ public class AsyncRetrieval extends AsyncTask<Void, Void, String> {
         }
         return mJsonBody;
     }
-
-    @Override
-    protected void onPostExecute(String aString) {
-        super.onPostExecute(mJsonBody);
-    }
-
+    
     /**
      * Parses a JSON array from a given string and returns it
      *
