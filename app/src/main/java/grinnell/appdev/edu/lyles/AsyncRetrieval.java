@@ -18,19 +18,19 @@ import okhttp3.Response;
  * @author Shelby Frazier
  */
 
-public class AsyncRetrieval extends AsyncTask<Void, Void, String> {
+public class AsyncRetrieval extends AsyncTask<Void, Void, JSONArray> {
 
-    private final String mUrl;
+    private final String mUrl, mArrayKey;
     private String mJsonBody;
 
-
-    public AsyncRetrieval(String url) {
+    public AsyncRetrieval(String url, String arrayKey) {
         super();
         mUrl = url;
+        mArrayKey = arrayKey;
     }
 
     @Override
-    protected String doInBackground(Void... voids) {
+    protected JSONArray doInBackground(Void... voids) {
         final OkHttpClient client = new OkHttpClient();
         final Request request = new Request.Builder().url(mUrl).build();
 
@@ -40,7 +40,8 @@ public class AsyncRetrieval extends AsyncTask<Void, Void, String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return mJsonBody;
+
+        return getJsonArray(mJsonBody, mArrayKey);
     }
     
     /**

@@ -60,7 +60,8 @@ public class MenuFragment extends Fragment {
         int recyclerViewId = (int) this.getArguments().get("recyclerViewId");
 
         View view = inflater.inflate(layoutXml, container, false);
-        mMenuItemArrayList = MenuItem.fromJSON(getMenuItemsAsJsonArray(url, arrayKey));
+        retrieveMenuData(url, arrayKey);
+
         mItemAdapter = new ItemAdapter(this.getContext(), mMenuItemArrayList, false);
         mRecyclerView = (RecyclerView) view.findViewById(recyclerViewId);
         mRecyclerView.setAdapter(mItemAdapter);
@@ -88,25 +89,21 @@ public class MenuFragment extends Fragment {
     }
 
     /**
-     * Asynchronously retrieve items using url constant and return a JsonArray
+     * Asynchronously retrieve json array from url titled arrayKey, pass data to MenuItem.fromJSON to fill
+     * mMenuItemArrayList with corresponding menuItems
      *
-     * @return a JsonArray retrieved asynchronously using url constant
+     * @param url           url where the data is held
+     * @param arrayKey      key of the json array containing the data
      */
-    private JSONArray getMenuItemsAsJsonArray(String url, String arrayKey) {
-        AsyncRetrieval asyncRetrieval = new AsyncRetrieval(url);
-        String jsonBody = Constants.EMPTY_STRING;
+    private void retrieveMenuData(String url, String arrayKey) {
 
-        try {
-            jsonBody = asyncRetrieval.execute().get();
-        }
-        catch(InterruptedException e) {
-            e.printStackTrace();
-        }
-        catch(ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return asyncRetrieval.getJsonArray(jsonBody, arrayKey);
+        final AsyncRetrieval asyncRetrieval = new AsyncRetrieval(url, arrayKey) {
+            @Override
+            protected void onPostExecute(JSONArray result) {
+                super.onPostExecute(result);
+                mMenuItemArrayList = MenuItem.fromJSON(result);
+            }
+        };
     }
 
 }
