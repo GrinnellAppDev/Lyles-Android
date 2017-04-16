@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.fragment_container, target);
         transaction.commit();
     }
-
     private void setupToolbar() {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);

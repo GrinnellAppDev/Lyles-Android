@@ -20,6 +20,7 @@ import java.util.List;
 
 import grinnell.appdev.edu.lyles.R;
 
+
 /**
  * Created by nannan on 2017/2/12.
  */
@@ -28,11 +29,12 @@ import grinnell.appdev.edu.lyles.R;
 // Note that we specify the custom ViewHolder which gives us access to our views
 public class BeersAdapter extends RecyclerView.Adapter<BeersAdapter.ViewHolder> {
 
+
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        // Your holder should contain a member variable
-        // for any view that will be set as you render a row
+
+        // Member variables of Beer
         public TextView tvTitle;
         public TextView tvSubtitle;
         public TextView tvPrice;
@@ -40,9 +42,9 @@ public class BeersAdapter extends RecyclerView.Adapter<BeersAdapter.ViewHolder> 
         public ImageView ivImage;
         public ImageButton btFavourite;
 
-        // We also create a constructor that accepts the entire item row
-        // and does the view lookups to find each subview
+        // Constructor that accepts the entire item row and lookups to find each subview
         public ViewHolder(View itemView) {
+
             // Stores the itemView in a public final member variable that can be used
             // to access the context from any ViewHolder instance.
             super(itemView);
@@ -54,6 +56,8 @@ public class BeersAdapter extends RecyclerView.Adapter<BeersAdapter.ViewHolder> 
             ivImage = (ImageView) itemView.findViewById(R.id.ivImage);
             btFavourite = (ImageButton) itemView.findViewById(R.id.btFavourite);
 
+
+            //Set OnClickListener to achieve the expandable view
             itemView.setOnClickListener(new View.OnClickListener(){
 
                 @Override
@@ -73,27 +77,24 @@ public class BeersAdapter extends RecyclerView.Adapter<BeersAdapter.ViewHolder> 
 
                 }
             });
+
+
+
         }
     }
     // ... view holder defined above...
 
-    // Store a member variable for the contacts
+    // Store a member variable for the beers
     private List<Beers> mBeers;
     // Store the context for easy access
-    private Context mContext;
+   // private Context mContext;
 
-    // Pass in the contact array into the constructor
-    public BeersAdapter(BeerFragment context, List<Beers> Beers) {
+    // Pass in the beer array into the constructor
+    //BeerFragment context,接在下面
+    public BeersAdapter( List<Beers> Beers) {
         mBeers = Beers;
-        mContext = context.getActivity().getApplicationContext();
-    }
+     }
 
-    // Easy access to the context object in the recyclerview
-    private Context getContext() {
-        return mContext;
-    }
-
-    // ... constructor and member variables
 
     // Usually involves inflating a layout from XML and returning the holder
     @Override
@@ -124,7 +125,7 @@ public class BeersAdapter extends RecyclerView.Adapter<BeersAdapter.ViewHolder> 
         tvPrice.setText("$"+beer.getPrice());
         TextView tvDetails = viewHolder.tvDetails;
         tvDetails.setText("\nDetails: \n"+beer.getDetails()+"\n");
-        ImageView imageView= viewHolder.ivImage;
+        //ImageView imageView= viewHolder.ivImage;
         new LoadingImage(viewHolder.ivImage).execute(beer.getImage());
         ImageButton btFavourite = viewHolder.btFavourite;
     }
@@ -136,94 +137,8 @@ public class BeersAdapter extends RecyclerView.Adapter<BeersAdapter.ViewHolder> 
     }
 
 }
-/*
-public class BeersAdaptor extends ArrayAdapter<Beers> {
 
-    ArrayList<Beers> ArrayListBeers;
-    int Resource;
-    Context context;
-    LayoutInflater vi;
-
-    public BeersAdaptor(Context context, int resource, ArrayList<Beers> objects) {
-        super(context, resource, objects);
-
-        ArrayListBeers = objects;
-        Resource = resource;
-        this.context=context;
-
-        vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-    }
-
-    @NonNull
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        ViewHolder holder;
-        if(convertView==null){
-            convertView = vi.inflate(Resource, null);
-            holder = new ViewHolder();
-
-            holder.ivImage =(ImageView)convertView.findViewById(R.id.ivImage);
-            holder.tvTitle = (TextView)convertView.findViewById(R.id.tvTitle);
-            holder.tvSubtitle = (TextView)convertView.findViewById(R.id.tvSubtitle);
-            holder.tvPrice = (TextView)convertView.findViewById(R.id.tvPrice);
-            holder.tvDetails = (TextView)convertView.findViewById(R.id.tvDetails);
-
-            convertView.setTag(holder);
-        }else{
-            holder = (ViewHolder)convertView.getTag();
-        }
-
-        new LoadingImage(holder.ivImage).execute(ArrayListBeers.get(position).getImage());
-        holder.tvTitle.setText(ArrayListBeers.get(position).getTitle());
-        holder.tvSubtitle.setText(ArrayListBeers.get(position).getSubtitle());
-        holder.tvPrice.setText("Price: $"+ArrayListBeers.get(position).getPrice());
-        holder.tvDetails.setText("Details: "+ArrayListBeers.get(position).getDetails());
-        return convertView;
-    }
-
-    static class ViewHolder{
-        public ImageView ivImage;
-        public TextView tvTitle;
-        public TextView tvSubtitle;
-        public TextView tvPrice;
-        public TextView tvDetails;
-
-    }
-
-    public class LoadingImage extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public LoadingImage(ImageView bmImage){
-            this.bmImage = bmImage;
-        }
-
-        @Override
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap Icon =null;
-            try{
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                Icon = BitmapFactory.decodeStream(in);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return Icon;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            bmImage.setImageBitmap(bitmap);
-        }
-    }
-
-
-
-}
-*/
+//Loading image using from the url in the JSON file
 class LoadingImage extends AsyncTask<String, Void, Bitmap> {
     ImageView bmImage;
 
