@@ -11,18 +11,26 @@ import android.view.ViewGroup;
 import org.json.JSONArray;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 import grinnell.appdev.edu.lyles.*;
 import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
 
+import static grinnell.appdev.edu.lyles.Constants.BEER_ARRAY_KEY;
+import static grinnell.appdev.edu.lyles.Constants.BEER_URL;
+import static grinnell.appdev.edu.lyles.Constants.DRINKS_ARRAY_KEY;
+import static grinnell.appdev.edu.lyles.Constants.DRINKS_URL;
+import static grinnell.appdev.edu.lyles.Constants.EMPTY_STRING;
+import static grinnell.appdev.edu.lyles.Constants.HOT_FOOD_ARRAY_KEY;
+import static grinnell.appdev.edu.lyles.Constants.HOT_FOOD_URL;
+import static grinnell.appdev.edu.lyles.Constants.SNACKS_ARRAY_KEY;
+import static grinnell.appdev.edu.lyles.Constants.SNACKS_URL;
 import static grinnell.appdev.edu.lyles.MenuItem.fromJSON;
 import static grinnell.appdev.edu.lyles.R.layout.favorites_layout;
 
 /**
  * Created by Mattori on 5/9/16.
  */
-public class FavoritesFragment extends MenuFragment {
+public class FavoritesFragment extends Fragment{
 
     private ArrayList<String> mAllURLs;
     private ArrayList<String> mAllArrayTitles;
@@ -35,17 +43,13 @@ public class FavoritesFragment extends MenuFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(favorites_layout, container, false);
+        View view = inflater.inflate(R.layout.favorites_layout, container, false);
+        mAllMenuItems = new ArrayList<>();
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_items_favorites);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         setUpConstantArrays();
-        mAllMenuItems = getMenuItems(mAllURLs, mAllArrayTitles);
-
-        mFavoritesManager = new FavoritesManager(getContext(), mAllMenuItems);
-        mItemAdapter = new ItemAdapter(this.getContext(), mFavoritesManager.getAllFavorites(), true);
-
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_items_favorites);
-        mRecyclerView.setAdapter(mItemAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        getMenuItems(mAllURLs, mAllArrayTitles);
 
         return view;
     }
@@ -81,21 +85,20 @@ public class FavoritesFragment extends MenuFragment {
     /**
      * Adds all constants corresponding urls and array keys into arrays
      */
-
     private void setUpConstantArrays() {
         // URLs of JSON arrays to use
         mAllURLs = new ArrayList<String>();
-        mAllURLs.add(Constants.HOT_FOOD_URL);
-        mAllURLs.add(Constants.SNACKS_URL);
-        mAllURLs.add(Constants.DRINKS_URL);
-        mAllURLs.add(Constants.BEER_URL);
+        mAllURLs.add(HOT_FOOD_URL);
+        mAllURLs.add(SNACKS_URL);
+        mAllURLs.add(DRINKS_URL);
+        mAllURLs.add(BEER_URL);
 
         // Titles of JSON arrays in corresponding urls
         mAllArrayTitles = new ArrayList<String>();
-        mAllArrayTitles.add(Constants.HOT_FOOD_ARRAY_KEY);
-        mAllArrayTitles.add(Constants.SNACKS_ARRAY_KEY);
-        mAllArrayTitles.add(Constants.DRINKS_ARRAY_KEY);
-        mAllArrayTitles.add(Constants.BEER_ARRAY_KEY);
+        mAllArrayTitles.add(HOT_FOOD_ARRAY_KEY);
+        mAllArrayTitles.add(SNACKS_ARRAY_KEY);
+        mAllArrayTitles.add(DRINKS_ARRAY_KEY);
+        mAllArrayTitles.add(BEER_ARRAY_KEY);
     }
 
     /**
@@ -103,32 +106,32 @@ public class FavoritesFragment extends MenuFragment {
      *
      * @param urls an ArrayList of urls as Strings
      * @param keys an ArrayList of keys for parsing the Json Array as strings
-     * @return     an ArrayList of type MenuItem containing all items found from all urls
      */
-
-    private ArrayList<MenuItem> getMenuItems(ArrayList<String> urls, ArrayList<String> keys) {
-
-        ArrayList<MenuItem> returnList = new ArrayList<>();
-
+    private void getMenuItems(ArrayList<String> urls, ArrayList<String> keys) {
         for(int i = 0; i < urls.size(); i++) {
-            AsyncRetrieval asyncRetrieval = new AsyncRetrieval(urls.get(i), keys.get(i));
-
-            String jsonBody = "";
-            JSONArray jsonArray = new JSONArray();
-
-            try {
-                jsonArray = asyncRetrieval.execute().get();
+            if (i == urls.size() - 1) {
+                AsyncRetrieval asyncRetrieval = new AsyncRetrieval(urls.get(i), keys.get(i)) {
+                    @Override
+                    protected void onPostExecute(JSONArray jsonArray) {
+                        super.onPostExecute(jsonArray);
+                        mAllMenuItems.addAll(fromJSON(jsonArray));
+                        mFavoritesManager = new FavoritesManager(getContext(), mAllMenuItems);
+                        mItemAdapter = new ItemAdapter(getContext(), mFavoritesManager.getAllFavorites(), true);
+                        mRecyclerView.setAdapter(mItemAdapter);
+                    }
+                };
+                asyncRetrieval.execute();
             }
-            catch(InterruptedException e) {
-                e.printStackTrace();
+            else {
+                AsyncRetrieval asyncRetrieval = new AsyncRetrieval(urls.get(i), keys.get(i)) {
+                    @Override
+                    protected void onPostExecute(JSONArray jsonArray) {
+                        super.onPostExecute(jsonArray);
+                        mAllMenuItems.addAll(fromJSON(jsonArray));
+                    }
+                };
+                asyncRetrieval.execute();
             }
-            catch(ExecutionException e) {
-                e.printStackTrace();
-            }
-
-            returnList.addAll(fromJSON(jsonArray));
         }
-
-        return returnList;
     }
 }

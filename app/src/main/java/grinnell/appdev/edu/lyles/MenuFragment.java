@@ -14,6 +14,8 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 
+import static grinnell.appdev.edu.lyles.MenuItem.fromJSON;
+
 /**
  * A generalized fragment to be used to display a list of menu items to the user
  */
@@ -92,18 +94,15 @@ public class MenuFragment extends android.support.v4.app.Fragment {
      * @param url           url where the data is held
      * @param arrayKey      key of the json array containing the data
      */
-    private void retrieveMenuData(String url, String arrayKey) {
+    protected void retrieveMenuData(String url, String arrayKey) {
 
         final AsyncRetrieval asyncRetrieval = new AsyncRetrieval(url, arrayKey) {
             @Override
             protected void onPostExecute(JSONArray result) {
                 super.onPostExecute(result);
-                Log.d("Async", result.toString());
-                mMenuItemArrayList.addAll(MenuItem.fromJSON(result));
+                mMenuItemArrayList.addAll(fromJSON(result));
                 mItemAdapter = new ItemAdapter(getContext(), mMenuItemArrayList, false);
-                //mItemAdapter.notifyDataSetChanged();
                 mRecyclerView.setAdapter(mItemAdapter);
-//                mItemAdapter.notifyItemRangeInserted(0, mMenuItemArrayList.size());
             }
         };
         asyncRetrieval.execute();
