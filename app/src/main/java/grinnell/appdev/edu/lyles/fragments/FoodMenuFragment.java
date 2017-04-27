@@ -1,11 +1,8 @@
 package grinnell.appdev.edu.lyles;
 
-import android.annotation.SuppressLint;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +17,13 @@ import static grinnell.appdev.edu.lyles.MenuItem.fromJSON;
  * A generalized fragment to be used to display a list of menu items to the user
  */
 
-public class MenuFragment extends android.support.v4.app.Fragment {
+public class FoodMenuFragment extends android.support.v4.app.Fragment {
 
     private ArrayList<MenuItem> mMenuItemArrayList;
     private ItemAdapter mItemAdapter;
     private RecyclerView mRecyclerView;
 
-    public MenuFragment() {
+    public FoodMenuFragment() {
         // required empty public constructor
     }
 
@@ -37,18 +34,18 @@ public class MenuFragment extends android.support.v4.app.Fragment {
      * @param layoutXml         xml where the layout of the fragment is located
      * @param recyclerViewId    id of the recycler view where menuItems should be placed
      *
-     * @return                  newly created MenuFragment with parameters attached
+     * @return                  newly created FoodMenuFragment with parameters attached
      */
-    public static MenuFragment newInstance(String url, String arrayKey, int layoutXml, int recyclerViewId) {
+    public static FoodMenuFragment newInstance(String url, String arrayKey, int layoutXml, int recyclerViewId) {
         Bundle args = new Bundle();
         args.putString("url", url);
         args.putString("arrayKey", arrayKey);
         args.putInt("layoutXml", layoutXml);
         args.putInt("recyclerViewId", recyclerViewId);
 
-        MenuFragment menuFragment = new MenuFragment();
-        menuFragment.setArguments(args);
-        return menuFragment;
+        FoodMenuFragment foodMenuFragment = new FoodMenuFragment();
+        foodMenuFragment.setArguments(args);
+        return foodMenuFragment;
     }
 
     @Override
