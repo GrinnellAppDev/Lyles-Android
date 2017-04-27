@@ -4,7 +4,8 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
+import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,6 @@ import java.util.ArrayList;
 import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
 
 import static android.text.TextUtils.TruncateAt.END;
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 import static grinnell.appdev.edu.lyles.Constants.DOLLAR_SIGN;
 import static grinnell.appdev.edu.lyles.Constants.IMAGE_DIMENSION;
 import static grinnell.appdev.edu.lyles.Constants.MS_DURATION_ANIMATOR;
@@ -40,7 +39,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         public ImageView mImageView;
         public ImageButton mFavoriteButton;
         public TextView mDetailsTextView;
-        public TextView mSubheadingTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -49,7 +47,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             mImageView = (ImageView) itemView.findViewById(R.id.ivFood);
             mFavoriteButton = (ImageButton) itemView.findViewById(R.id.btnFavorite);
             mDetailsTextView = (TextView) itemView.findViewById(R.id.tvDetails);
-            mSubheadingTextView = (TextView) itemView.findViewById(R.id.tvSubheading);
 
             itemView.setOnClickListener(this);
         }
@@ -59,8 +56,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             if (mExpandedIndex != NONE_SELECTED && mExpandedIndex != this.getAdapterPosition()) {
                 this.getAdapter().expandContractItem((ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(mExpandedIndex));
             }
-            this.getAdapter().expandContractItem(this);
-            mExpandedIndex = (mExpandedIndex == this.getAdapterPosition())?  NONE_SELECTED: this.getAdapterPosition();
+            if (this.getAdapter().expandContractItem(this)) {
+                mExpandedIndex = (mExpandedIndex == this.getAdapterPosition()) ? NONE_SELECTED : this.getAdapterPosition();
+            }
+            else {
+                mExpandedIndex = NONE_SELECTED;
+            }
         }
 
         public ItemAdapter getAdapter() {
@@ -138,9 +139,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
         TextView detailsTextView = viewHolder.mDetailsTextView;
         detailsTextView.setText(menuItem.getDetails());
-
-        TextView subheadingTextView = viewHolder.mSubheadingTextView;
-        subheadingTextView.setText(menuItem.getDetails());
     }
 
     @Override
@@ -157,29 +155,22 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
      *
      * @param  viewHolder  the ViewHolder to be altered
      */
-    private void expandContractItem(ViewHolder viewHolder) {
-        if (viewHolder.mSubheadingTextView.getLayout().getLineCount() <= Constants.UNEXPANDED_MAX_LINES) {
-
+    private boolean expandContractItem(ViewHolder viewHolder) {
+        Layout detailsLayout = viewHolder.mDetailsTextView.getLayout();
+        if ((detailsLayout.getEllipsisCount(detailsLayout.getLineCount() - 1) == 0) && TextViewCompat.getMaxLines(viewHolder.mDetailsTextView) != Integer.MAX_VALUE) { // Text is not ellipsized
+            return false;
         }
-        else if (TextViewCompat.getMaxLines(viewHolder.mSubheadingTextView) == Constants.UNEXPANDED_MAX_LINES) {
-            viewHolder.mSubheadingTextView.setMaxLines(Integer.MAX_VALUE);
-            viewHolder.mSubheadingTextView.setEllipsize(null);
-        }
-        else {
-            viewHolder.mSubheadingTextView.setMaxLines(Constants.UNEXPANDED_MAX_LINES);
-            viewHolder.mSubheadingTextView.setEllipsize(END);
-        }
-        ObjectAnimator animator = ObjectAnimator.ofInt(viewHolder.mSubheadingTextView, "maxLines", TextViewCompat.getMaxLines(viewHolder.mSubheadingTextView));
-        animator.setDuration(MS_DURATION_ANIMATOR).start();
-
-        /*if (viewHolder.mDetailsTextView.getVisibility() == GONE) {
-            viewHolder.mDetailsTextView.setVisibility(VISIBLE);
+        else if (TextViewCompat.getMaxLines(viewHolder.mDetailsTextView) == Constants.UNEXPANDED_MAX_LINES) {
+            viewHolder.mDetailsTextView.setMaxLines(Integer.MAX_VALUE);
+            viewHolder.mDetailsTextView.setEllipsize(null);
         }
         else {
-            viewHolder.mDetailsTextView.setVisibility(GONE);
+            viewHolder.mDetailsTextView.setMaxLines(Constants.UNEXPANDED_MAX_LINES);
+            viewHolder.mDetailsTextView.setEllipsize(END);
         }
         ObjectAnimator animator = ObjectAnimator.ofInt(viewHolder.mDetailsTextView, "maxLines", TextViewCompat.getMaxLines(viewHolder.mDetailsTextView));
-        animator.setDuration(MS_DURATION_ANIMATOR).start();*/
+        animator.setDuration(MS_DURATION_ANIMATOR).start();
+        return true;
     }
 
     /**

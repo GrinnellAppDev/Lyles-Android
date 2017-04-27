@@ -40,7 +40,7 @@
             />
 
         <TextView
-            android:id="@+id/tvSubheading"
+            android:id="@+id/tvDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -72,18 +72,6 @@
             android:layout_below="@id/tvPrice"
             android:layout_marginTop="8dp"
             android:background="@null"
-            />
-
-        <TextView
-            android:id="@+id/tvDetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/ivFood"
-
-            android:text="@string/default_details"
-            android:visibility="gone"
             />
 
     </RelativeLayout>
