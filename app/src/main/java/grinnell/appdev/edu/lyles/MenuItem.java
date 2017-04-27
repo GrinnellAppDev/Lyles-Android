@@ -46,7 +46,7 @@ public class MenuItem {
     }
 
     public static ArrayList<MenuItem> fromJSON(JSONArray jsonArray) {
-        ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
+        ArrayList<MenuItem> menuItems = new ArrayList<>();
 
         for(int i = 0; i < jsonArray.length(); i++) {
             try {
@@ -56,7 +56,6 @@ public class MenuItem {
                 e.printStackTrace();
             }
         }
-
         return menuItems;
     }
 

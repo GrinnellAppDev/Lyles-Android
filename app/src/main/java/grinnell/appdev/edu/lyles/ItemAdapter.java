@@ -5,7 +5,6 @@ import android.content.Context;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,13 +33,13 @@ import static grinnell.appdev.edu.lyles.Constants.NONE_SELECTED;
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public TextView mTitleTextView;
-        public TextView mPriceTextView;
-        public ImageView mImageView;
-        public ImageButton mFavoriteButton;
-        public TextView mDetailsTextView;
+        TextView mTitleTextView;
+        TextView mPriceTextView;
+        ImageView mImageView;
+        ImageButton mFavoriteButton;
+        TextView mDetailsTextView;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             mTitleTextView = (TextView) itemView.findViewById(R.id.tvTitle);
             mPriceTextView = (TextView) itemView.findViewById(R.id.tvPrice);
@@ -64,7 +63,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             }
         }
 
-        public ItemAdapter getAdapter() {
+        ItemAdapter getAdapter() {
             return ItemAdapter.this;
         }
     }
@@ -87,20 +86,16 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     @Override
     public ItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         mRecyclerView = (RecyclerView) parent;
 
         View menuItemView = inflater.inflate(R.layout.item_user_card, parent, false);
-
-        ViewHolder viewHolder = new ViewHolder(menuItemView);
-        return viewHolder;
+        return new ViewHolder(menuItemView);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int position) {
-
         MenuItem menuItem = mMenuItems.get(viewHolder.getAdapterPosition());
 
         TextView titleTextView = viewHolder.mTitleTextView;
@@ -151,13 +146,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     }
 
     /**
-     * Changes a view to or from its expanded mode
+     * Changes a view to or from its expanded mode to its contracted mode
      *
      * @param  viewHolder  the ViewHolder to be altered
      */
     private boolean expandContractItem(ViewHolder viewHolder) {
         Layout detailsLayout = viewHolder.mDetailsTextView.getLayout();
-        if ((detailsLayout.getEllipsisCount(detailsLayout.getLineCount() - 1) == 0) && TextViewCompat.getMaxLines(viewHolder.mDetailsTextView) != Integer.MAX_VALUE) { // Text is not ellipsized
+        if ((detailsLayout.getEllipsisCount(detailsLayout.getLineCount() - 1) == 0)
+                && TextViewCompat.getMaxLines(viewHolder.mDetailsTextView) != Integer.MAX_VALUE) { // Text is too short to be ellipsized
             return false;
         }
         else if (TextViewCompat.getMaxLines(viewHolder.mDetailsTextView) == Constants.UNEXPANDED_MAX_LINES) {
