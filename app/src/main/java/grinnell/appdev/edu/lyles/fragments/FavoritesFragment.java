@@ -19,14 +19,11 @@ import static grinnell.appdev.edu.lyles.Constants.BEER_ARRAY_KEY;
 import static grinnell.appdev.edu.lyles.Constants.BEER_URL;
 import static grinnell.appdev.edu.lyles.Constants.DRINKS_ARRAY_KEY;
 import static grinnell.appdev.edu.lyles.Constants.DRINKS_URL;
-import static grinnell.appdev.edu.lyles.Constants.EMPTY_STRING;
 import static grinnell.appdev.edu.lyles.Constants.HOT_FOOD_ARRAY_KEY;
 import static grinnell.appdev.edu.lyles.Constants.HOT_FOOD_URL;
 import static grinnell.appdev.edu.lyles.Constants.SNACKS_ARRAY_KEY;
 import static grinnell.appdev.edu.lyles.Constants.SNACKS_URL;
 import static grinnell.appdev.edu.lyles.MenuItem.fromJSON;
-import static grinnell.appdev.edu.lyles.R.layout.favorites_layout;
-
 /**
  * Created by Mattori on 5/9/16.
  */

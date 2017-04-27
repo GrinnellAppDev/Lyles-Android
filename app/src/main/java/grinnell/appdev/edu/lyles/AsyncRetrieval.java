@@ -1,7 +1,6 @@
 package grinnell.appdev.edu.lyles;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,7 +39,6 @@ public class AsyncRetrieval extends AsyncTask<Void, Void, JSONArray> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return getJsonArray(mJsonBody, mArrayKey);
     }
     
@@ -52,9 +50,7 @@ public class AsyncRetrieval extends AsyncTask<Void, Void, JSONArray> {
      * @return           The parsed jsonArray
      */
     public JSONArray getJsonArray(String jsonBody, String arrayTitle) {
-
         JSONArray jsonArray = new JSONArray();
-
         try {
             JSONObject jsonObject = new JSONObject(jsonBody);
             jsonArray = jsonObject.getJSONArray(arrayTitle);
@@ -64,6 +60,4 @@ public class AsyncRetrieval extends AsyncTask<Void, Void, JSONArray> {
         }
         return jsonArray;
     }
-
-
 }
