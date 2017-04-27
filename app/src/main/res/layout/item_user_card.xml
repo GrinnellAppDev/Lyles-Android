@@ -46,6 +46,8 @@
 
             android:layout_toRightOf="@id/ivFood"
             android:layout_below="@id/tvTitle"
+            android:ellipsize="end"
+            android:maxLines="2"
 
             android:text="@string/default_subheading"
             />

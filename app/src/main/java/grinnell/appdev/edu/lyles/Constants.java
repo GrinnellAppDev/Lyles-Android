@@ -29,6 +29,7 @@ public class Constants {
     public static final String DOLLAR_SIGN = "$";
     public static final int IMAGE_DIMENSION = 175;
     public static final int NONE_SELECTED = -1;
+    public static final int UNEXPANDED_MAX_LINES = 2;
 
     // Animation constants
     public static final int MS_DURATION_ANIMATOR = 500;
