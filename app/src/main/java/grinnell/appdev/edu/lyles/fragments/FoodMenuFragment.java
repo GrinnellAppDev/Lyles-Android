@@ -1,4 +1,4 @@
-package grinnell.appdev.edu.lyles;
+package grinnell.appdev.edu.lyles.fragments;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +10,10 @@ import android.view.ViewGroup;
 import org.json.JSONArray;
 
 import java.util.ArrayList;
+
+import grinnell.appdev.edu.lyles.AsyncRetrieval;
+import grinnell.appdev.edu.lyles.ItemAdapter;
+import grinnell.appdev.edu.lyles.MenuItem;
 
 import static grinnell.appdev.edu.lyles.MenuItem.fromJSON;
 
@@ -27,38 +31,16 @@ public class FoodMenuFragment extends android.support.v4.app.Fragment {
         // required empty public constructor
     }
 
-    /**
-     * Creates a new instance of the fragment (with parameters)
-     * @param url               url of the jsonArray to retrieve data from
-     * @param arrayKey          key of the array within the json file
-     * @param layoutXml         xml where the layout of the fragment is located
-     * @param recyclerViewId    id of the recycler view where menuItems should be placed
-     *
-     * @return                  newly created FoodMenuFragment with parameters attached
-     */
-    public static FoodMenuFragment newInstance(String url, String arrayKey, int layoutXml, int recyclerViewId) {
-        Bundle args = new Bundle();
-        args.putString("url", url);
-        args.putString("arrayKey", arrayKey);
-        args.putInt("layoutXml", layoutXml);
-        args.putInt("recyclerViewId", recyclerViewId);
-
-        FoodMenuFragment foodMenuFragment = new FoodMenuFragment();
-        foodMenuFragment.setArguments(args);
-        return foodMenuFragment;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         String url = (String) this.getArguments().get("url");
         String arrayKey = (String) this.getArguments().get("arrayKey");
         int layoutXml = (int) this.getArguments().get("layoutXml");
         int recyclerViewId = (int) this.getArguments().get("recyclerViewId");
 
         View view = inflater.inflate(layoutXml, container, false);
-        mMenuItemArrayList = new ArrayList<MenuItem>();
+        mMenuItemArrayList = new ArrayList<>();
         mRecyclerView = (RecyclerView) view.findViewById(recyclerViewId);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
@@ -85,6 +67,27 @@ public class FoodMenuFragment extends android.support.v4.app.Fragment {
     }
 
     /**
+     * Creates a new instance of the fragment (with parameters)
+     * @param url               url of the jsonArray to retrieve data from
+     * @param arrayKey          key of the array within the json file
+     * @param layoutXml         xml where the layout of the fragment is located
+     * @param recyclerViewId    id of the recycler view where menuItems should be placed
+     *
+     * @return                  newly created FoodMenuFragment with parameters attached
+     */
+    public static FoodMenuFragment newInstance(String url, String arrayKey, int layoutXml, int recyclerViewId) {
+        Bundle args = new Bundle();
+        args.putString("url", url);
+        args.putString("arrayKey", arrayKey);
+        args.putInt("layoutXml", layoutXml);
+        args.putInt("recyclerViewId", recyclerViewId);
+
+        FoodMenuFragment foodMenuFragment = new FoodMenuFragment();
+        foodMenuFragment.setArguments(args);
+        return foodMenuFragment;
+    }
+
+    /**
      * Asynchronously retrieve json array from url titled arrayKey, pass data to MenuItem.fromJSON to fill
      * mMenuItemArrayList with corresponding menuItems
      *
@@ -92,7 +95,6 @@ public class FoodMenuFragment extends android.support.v4.app.Fragment {
      * @param arrayKey      key of the json array containing the data
      */
     protected void retrieveMenuData(String url, String arrayKey) {
-
         final AsyncRetrieval asyncRetrieval = new AsyncRetrieval(url, arrayKey) {
             @Override
             protected void onPostExecute(JSONArray result) {

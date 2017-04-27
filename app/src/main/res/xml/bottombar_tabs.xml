@@ -14,6 +14,5 @@
     <tab
         id="@+id/tab_favorites"
         icon="@drawable/ic_black_star"
-        title="Favorites"
-        />
+        title="Favorites" />
 </tabs>

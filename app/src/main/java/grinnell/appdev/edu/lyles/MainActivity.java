@@ -12,7 +12,7 @@ import com.roughike.bottombar.OnTabSelectListener;
 
 import grinnell.appdev.edu.lyles.fragments.BeerFragment;
 import grinnell.appdev.edu.lyles.fragments.FavoritesFragment;
-import grinnell.appdev.edu.lyles.fragments.MenuFragment;
+import grinnell.appdev.edu.lyles.fragments.MenuTabFragment;
 import grinnell.appdev.edu.lyles.fragments.ScheduleFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment;
                 switch(tabId) {
                     case R.id.tab_schedule: fragment = new ScheduleFragment(); break;
-                    case R.id.tab_menu: fragment = new MenuFragment(); break;
+                    case R.id.tab_menu: fragment = new MenuTabFragment(); break;
                     case R.id.tab_beer: fragment = new BeerFragment(); break;
                     case R.id.tab_favorites: fragment = new FavoritesFragment(); break;
                     default: fragment = new ScheduleFragment(); // something went wrong

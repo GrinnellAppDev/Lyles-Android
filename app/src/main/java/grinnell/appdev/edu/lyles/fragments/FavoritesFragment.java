@@ -34,11 +34,10 @@ public class FavoritesFragment extends Fragment{
 
     private ArrayList<String> mAllURLs;
     private ArrayList<String> mAllArrayTitles;
-
     private ArrayList<MenuItem> mAllMenuItems; // Contains all menu items in all categories
+
     private ItemAdapter mItemAdapter;
     private RecyclerView mRecyclerView;
-
     private FavoritesManager mFavoritesManager;
 
     @Override
@@ -58,11 +57,10 @@ public class FavoritesFragment extends Fragment{
     public void onDestroyView() {
         mAllURLs = null;
         mAllArrayTitles = null;
-
         mAllMenuItems = null;
+
         mItemAdapter = null;
         mRecyclerView = null;
-
         mFavoritesManager = null;
 
         super.onDestroyView();
@@ -72,11 +70,10 @@ public class FavoritesFragment extends Fragment{
     public void onDestroy() {
         mAllURLs = null;
         mAllArrayTitles = null;
-
         mAllMenuItems = null;
+
         mItemAdapter = null;
         mRecyclerView = null;
-
         mFavoritesManager = null;
 
         super.onDestroy();
@@ -87,14 +84,14 @@ public class FavoritesFragment extends Fragment{
      */
     private void setUpConstantArrays() {
         // URLs of JSON arrays to use
-        mAllURLs = new ArrayList<String>();
+        mAllURLs = new ArrayList<>();
         mAllURLs.add(HOT_FOOD_URL);
         mAllURLs.add(SNACKS_URL);
         mAllURLs.add(DRINKS_URL);
         mAllURLs.add(BEER_URL);
 
         // Titles of JSON arrays in corresponding urls
-        mAllArrayTitles = new ArrayList<String>();
+        mAllArrayTitles = new ArrayList<>();
         mAllArrayTitles.add(HOT_FOOD_ARRAY_KEY);
         mAllArrayTitles.add(SNACKS_ARRAY_KEY);
         mAllArrayTitles.add(DRINKS_ARRAY_KEY);

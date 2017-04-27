@@ -25,7 +25,7 @@ import grinnell.appdev.edu.lyles.slidingtab.SlidingTabLayout;
  *  Mattori Birnbaum
  *  Matt Murphy
  */
-public class MenuFragment extends Fragment {
+public class MenuTabFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

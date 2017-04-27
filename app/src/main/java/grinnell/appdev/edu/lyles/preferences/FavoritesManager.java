@@ -29,7 +29,6 @@ public class FavoritesManager {
      * @param menuItems the list of all items the FavoritesManager will keep track of
      */
     public FavoritesManager(Context context, ArrayList<MenuItem> menuItems) {
-
         mAllItemsArrayList = menuItems;
         mPreferencesFile = context.getSharedPreferences(PREFS_KEY, MODE_PRIVATE);
         mPreferencesEditor = mPreferencesFile.edit();
@@ -100,5 +99,4 @@ public class FavoritesManager {
     public String getFile() {
         return mPreferencesFile.getAll().toString();
     }
-
 }
