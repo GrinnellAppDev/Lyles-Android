@@ -13,7 +13,10 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 
 import grinnell.appdev.edu.lyles.*;
+import grinnell.appdev.edu.lyles.adapter.ItemAdapter;
+import grinnell.appdev.edu.lyles.models.LylesMenuItem;
 import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
+import grinnell.appdev.edu.lyles.utils.AsyncRetrieval;
 
 import static grinnell.appdev.edu.lyles.Constants.BEER_ARRAY_KEY;
 import static grinnell.appdev.edu.lyles.Constants.BEER_URL;
@@ -23,7 +26,7 @@ import static grinnell.appdev.edu.lyles.Constants.HOT_FOOD_ARRAY_KEY;
 import static grinnell.appdev.edu.lyles.Constants.HOT_FOOD_URL;
 import static grinnell.appdev.edu.lyles.Constants.SNACKS_ARRAY_KEY;
 import static grinnell.appdev.edu.lyles.Constants.SNACKS_URL;
-import static grinnell.appdev.edu.lyles.MenuItem.fromJSON;
+import static grinnell.appdev.edu.lyles.models.LylesMenuItem.fromJSON;
 /**
  * Created by Mattori on 5/9/16.
  */
@@ -31,7 +34,7 @@ public class FavoritesFragment extends Fragment{
 
     private ArrayList<String> mAllURLs;
     private ArrayList<String> mAllArrayTitles;
-    private ArrayList<MenuItem> mAllMenuItems; // Contains all menu items in all categories
+    private ArrayList<LylesMenuItem> mAllLylesMenuItems; // Contains all menu items in all categories
 
     private ItemAdapter mItemAdapter;
     private RecyclerView mRecyclerView;
@@ -40,7 +43,7 @@ public class FavoritesFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.favorites_layout, container, false);
-        mAllMenuItems = new ArrayList<>();
+        mAllLylesMenuItems = new ArrayList<>();
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_items_favorites);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
@@ -54,7 +57,7 @@ public class FavoritesFragment extends Fragment{
     public void onDestroyView() {
         mAllURLs = null;
         mAllArrayTitles = null;
-        mAllMenuItems = null;
+        mAllLylesMenuItems = null;
 
         mItemAdapter = null;
         mRecyclerView = null;
@@ -67,7 +70,7 @@ public class FavoritesFragment extends Fragment{
     public void onDestroy() {
         mAllURLs = null;
         mAllArrayTitles = null;
-        mAllMenuItems = null;
+        mAllLylesMenuItems = null;
 
         mItemAdapter = null;
         mRecyclerView = null;
@@ -108,8 +111,8 @@ public class FavoritesFragment extends Fragment{
                     @Override
                     protected void onPostExecute(JSONArray jsonArray) {
                         super.onPostExecute(jsonArray);
-                        mAllMenuItems.addAll(fromJSON(jsonArray));
-                        mFavoritesManager = new FavoritesManager(getContext(), mAllMenuItems);
+                        mAllLylesMenuItems.addAll(fromJSON(jsonArray));
+                        mFavoritesManager = new FavoritesManager(getContext(), mAllLylesMenuItems);
                         mItemAdapter = new ItemAdapter(getContext(), mFavoritesManager.getAllFavorites(), true);
                         mRecyclerView.setAdapter(mItemAdapter);
                     }
@@ -121,7 +124,7 @@ public class FavoritesFragment extends Fragment{
                     @Override
                     protected void onPostExecute(JSONArray jsonArray) {
                         super.onPostExecute(jsonArray);
-                        mAllMenuItems.addAll(fromJSON(jsonArray));
+                        mAllLylesMenuItems.addAll(fromJSON(jsonArray));
                     }
                 };
                 asyncRetrieval.execute();

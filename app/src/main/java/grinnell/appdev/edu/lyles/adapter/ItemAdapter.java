@@ -1,4 +1,4 @@
-package grinnell.appdev.edu.lyles;
+package grinnell.appdev.edu.lyles.adapter;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -16,6 +16,9 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
+import grinnell.appdev.edu.lyles.Constants;
+import grinnell.appdev.edu.lyles.models.LylesMenuItem;
+import grinnell.appdev.edu.lyles.R;
 import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
 
 import static android.text.TextUtils.TruncateAt.END;
@@ -69,7 +72,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     }
 
     private Context mContext;
-    private ArrayList<MenuItem> mMenuItems;
+    private ArrayList<LylesMenuItem> mLylesMenuItems;
 
     private FavoritesManager mFavoritesManager;
     private boolean mIsFavoritesTabClicked;
@@ -77,10 +80,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     private int mExpandedIndex = NONE_SELECTED;
     private RecyclerView mRecyclerView;
 
-    public ItemAdapter(Context context, ArrayList<MenuItem> menuItems, boolean favTab) {
+    public ItemAdapter(Context context, ArrayList<LylesMenuItem> lylesMenuItems, boolean favTab) {
         mContext = context;
-        mMenuItems = menuItems;
-        mFavoritesManager = new FavoritesManager(context, menuItems);
+        mLylesMenuItems = lylesMenuItems;
+        mFavoritesManager = new FavoritesManager(context, lylesMenuItems);
         mIsFavoritesTabClicked = favTab;
     }
 
@@ -96,16 +99,16 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int position) {
-        MenuItem menuItem = mMenuItems.get(viewHolder.getAdapterPosition());
+        LylesMenuItem lylesMenuItem = mLylesMenuItems.get(viewHolder.getAdapterPosition());
 
         TextView titleTextView = viewHolder.mTitleTextView;
-        titleTextView.setText(menuItem.getTitle());
+        titleTextView.setText(lylesMenuItem.getTitle());
 
         TextView priceTextView = viewHolder.mPriceTextView;
-        priceTextView.setText(DOLLAR_SIGN + menuItem.getPrice());
+        priceTextView.setText(DOLLAR_SIGN + lylesMenuItem.getPrice());
 
         ImageView imageView = viewHolder.mImageView;
-        Glide.with(this.getContext()).load(menuItem.getImageUrl())
+        Glide.with(this.getContext()).load(lylesMenuItem.getImageUrl())
                 .override(IMAGE_DIMENSION, IMAGE_DIMENSION).into(imageView);
 
         ImageButton favoriteButton = viewHolder.mFavoriteButton;
@@ -114,7 +117,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 int itemPosition = viewHolder.getAdapterPosition();
-                MenuItem clickedItem = mMenuItems.get(itemPosition);
+                LylesMenuItem clickedItem = mLylesMenuItems.get(itemPosition);
                 mFavoritesManager.toggleFavorite(clickedItem.getTitle());
                 setFaveButtonDrawable(viewHolder);
                 if (mIsFavoritesTabClicked) {
@@ -126,19 +129,19 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                             mExpandedIndex = NONE_SELECTED;
                         }
                     }
-                    mMenuItems.remove(clickedItem);
+                    mLylesMenuItems.remove(clickedItem);
                     notifyItemRemoved(itemPosition);
                 }
             }
         });
 
         TextView detailsTextView = viewHolder.mDetailsTextView;
-        detailsTextView.setText(menuItem.getDetails());
+        detailsTextView.setText(lylesMenuItem.getDetails());
     }
 
     @Override
     public int getItemCount() {
-        return mMenuItems.size();
+        return mLylesMenuItems.size();
     }
 
     private Context getContext() {

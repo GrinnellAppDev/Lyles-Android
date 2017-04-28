@@ -11,11 +11,11 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 
-import grinnell.appdev.edu.lyles.AsyncRetrieval;
-import grinnell.appdev.edu.lyles.ItemAdapter;
-import grinnell.appdev.edu.lyles.MenuItem;
+import grinnell.appdev.edu.lyles.utils.AsyncRetrieval;
+import grinnell.appdev.edu.lyles.adapter.ItemAdapter;
+import grinnell.appdev.edu.lyles.models.LylesMenuItem;
 
-import static grinnell.appdev.edu.lyles.MenuItem.fromJSON;
+import static grinnell.appdev.edu.lyles.models.LylesMenuItem.fromJSON;
 
 /**
  * A generalized fragment to be used to display a list of menu items to the user
@@ -23,7 +23,7 @@ import static grinnell.appdev.edu.lyles.MenuItem.fromJSON;
 
 public class FoodMenuFragment extends android.support.v4.app.Fragment {
 
-    private ArrayList<MenuItem> mMenuItemArrayList;
+    private ArrayList<LylesMenuItem> mLylesMenuItemArrayList;
     private ItemAdapter mItemAdapter;
     private RecyclerView mRecyclerView;
 
@@ -40,7 +40,7 @@ public class FoodMenuFragment extends android.support.v4.app.Fragment {
         int recyclerViewId = (int) this.getArguments().get("recyclerViewId");
 
         View view = inflater.inflate(layoutXml, container, false);
-        mMenuItemArrayList = new ArrayList<>();
+        mLylesMenuItemArrayList = new ArrayList<>();
         mRecyclerView = (RecyclerView) view.findViewById(recyclerViewId);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
@@ -50,7 +50,7 @@ public class FoodMenuFragment extends android.support.v4.app.Fragment {
 
     @Override
     public void onDestroyView() {
-        mMenuItemArrayList = null;
+        mLylesMenuItemArrayList = null;
         mItemAdapter = null;
         mRecyclerView = null;
 
@@ -59,7 +59,7 @@ public class FoodMenuFragment extends android.support.v4.app.Fragment {
 
     @Override
     public void onDestroy() {
-        mMenuItemArrayList = null;
+        mLylesMenuItemArrayList = null;
         mItemAdapter = null;
         mRecyclerView = null;
 
@@ -88,8 +88,8 @@ public class FoodMenuFragment extends android.support.v4.app.Fragment {
     }
 
     /**
-     * Asynchronously retrieve json array from url titled arrayKey, pass data to MenuItem.fromJSON to fill
-     * mMenuItemArrayList with corresponding menuItems
+     * Asynchronously retrieve json array from url titled arrayKey, pass data to LylesMenuItem.fromJSON to fill
+     * mLylesMenuItemArrayList with corresponding menuItems
      *
      * @param url           url where the data is held
      * @param arrayKey      key of the json array containing the data
@@ -99,8 +99,8 @@ public class FoodMenuFragment extends android.support.v4.app.Fragment {
             @Override
             protected void onPostExecute(JSONArray result) {
                 super.onPostExecute(result);
-                mMenuItemArrayList.addAll(fromJSON(result));
-                mItemAdapter = new ItemAdapter(getContext(), mMenuItemArrayList, false);
+                mLylesMenuItemArrayList.addAll(fromJSON(result));
+                mItemAdapter = new ItemAdapter(getContext(), mLylesMenuItemArrayList, false);
                 mRecyclerView.setAdapter(mItemAdapter);
             }
         };

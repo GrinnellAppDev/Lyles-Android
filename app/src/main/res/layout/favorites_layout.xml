@@ -5,7 +5,7 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_items_favorites"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="@dimen/card_bottom_bar_margin"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>

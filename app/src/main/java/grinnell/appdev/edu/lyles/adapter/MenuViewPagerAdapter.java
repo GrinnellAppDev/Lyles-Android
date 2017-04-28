@@ -1,4 +1,4 @@
-package grinnell.appdev.edu.lyles;
+package grinnell.appdev.edu.lyles.adapter;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import grinnell.appdev.edu.lyles.R;
 import grinnell.appdev.edu.lyles.fragments.FoodMenuFragment;
 
 import static grinnell.appdev.edu.lyles.Constants.DRINKS_ARRAY_KEY;

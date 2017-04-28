@@ -1,4 +1,4 @@
-package grinnell.appdev.edu.lyles;
+package grinnell.appdev.edu.lyles.models;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,21 +19,21 @@ import static grinnell.appdev.edu.lyles.Constants.TITLE_KEY;
  * @author Shelby Frazier
  */
 
-public class MenuItem {
+public class LylesMenuItem {
 
     private String mTitle;
     private double mPrice;
     private String mImageUrl;
     private String mDetails;
 
-    public MenuItem() {
+    public LylesMenuItem() {
         mTitle = EMPTY_STRING;
         mPrice = DEFAULT_PRICE;
         mImageUrl = EMPTY_STRING;
         mDetails = EMPTY_STRING;
     }
 
-    public MenuItem(JSONObject jsonObject) {
+    public LylesMenuItem(JSONObject jsonObject) {
         try {
             this.mTitle = jsonObject.getString(TITLE_KEY);
             this.mPrice = jsonObject.getDouble(PRICE_KEY);
@@ -45,18 +45,18 @@ public class MenuItem {
         }
     }
 
-    public static ArrayList<MenuItem> fromJSON(JSONArray jsonArray) {
-        ArrayList<MenuItem> menuItems = new ArrayList<>();
+    public static ArrayList<LylesMenuItem> fromJSON(JSONArray jsonArray) {
+        ArrayList<LylesMenuItem> lylesMenuItems = new ArrayList<>();
 
         for(int i = 0; i < jsonArray.length(); i++) {
             try {
-                menuItems.add(new MenuItem(jsonArray.getJSONObject(i)));
+                lylesMenuItems.add(new LylesMenuItem(jsonArray.getJSONObject(i)));
             }
             catch(JSONException e) {
                 e.printStackTrace();
             }
         }
-        return menuItems;
+        return lylesMenuItems;
     }
 
     public String getTitle() {

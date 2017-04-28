@@ -1,4 +1,4 @@
-package grinnell.appdev.edu.lyles;
+package grinnell.appdev.edu.lyles.activities;
 
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
+import grinnell.appdev.edu.lyles.R;
 import grinnell.appdev.edu.lyles.fragments.BeerFragment;
 import grinnell.appdev.edu.lyles.fragments.FavoritesFragment;
 import grinnell.appdev.edu.lyles.fragments.MenuTabFragment;

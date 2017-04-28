@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 
 import java.util.ArrayList;
 
-import grinnell.appdev.edu.lyles.MenuItem;
+import grinnell.appdev.edu.lyles.models.LylesMenuItem;
 
 /**
  * A class which uses SharedPreferences to keep track of each user's favorite items in each category
@@ -20,16 +20,16 @@ public class FavoritesManager {
 
     private SharedPreferences mPreferencesFile;
     private SharedPreferences.Editor mPreferencesEditor;
-    private ArrayList<MenuItem> mAllItemsArrayList;
+    private ArrayList<LylesMenuItem> mAllItemsArrayList;
 
     /**
-     * Creates a new favorites manager based on an Arraylist of menuItems
+     * Creates a new favorites manager based on an Arraylist of lylesMenuItems
      *
      * @param context   the context of activity using the FavoritesManager
-     * @param menuItems the list of all items the FavoritesManager will keep track of
+     * @param lylesMenuItems the list of all items the FavoritesManager will keep track of
      */
-    public FavoritesManager(Context context, ArrayList<MenuItem> menuItems) {
-        mAllItemsArrayList = menuItems;
+    public FavoritesManager(Context context, ArrayList<LylesMenuItem> lylesMenuItems) {
+        mAllItemsArrayList = lylesMenuItems;
         mPreferencesFile = context.getSharedPreferences(PREFS_KEY, MODE_PRIVATE);
         mPreferencesEditor = mPreferencesFile.edit();
 
@@ -71,8 +71,8 @@ public class FavoritesManager {
      *
      * @return     an ArrayList containing all favorited items
      */
-    public ArrayList<MenuItem> getAllFavorites() {
-        ArrayList<MenuItem> returnList = new ArrayList<MenuItem>();
+    public ArrayList<LylesMenuItem> getAllFavorites() {
+        ArrayList<LylesMenuItem> returnList = new ArrayList<LylesMenuItem>();
         for(int i = 0; i < mAllItemsArrayList.size(); i++) {
             if(mPreferencesFile.getBoolean(mAllItemsArrayList.get(i).getTitle(), false)) {
                 returnList.add(mAllItemsArrayList.get(i));

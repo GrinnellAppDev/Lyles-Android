@@ -8,6 +8,8 @@ package grinnell.appdev.edu.lyles;
 
 public class Constants {
 
+    private Constants() {};
+
     // URL constants
     public static final String HOT_FOOD_URL = "http://www.cs.grinnell.edu/~birnbaum/appdev/lyles/hotfood.json";
     public static final String SNACKS_URL = "http://www.cs.grinnell.edu/~birnbaum/appdev/lyles/snacks.json";
