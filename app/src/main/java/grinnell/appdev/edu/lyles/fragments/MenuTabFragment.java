@@ -9,7 +9,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import grinnell.appdev.edu.lyles.adapter.MenuViewPagerAdapter;
+import grinnell.appdev.edu.lyles.adapters.MenuViewPagerAdapter;
 import grinnell.appdev.edu.lyles.R;
 import grinnell.appdev.edu.lyles.slidingtab.MenuTabColorizer;
 import grinnell.appdev.edu.lyles.slidingtab.SlidingTabLayout;

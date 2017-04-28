@@ -1,4 +1,4 @@
-package grinnell.appdev.edu.lyles.adapter;
+package grinnell.appdev.edu.lyles.adapters;
 
 import android.content.Context;
 import android.content.res.Resources;

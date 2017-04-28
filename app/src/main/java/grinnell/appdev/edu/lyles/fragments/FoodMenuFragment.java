@@ -12,7 +12,7 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 
 import grinnell.appdev.edu.lyles.utils.AsyncRetrieval;
-import grinnell.appdev.edu.lyles.adapter.ItemAdapter;
+import grinnell.appdev.edu.lyles.adapters.FoodMenuItemAdapter;
 import grinnell.appdev.edu.lyles.models.LylesMenuItem;
 
 import static grinnell.appdev.edu.lyles.models.LylesMenuItem.fromJSON;
@@ -24,7 +24,7 @@ import static grinnell.appdev.edu.lyles.models.LylesMenuItem.fromJSON;
 public class FoodMenuFragment extends android.support.v4.app.Fragment {
 
     private ArrayList<LylesMenuItem> mLylesMenuItemArrayList;
-    private ItemAdapter mItemAdapter;
+    private FoodMenuItemAdapter mFoodMenuItemAdapter;
     private RecyclerView mRecyclerView;
 
     public FoodMenuFragment() {
@@ -51,7 +51,7 @@ public class FoodMenuFragment extends android.support.v4.app.Fragment {
     @Override
     public void onDestroyView() {
         mLylesMenuItemArrayList = null;
-        mItemAdapter = null;
+        mFoodMenuItemAdapter = null;
         mRecyclerView = null;
 
         super.onDestroyView();
@@ -60,7 +60,7 @@ public class FoodMenuFragment extends android.support.v4.app.Fragment {
     @Override
     public void onDestroy() {
         mLylesMenuItemArrayList = null;
-        mItemAdapter = null;
+        mFoodMenuItemAdapter = null;
         mRecyclerView = null;
 
         super.onDestroy();
@@ -100,8 +100,8 @@ public class FoodMenuFragment extends android.support.v4.app.Fragment {
             protected void onPostExecute(JSONArray result) {
                 super.onPostExecute(result);
                 mLylesMenuItemArrayList.addAll(fromJSON(result));
-                mItemAdapter = new ItemAdapter(getContext(), mLylesMenuItemArrayList, false);
-                mRecyclerView.setAdapter(mItemAdapter);
+                mFoodMenuItemAdapter = new FoodMenuItemAdapter(getContext(), mLylesMenuItemArrayList, false);
+                mRecyclerView.setAdapter(mFoodMenuItemAdapter);
             }
         };
         asyncRetrieval.execute();

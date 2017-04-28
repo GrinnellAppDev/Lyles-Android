@@ -1,4 +1,4 @@
-package grinnell.appdev.edu.lyles.adapter;
+package grinnell.appdev.edu.lyles.adapters;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -33,7 +33,7 @@ import static grinnell.appdev.edu.lyles.Constants.NONE_SELECTED;
  * @author Shelby Frazier
  */
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
+public class FoodMenuItemAdapter extends RecyclerView.Adapter<FoodMenuItemAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView mTitleTextView;
@@ -56,9 +56,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         @Override
         public void onClick(View view) {
             if (mExpandedIndex != NONE_SELECTED && mExpandedIndex != this.getAdapterPosition()) {
-                this.getAdapter().expandContractItem((ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(mExpandedIndex));
+                this.getAdapter().toggleExpanded((ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(mExpandedIndex));
             }
-            if (this.getAdapter().expandContractItem(this)) {
+            if (this.getAdapter().toggleExpanded(this)) {
                 mExpandedIndex = (mExpandedIndex == this.getAdapterPosition()) ? NONE_SELECTED : this.getAdapterPosition();
             }
             else {
@@ -66,8 +66,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             }
         }
 
-        ItemAdapter getAdapter() {
-            return ItemAdapter.this;
+        FoodMenuItemAdapter getAdapter() {
+            return FoodMenuItemAdapter.this;
         }
     }
 
@@ -80,7 +80,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     private int mExpandedIndex = NONE_SELECTED;
     private RecyclerView mRecyclerView;
 
-    public ItemAdapter(Context context, ArrayList<LylesMenuItem> lylesMenuItems, boolean favTab) {
+    public FoodMenuItemAdapter(Context context, ArrayList<LylesMenuItem> lylesMenuItems, boolean favTab) {
         mContext = context;
         mLylesMenuItems = lylesMenuItems;
         mFavoritesManager = new FavoritesManager(context, lylesMenuItems);
@@ -88,12 +88,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     }
 
     @Override
-    public ItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FoodMenuItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         mRecyclerView = (RecyclerView) parent;
 
-        View menuItemView = inflater.inflate(R.layout.item_user_card, parent, false);
+        View menuItemView = inflater.inflate(R.layout.menu_card, parent, false);
         return new ViewHolder(menuItemView);
     }
 
@@ -149,11 +149,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     }
 
     /**
-     * Changes a view to or from its expanded mode to its contracted mode
+     * Toggles whether an item is expanded (whether all of the details text is visible for longer details strings)
      *
      * @param  viewHolder  the ViewHolder to be altered
      */
-    private boolean expandContractItem(ViewHolder viewHolder) {
+    private boolean toggleExpanded(ViewHolder viewHolder) {
         Layout detailsLayout = viewHolder.mDetailsTextView.getLayout();
         if ((detailsLayout.getEllipsisCount(detailsLayout.getLineCount() - 1) == 0)
                 && TextViewCompat.getMaxLines(viewHolder.mDetailsTextView) != Integer.MAX_VALUE) { // Text is too short to be ellipsized

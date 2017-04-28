@@ -13,7 +13,7 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 
 import grinnell.appdev.edu.lyles.*;
-import grinnell.appdev.edu.lyles.adapter.ItemAdapter;
+import grinnell.appdev.edu.lyles.adapters.FoodMenuItemAdapter;
 import grinnell.appdev.edu.lyles.models.LylesMenuItem;
 import grinnell.appdev.edu.lyles.preferences.FavoritesManager;
 import grinnell.appdev.edu.lyles.utils.AsyncRetrieval;
@@ -36,7 +36,7 @@ public class FavoritesFragment extends Fragment{
     private ArrayList<String> mAllArrayTitles;
     private ArrayList<LylesMenuItem> mAllLylesMenuItems; // Contains all menu items in all categories
 
-    private ItemAdapter mItemAdapter;
+    private FoodMenuItemAdapter mFoodMenuItemAdapter;
     private RecyclerView mRecyclerView;
     private FavoritesManager mFavoritesManager;
 
@@ -59,7 +59,7 @@ public class FavoritesFragment extends Fragment{
         mAllArrayTitles = null;
         mAllLylesMenuItems = null;
 
-        mItemAdapter = null;
+        mFoodMenuItemAdapter = null;
         mRecyclerView = null;
         mFavoritesManager = null;
 
@@ -72,7 +72,7 @@ public class FavoritesFragment extends Fragment{
         mAllArrayTitles = null;
         mAllLylesMenuItems = null;
 
-        mItemAdapter = null;
+        mFoodMenuItemAdapter = null;
         mRecyclerView = null;
         mFavoritesManager = null;
 
@@ -113,8 +113,8 @@ public class FavoritesFragment extends Fragment{
                         super.onPostExecute(jsonArray);
                         mAllLylesMenuItems.addAll(fromJSON(jsonArray));
                         mFavoritesManager = new FavoritesManager(getContext(), mAllLylesMenuItems);
-                        mItemAdapter = new ItemAdapter(getContext(), mFavoritesManager.getAllFavorites(), true);
-                        mRecyclerView.setAdapter(mItemAdapter);
+                        mFoodMenuItemAdapter = new FoodMenuItemAdapter(getContext(), mFavoritesManager.getAllFavorites(), true);
+                        mRecyclerView.setAdapter(mFoodMenuItemAdapter);
                     }
                 };
                 asyncRetrieval.execute();
