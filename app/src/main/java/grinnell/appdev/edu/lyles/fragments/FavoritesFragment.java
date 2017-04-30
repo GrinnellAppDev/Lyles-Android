@@ -79,6 +79,12 @@ public class FavoritesFragment extends Fragment{
         super.onDestroy();
     }
 
+    @Override
+    public void onPause() {
+        mFoodMenuItemAdapter.collapseAll();
+        super.onPause();
+    }
+
     /**
      * Adds all constants corresponding urls and array keys into arrays
      */

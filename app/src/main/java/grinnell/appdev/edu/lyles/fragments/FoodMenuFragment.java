@@ -66,6 +66,12 @@ public class FoodMenuFragment extends android.support.v4.app.Fragment {
         super.onDestroy();
     }
 
+    @Override
+    public void onPause() {
+        mFoodMenuItemAdapter.collapseAll();
+        super.onPause();
+    }
+
     /**
      * Creates a new instance of the fragment (with parameters)
      * @param url               url of the jsonArray to retrieve data from

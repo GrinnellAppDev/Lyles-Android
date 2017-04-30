@@ -144,6 +144,16 @@ public class FoodMenuItemAdapter extends RecyclerView.Adapter<FoodMenuItemAdapte
         return mLylesMenuItems.size();
     }
 
+    /**
+     * Collases any expanded item in the adapter
+     */
+    public void collapseAll() {
+        if (mExpandedIndex != NONE_SELECTED) {
+            toggleExpanded((ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(mExpandedIndex));
+            mExpandedIndex = -1;
+        }
+    }
+
     private Context getContext() {
         return mContext;
     }
