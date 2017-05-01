@@ -32,9 +32,9 @@ public class MainActivity extends AppCompatActivity {
                 int tabId = item.getItemId();
                 Fragment fragment;
                 switch(tabId) {
-                    case R.id.tab_schedule: fragment = new ScheduleFragment(); break;
-                    case R.id.tab_menu: fragment = new MenuFragment(); break;
-                    case R.id.tab_beer: fragment = new BeerFragment(); break;
+                    case R.id.schedule: fragment = new ScheduleFragment(); break;
+                    case R.id.menu: fragment = new MenuFragment(); break;
+                    case R.id.beer: fragment = new BeerFragment(); break;
                     default: fragment = new ScheduleFragment(); // something went wrong
                 }
                 changeFragment(fragment);
