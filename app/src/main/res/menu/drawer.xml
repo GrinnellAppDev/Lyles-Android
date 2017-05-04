@@ -16,10 +16,5 @@
             android:checked="false"
             android:icon="@drawable/ic_beer"
             android:title="@string/drawer_beer"/>
-        <item
-            android:id="@+id/favorites"
-            android:checked="false"
-            android:icon="@drawable/ic_star"
-            android:title="@string/drawer_favorites"/>
     </group>
 </menu>

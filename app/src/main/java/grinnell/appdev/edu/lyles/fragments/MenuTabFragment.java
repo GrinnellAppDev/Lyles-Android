@@ -1,21 +1,15 @@
 package grinnell.appdev.edu.lyles.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabItem;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.Choreographer;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import grinnell.appdev.edu.lyles.MenuViewPagerAdapter;
+import grinnell.appdev.edu.lyles.adapters.MenuViewPagerAdapter;
 import grinnell.appdev.edu.lyles.R;
 import grinnell.appdev.edu.lyles.slidingtab.MenuTabColorizer;
 import grinnell.appdev.edu.lyles.slidingtab.SlidingTabLayout;
@@ -25,7 +19,7 @@ import grinnell.appdev.edu.lyles.slidingtab.SlidingTabLayout;
  *  Mattori Birnbaum
  *  Matt Murphy
  */
-public class MenuFragment extends Fragment {
+public class MenuTabFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

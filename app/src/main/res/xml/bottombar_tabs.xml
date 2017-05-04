@@ -11,4 +11,8 @@
         id="@+id/tab_beer"
         icon="@drawable/ic_beer"
         title="Beer" />
+    <tab
+        id="@+id/tab_favorites"
+        icon="@drawable/ic_black_star"
+        title="Favorites" />
 </tabs>
