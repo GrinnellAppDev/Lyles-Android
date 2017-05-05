@@ -1,15 +1,13 @@
 package grinnell.appdev.edu.lyles;
 
 import android.os.Bundle;
-import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
-import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.OnTabSelectListener;
-
+import android.view.MenuItem;
 import grinnell.appdev.edu.lyles.fragments.BeerFragment;
 import grinnell.appdev.edu.lyles.fragments.MenuFragment;
 import grinnell.appdev.edu.lyles.fragments.ScheduleFragment;
@@ -21,24 +19,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setupFragmentContainer((BottomBar) findViewById(R.id.bottom_bar));
+        setupFragmentContainer((BottomNavigationView) findViewById(R.id.bottom_bar));
         changeFragment(new ScheduleFragment());
 
         setupToolbar();
     }
 
-    private void setupFragmentContainer(BottomBar bar) {
-        bar.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelected(@IdRes int tabId) {
+    private void setupFragmentContainer(BottomNavigationView bar) {
+        bar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+            @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int tabId = item.getItemId();
                 Fragment fragment;
                 switch(tabId) {
-                    case R.id.tab_schedule: fragment = new ScheduleFragment(); break;
-                    case R.id.tab_menu: fragment = new MenuFragment(); break;
-                    case R.id.tab_beer: fragment = new BeerFragment(); break;
+                    case R.id.schedule: fragment = new ScheduleFragment(); break;
+                    case R.id.menu: fragment = new MenuFragment(); break;
+                    case R.id.beer: fragment = new BeerFragment(); break;
                     default: fragment = new ScheduleFragment(); // something went wrong
                 }
                 changeFragment(fragment);
+                return true;
             }
         });
     }
